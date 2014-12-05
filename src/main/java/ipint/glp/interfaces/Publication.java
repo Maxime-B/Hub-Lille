@@ -9,4 +9,10 @@ public interface Publication {
 		
 	public void modifier();
 	
+	public void publierJob();
+	public void modifierJob();
+	public void supprimerJob();
+	
+	
+	
 }
