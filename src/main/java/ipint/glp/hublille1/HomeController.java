@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  * Handles requests for the application home page. Nouveau commit (gbergeus, Clément)
+ * test soukaina
  */
 @Controller
 public class HomeController {
