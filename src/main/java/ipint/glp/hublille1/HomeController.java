@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
- * Handles requests for the application home page. Nouveau commit (gbergeus)
+ * Handles requests for the application home page. Nouveau commit (gbergeus, Clément)
  */
 @Controller
 public class HomeController {
