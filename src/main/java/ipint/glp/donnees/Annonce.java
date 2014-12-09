@@ -10,16 +10,18 @@ public class Annonce implements Publication {
 	private Categorie categorie;
 	private HashMap<String, String> lesChamps = new HashMap<String, String>();
 	private TypeAnnonce type;
+	private Utilisateur utilisateur;
 	
 	
 	public Annonce() {
 		super();
 	}
 
-	public Annonce(int id, Categorie categorie) {
+	public Annonce(int id, Categorie categorie, Utilisateur utilisateur) {
 		super();
 		this.id = id;
 		this.categorie = categorie;
+		this.utilisateur = utilisateur;
 		initializeLesChamps();
 	}
 	
@@ -63,6 +65,24 @@ public class Annonce implements Publication {
 			lesChamps.put(c.getLibelle(), "");
 		}
 	}
+
+	public Categorie getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(Categorie categorie) {
+		this.categorie = categorie;
+	}
+
+	public Utilisateur getUtilisateur() {
+		return utilisateur;
+	}
+
+	public void setUtilisateur(Utilisateur utilisateur) {
+		this.utilisateur = utilisateur;
+	}
+	
+	
 
 
 }

@@ -1,17 +1,27 @@
 package ipint.glp.donnees;
 
+import ipint.glp.interfaces.Publication;
+
+import java.util.ArrayList;
+
 public class Utilisateur {
 	private int id;
 	private String nom, prenom, email;
 	private Droit droit;
+	private ArrayList<Publication> lesPublications = new ArrayList<Publication>();
 	
-	public Utilisateur(){};
-	public Utilisateur(int id, String nom, String prenom, String email) {
+	
+	public Utilisateur(){
+		
+	}
+	
+	public Utilisateur(int id, String nom, String prenom, String email, Droit droit) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
+		this.droit = droit;
 	}
 
 	public int getId() {
@@ -44,6 +54,30 @@ public class Utilisateur {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	public Droit getDroit() {
+		return droit;
+	}
+
+	public void setDroit(Droit droit) {
+		this.droit = droit;
+	}
+
+	public ArrayList<Publication> getLesPublications() {
+		return lesPublications;
+	}
+
+	public void setLesPublications(ArrayList<Publication> lesPublications) {
+		this.lesPublications = lesPublications;
+	}
+	
+	public void addPublication(Publication publication){
+		lesPublications.add(publication);
+	}
+	
+	public void removePublication(Publication publication){
+		lesPublications.remove(publication);
 	}
 	
 	

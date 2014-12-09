@@ -1,6 +1,6 @@
 package ipint.glp.donnees;
 
-public enum TypeChamps {
+public enum TypeChamp {
 	TEXTE,
 	DATE,
 	NUMERIQUE

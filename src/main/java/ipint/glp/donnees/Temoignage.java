@@ -2,30 +2,21 @@ package ipint.glp.donnees;
 
 import ipint.glp.interfaces.Publication;
 
-import java.util.Date;
-
-
-
-public class Evenement implements Publication {
+public class Temoignage implements Publication {
 
 	private String titre;
-	private Date date;
-	private String lieu;
+	private Continent continent;
 	private String description;
 	private Utilisateur utilisateur;
 	
-	public Evenement(){
+	public Temoignage(){
 		super();
 	}
-	
-	public Evenement(String titre, Date date, String lieu, String description,Utilisateur utilisateur){
-		super();
-		this.titre= titre;
-		this.date= date;
-		this.lieu= lieu;
-		this.description= description;
+	public Temoignage(String titre, Continent continent, String description,Utilisateur utilisateur){
+		this.titre=titre;
+		this.continent=continent;
+		this.description = description;
 		this.utilisateur = utilisateur;
-	
 	}
 	public String getTitre() {
 		return titre;
@@ -33,17 +24,11 @@ public class Evenement implements Publication {
 	public void setTitre(String titre) {
 		this.titre = titre;
 	}
-	public Date getDate() {
-		return date;
+	public Continent getContinent() {
+		return continent;
 	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	public String getLieu() {
-		return lieu;
-	}
-	public void setLieu(String lieu) {
-		this.lieu = lieu;
+	public void setContinent(Continent continent) {
+		this.continent = continent;
 	}
 	public String getDescription() {
 		return description;

@@ -3,13 +3,17 @@ package ipint.glp.donnees;
 public class Champ {
 	private String libelle;
 	private Integer limite;
-	private TypeChamps typeChamps;
+	private TypeChamp typeChamp;
 	
-	public Champ(String libelle, Integer limite, TypeChamps typeChamps) {
+	public Champ(){
+		super();
+	}
+	
+	public Champ(String libelle, Integer limite, TypeChamp typeChamp) {
 		super();
 		this.libelle = libelle;
 		this.limite = limite;
-		this.typeChamps = typeChamps;
+		this.typeChamp = typeChamp;
 	}
 
 	public String getLibelle() {
@@ -28,12 +32,12 @@ public class Champ {
 		this.limite = limite;
 	}
 
-	public TypeChamps getTypeChamps() {
-		return typeChamps;
+	public TypeChamp getTypeChamp() {
+		return typeChamp;
 	}
 
-	public void setTypeChamps(TypeChamps typeChamps) {
-		this.typeChamps = typeChamps;
+	public void setTypeChamp(TypeChamp typeChamp) {
+		this.typeChamp = typeChamp;
 	}
 	
 	

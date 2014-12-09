@@ -6,6 +6,10 @@ public class Categorie {
 	private String nom;
 	private ArrayList<Champ> champs = new ArrayList<Champ>();
 	
+	public Categorie(){
+		super();
+	}
+	
 	public Categorie(String nom, ArrayList<Champ> champs) {
 		super();
 		this.nom = nom;
