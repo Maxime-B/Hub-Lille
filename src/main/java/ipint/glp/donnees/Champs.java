@@ -1,10 +1,11 @@
 package ipint.glp.donnees;
 
 public class Champs {
-	String libelle, limite;
-	TypeChamps typeChamps;
+	private String libelle;
+	private Integer limite;
+	private TypeChamps typeChamps;
 	
-	public Champs(String libelle, String limite, TypeChamps typeChamps) {
+	public Champs(String libelle, Integer limite, TypeChamps typeChamps) {
 		super();
 		this.libelle = libelle;
 		this.limite = limite;
@@ -19,11 +20,11 @@ public class Champs {
 		this.libelle = libelle;
 	}
 
-	public String getLimite() {
+	public Integer getLimite() {
 		return limite;
 	}
 
-	public void setLimite(String limite) {
+	public void setLimite(Integer limite) {
 		this.limite = limite;
 	}
 

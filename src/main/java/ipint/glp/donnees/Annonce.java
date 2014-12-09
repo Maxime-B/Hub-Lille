@@ -81,4 +81,10 @@ public class Annonce implements Publication {
 
 	}
 
+	@Override
+	public void supprimer() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
