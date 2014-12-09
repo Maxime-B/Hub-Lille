@@ -4,9 +4,9 @@ import java.util.ArrayList;
 
 public class Categorie {
 	private String nom;
-	private ArrayList<Champs> champs = new ArrayList<Champs>();
+	private ArrayList<Champ> champs = new ArrayList<Champ>();
 	
-	public Categorie(String nom, ArrayList<Champs> champs) {
+	public Categorie(String nom, ArrayList<Champ> champs) {
 		super();
 		this.nom = nom;
 		this.champs = champs;
@@ -20,11 +20,11 @@ public class Categorie {
 		this.nom = nom;
 	}
 
-	public ArrayList<Champs> getChamps() {
+	public ArrayList<Champ> getChamps() {
 		return champs;
 	}
 
-	public void setChamps(ArrayList<Champs> champs) {
+	public void setChamps(ArrayList<Champ> champs) {
 		this.champs = champs;
 	}
 	

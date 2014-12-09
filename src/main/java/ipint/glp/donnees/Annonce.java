@@ -3,35 +3,32 @@ package ipint.glp.donnees;
 import java.util.HashMap;
 
 import ipint.glp.interfaces.Publication;
-//plopsaland
+
 public class Annonce implements Publication {
 
 	private int id;
-	private String titre;
-	private String categories;
-	private HashMap<String, String> lesChamps = new HashMap();
-	private typeAnnonce type ;
+	private Categorie categorie;
+	private HashMap<String, String> lesChamps = new HashMap<String, String>();
+	private TypeAnnonce type;
 	
 	
-	public typeAnnonce getType() {
-		return type;
-	}
-
-	public void setType(typeAnnonce type) {
-		this.type = type;
-	}
-
 	public Annonce() {
 		super();
 	}
 
-	public Annonce(int id, String titre, String categories,
-			HashMap<String, String> lesChamps) {
+	public Annonce(int id, Categorie categorie) {
 		super();
 		this.id = id;
-		this.titre = titre;
-		this.categories = categories;
-		this.lesChamps = lesChamps;
+		this.categorie = categorie;
+		initializeLesChamps();
+	}
+	
+	public TypeAnnonce getType() {
+		return type;
+	}
+
+	public void setType(TypeAnnonce type) {
+		this.type = type;
 	}
 
 	
@@ -44,20 +41,13 @@ public class Annonce implements Publication {
 		this.id = id;
 	}
 
-	public String getTitre() {
-		return titre;
+
+	public Categorie getCategories() {
+		return categorie;
 	}
 
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-
-	public String getCategories() {
-		return categories;
-	}
-
-	public void setCategories(String categories) {
-		this.categories = categories;
+	public void setCategories(Categorie categorie) {
+		this.categorie = categorie;
 	}
 
 	public HashMap<String, String> getLesChamps() {
@@ -67,24 +57,12 @@ public class Annonce implements Publication {
 	public void setLesChamps(HashMap<String, String> lesChamps) {
 		this.lesChamps = lesChamps;
 	}
-
-	@Override
-	public void publier() {
-		// TODO Auto-generated method stub
-
-	}
 	
-	
-	@Override
-	public void modifier() {
-		// TODO Auto-generated method stub
-
+	public void initializeLesChamps(){
+		for(Champ c : categorie.getChamps()){
+			lesChamps.put(c.getLibelle(), "");
+		}
 	}
 
-	@Override
-	public void supprimer() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

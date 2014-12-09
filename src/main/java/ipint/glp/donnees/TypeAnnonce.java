@@ -1,5 +1,5 @@
 package ipint.glp.donnees;
 
-public enum typeAnnonce {
+public enum TypeAnnonce {
    offre,demande
 }
