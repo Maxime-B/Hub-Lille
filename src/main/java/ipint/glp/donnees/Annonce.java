@@ -3,7 +3,7 @@ package ipint.glp.donnees;
 import java.util.HashMap;
 
 import ipint.glp.interfaces.Publication;
-
+//plopsaland
 public class Annonce implements Publication {
 
 	private int id;
