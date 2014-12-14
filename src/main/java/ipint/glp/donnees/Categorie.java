@@ -2,7 +2,13 @@ package ipint.glp.donnees;
 
 import java.util.ArrayList;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class Categorie {
+	
+	@Id
 	private String nom;
 	private ArrayList<Champ> champs = new ArrayList<Champ>();
 	

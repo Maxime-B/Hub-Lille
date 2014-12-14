@@ -2,10 +2,18 @@ package ipint.glp.donnees;
 
 import java.util.HashMap;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 import ipint.glp.interfaces.Publication;
 
+@Entity
 public class Annonce implements Publication {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private Categorie categorie;
 	private HashMap<String, String> lesChamps = new HashMap<String, String>();
@@ -15,13 +23,14 @@ public class Annonce implements Publication {
 	
 	public Annonce() {
 		super();
+		
 	}
 
-	public Annonce(int id, Categorie categorie, Utilisateur utilisateur) {
+	public Annonce(Categorie categorie, Utilisateur utilisateur,TypeAnnonce type) {
 		super();
-		this.id = id;
 		this.categorie = categorie;
 		this.utilisateur = utilisateur;
+		this.type = type;
 		initializeLesChamps();
 	}
 	
