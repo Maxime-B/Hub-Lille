@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sat Dec 13 19:23:53 CET 2014:
+Amorçage de Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546) : instance a816c00e-014a-44e4-7f4a-000002903700 
+dans le répertoire de base de données C:\derby\MyDB avec le chargeur de classe sun.misc.Launcher$AppClassLoader@73d16e93
+Chargé de file:/C:/Users/Maxime/Downloads/db-derby-10.11.1.1-lib/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_25-b18
+user.dir=C:\Users\Maxime\git\Hub-Lille1
+os.name=Windows 7
+os.arch=amd64
+os.version=6.1
+derby.system.home=null
+Chargeur de classe de la base de données démarré - derby.database.classpath = ''
