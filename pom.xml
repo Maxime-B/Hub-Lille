@@ -108,6 +108,11 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
+		<dependency>
+	      <groupId>org.hibernate</groupId>
+	      <artifactId>hibernate-entitymanager</artifactId>
+	      <version>3.5.6-Final</version>
+  		</dependency>
 	
 		<!-- Test -->
 		<dependency>
