@@ -8,17 +8,26 @@
 	<packaging>war</packaging>
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
-		<java-version>1.6</java-version>
+		<java-version>1.8</java-version>
 		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
+		 <version.eclipselink>2.5.2</version.eclipselink>
+		<version.derby>10.11.1.1</version.derby>
 	</properties>
 	<repositories>
-		<repository>
-			<id>oss.sonatype.org</id>
-			<name>OSS Sonatype Staging</name>
-			<url>https://oss.sonatype.org/content/groups/staging</url>
-		</repository>
+ <repository>
+<id>EclipseLink Miror Repo</id>
+<name>Eclipse Public Miror</name>
+<url>http://download.eclipse.org/rt/eclipselink/maven.repo</url>
+</repository>
+<repository>
+<id>EclipseLink Repo</id>
+<url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+<snapshots>
+<enabled>true</enabled>
+</snapshots>
+</repository>
 	</repositories>
 	<dependencies>
 		<!-- Spring -->
@@ -115,22 +124,17 @@
 			<artifactId>jstl</artifactId>
 			<version>1.2</version>
 		</dependency>
-		<dependency>
-	      <groupId>org.hibernate</groupId>
-	      <artifactId>hibernate-entitymanager</artifactId>
-	      <version>3.5.6-Final</version>
-  		</dependency>
-  		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>eclipselink</artifactId>
-			<version>2.5.2</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.eclipse.persistence</groupId>
-					<artifactId>commonj.sdo</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+ <dependency>
+<groupId>org.apache.derby</groupId>
+<artifactId>derby</artifactId>
+<version>${version.derby}</version>
+<scope>runtime</scope>
+</dependency>
+ <dependency>
+	<groupId>org.eclipse.persistence</groupId>
+	<artifactId>org.eclipse.persistence.jpa</artifactId>
+	<version>${version.eclipselink}</version>
+</dependency>
 	
 		<!-- Test -->
 		<dependency>
