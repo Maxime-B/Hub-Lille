@@ -51,4 +51,8 @@ public class FabCategorie {
 		}
 		return categories;
 	}
+	
+	public Categorie getCategorie(String nomCategorie){
+		return lesCategories.get(nomCategorie);
+	}
 }

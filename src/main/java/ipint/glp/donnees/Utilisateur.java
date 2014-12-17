@@ -1,12 +1,13 @@
 package ipint.glp.donnees;
 
-import ipint.glp.interfaces.Publication;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -18,12 +19,14 @@ public class Utilisateur {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 	private String nom;
 	private String prenom;
 	
 	@Column(unique=true)
 	private String email;
 	
+	@Enumerated(EnumType.STRING)
 	private Droit droit;
 
 	

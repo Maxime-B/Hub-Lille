@@ -1,6 +1,6 @@
 ----------------------------------------------------------------
-Wed Dec 17 16:22:21 CET 2014:
-Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014a-58d7-bd27-00000422fc10 
+Wed Dec 17 18:53:04 CET 2014:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.11.1.1 - (1616546): instance a816c00e-014a-5961-bae1-000004264268 
 on database directory C:\Users\Maxime\git\Hub-Lille1\MyDB with class loader sun.misc.Launcher$AppClassLoader@73d16e93 
 Loaded from file:/C:/Users/Maxime/.m2/repository/org/apache/derby/derby/10.11.1.1/derby-10.11.1.1.jar
 java.vendor=Oracle Corporation

@@ -34,10 +34,12 @@ public class FabAnnonce {
 		this.listerAnnonces();
 		Annonce a = new Annonce();
 		a.setCategorie(categorie);
+		categorie.addAnnonce(a);
 		a.setType(typeAnnonce);
 		a.setUtilisateur(utilisateur);
 		a.setLesChamps(lesChamps);
 		connexion.getEm().persist(a);
+		utilisateur.addAnnonce(a);
 		lesAnnonces.put(a.getId(),a);
 		return a;
 	}
@@ -58,21 +60,14 @@ public class FabAnnonce {
 
 		String query ="Delete from Annonce where Annonce.id =a.id";
 		connexion.getEm().createQuery(query).executeUpdate();
-		System.out.println("L'annonce a ete supprime ...");
+		this.listerAnnonces();
 
 
 	}
 
-	public void chercherAnnonce(String categorie){
+	public List<Annonce> listerAnnoncesParCategorie(Categorie categorie){
 
-		connexion.getEm().getTransaction().begin();
-
-		Query query = connexion.getEm().createQuery("select a from Annonce a where a.Categorie = categorie");
-		List<Annonce> annonces = query.getResultList();
-		for (Annonce a : annonces) {
-			System.out.println("annonce par categorie: " +a.getId());
-		}
-
+		return categorie.getLesAnnonces();
 
 
 	}
@@ -81,9 +76,6 @@ public class FabAnnonce {
 		connexion.getEm().getTransaction().begin();
 		String query ="Delete from Annonce";
 		connexion.getEm().createQuery(query).executeUpdate();
-		
-	
-
 		connexion.getEm().getTransaction().commit();
 		System.out.println("Tout est supprimer...");
 

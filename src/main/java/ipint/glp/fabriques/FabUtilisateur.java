@@ -30,6 +30,7 @@ public class FabUtilisateur {
 	}
 	
 	public Utilisateur creerUtilisateur(String nom, String prenom, String email, Droit droit){
+		this.listerUtilisateurs();
 		Utilisateur u = new Utilisateur();
 		u.setNom(nom);
 		u.setPrenom(prenom);
@@ -50,8 +51,4 @@ public class FabUtilisateur {
 		return utilisateurs;
 	}
 	
-	public void ajouterAnnonceUtilisateur(Utilisateur utilisateur, Annonce annonce){
-		utilisateur.addAnnonce(annonce);
-		lesUtilisateurs.put(utilisateur.getId(),utilisateur);
-	}
 }

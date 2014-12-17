@@ -3,8 +3,10 @@ package ipint.glp.donnees;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Categorie {
@@ -13,6 +15,9 @@ public class Categorie {
 	private String nom;
 
 	private List<Champ> champs = new ArrayList<Champ>();
+	
+	@OneToMany(cascade= CascadeType.PERSIST)
+	private List<Annonce> lesAnnonces = new ArrayList<Annonce>();
 	
 	public Categorie(){
 		super();
@@ -39,6 +44,24 @@ public class Categorie {
 	public void setChamps(List<Champ> champs) {
 		this.champs = champs;
 	}
+	
+	public void addAnnonce(Annonce annonce){
+		lesAnnonces.add(annonce);
+	}
+	
+	public void removeAnnonce(Annonce annonce){
+		lesAnnonces.remove(annonce);
+	}
+
+	public List<Annonce> getLesAnnonces() {
+		return lesAnnonces;
+	}
+
+	public void setLesAnnonces(List<Annonce> lesAnnonces) {
+		this.lesAnnonces = lesAnnonces;
+	}
+	
+	
 	
 	
 }
