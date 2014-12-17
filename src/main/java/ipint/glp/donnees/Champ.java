@@ -1,9 +1,24 @@
 package ipint.glp.donnees;
 
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.Id;
+
+
+
+@Entity
 public class Champ {
+	
+	
+	@Id
 	private String libelle;
+	
 	private Integer limite;
+	
+	@Enumerated(EnumType.STRING)
 	private TypeChamp typeChamp;
+	
 	
 	public Champ(){
 		super();
@@ -39,6 +54,5 @@ public class Champ {
 	public void setTypeChamp(TypeChamp typeChamp) {
 		this.typeChamp = typeChamp;
 	}
-	
 	
 }

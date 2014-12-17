@@ -1,5 +1,6 @@
 package ipint.glp.donnees;
 
+
 public enum Droit {
 	ADMIN,
 	MODERATEUR,

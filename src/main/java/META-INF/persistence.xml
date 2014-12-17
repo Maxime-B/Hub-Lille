@@ -5,6 +5,8 @@
 	<class>ipint.glp.donnees.Annonce</class>
 	<class>ipint.glp.donnees.Categorie</class>
 	<class>ipint.glp.donnees.Utilisateur</class>
+	<class>ipint.glp.donnees.Champ</class>
+	<class>ipint.glp.donnees.Publication</class>
     <properties>
       <property name="eclipselink.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
       <property name="eclipselink.jdbc.url" value="jdbc:derby:MyDB;create=true" />

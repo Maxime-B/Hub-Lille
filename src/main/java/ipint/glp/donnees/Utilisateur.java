@@ -3,11 +3,14 @@ package ipint.glp.donnees;
 import ipint.glp.interfaces.Publication;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Utilisateur {
@@ -15,9 +18,17 @@ public class Utilisateur {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private String nom, prenom, email;
+	private String nom;
+	private String prenom;
+	
+	@Column(unique=true)
+	private String email;
+	
 	private Droit droit;
-	private ArrayList<Publication> lesPublications = new ArrayList<Publication>();
+
+	
+	@OneToMany(mappedBy="utilisateur")
+	private List<Annonce> lesAnnonces = new ArrayList<Annonce>();
 	
 	
 	public Utilisateur(){
@@ -73,20 +84,20 @@ public class Utilisateur {
 		this.droit = droit;
 	}
 
-	public ArrayList<Publication> getLesPublications() {
-		return lesPublications;
+	public List<Annonce> getLesAnnonces() {
+		return lesAnnonces;
 	}
 
-	public void setLesPublications(ArrayList<Publication> lesPublications) {
-		this.lesPublications = lesPublications;
+	public void setLesAnnonce(List<Annonce> lesAnnonces) {
+		this.lesAnnonces = lesAnnonces;
 	}
 	
-	public void addPublication(Publication publication){
-		lesPublications.add(publication);
+	public void addAnnonce(Annonce a){
+		lesAnnonces.add(a);
 	}
 	
-	public void removePublication(Publication publication){
-		lesPublications.remove(publication);
+	public void removeAnnonce(Annonce a){
+		lesAnnonces.remove(a);
 	}
 	
 	

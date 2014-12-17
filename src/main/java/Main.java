@@ -1,33 +1,67 @@
+
 import ipint.glp.donnees.Annonce;
+import ipint.glp.donnees.Categorie;
+import ipint.glp.donnees.Champ;
+import ipint.glp.donnees.Droit;
+import ipint.glp.donnees.TypeAnnonce;
+import ipint.glp.donnees.TypeChamp;
+import ipint.glp.donnees.Utilisateur;
+import ipint.glp.fabriques.FabAnnonce;
+import ipint.glp.fabriques.FabCategorie;
+import ipint.glp.fabriques.FabChamp;
+import ipint.glp.fabriques.FabUtilisateur;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map.Entry;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import connexion.Connexion;
 
 public class Main {
-  private static final String PERSISTENCE_UNIT_NAME = "Hub-Lille1";
-  private static EntityManagerFactory factory;
 
-  public static void main(String[] args) {
-    factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
-    EntityManager em = factory.createEntityManager();
-    // read the existing entries and write to console
-    Query q = em.createQuery("select a from Annonce a");
-    List<Annonce> annonceList = q.getResultList();
-    for (Annonce aa : annonceList) {
-      System.out.println(aa.getId());
-    }
-    System.out.println("Size: " + annonceList.size());
+	public static void main(String[] args) {
 
-    // create new todo
-    em.getTransaction().begin();
-    Annonce ann = new Annonce();
-    em.persist(ann);
-    em.getTransaction().commit();
-
-    em.close();
-  }
+		Connexion.getConnexion();
+		for(Categorie c : FabCategorie.getInstance().listerCategories()){
+			System.out.println(c.getNom());
+			for(Champ ch : c.getChamps()){
+				System.out.println(ch.getLibelle());
+			}
+		}
+		Champ c1 = FabChamp.getInstance().creerChamp("titre", 60, TypeChamp.TEXTE);
+		Champ c2 = FabChamp.getInstance().creerChamp("date", 20, TypeChamp.DATE);
+		List<Champ> champs = new ArrayList<Champ>();
+		champs.add(c1);
+		champs.add(c2);
+		Categorie categorie = FabCategorie.getInstance().creerCategorie("covoiturage", champs);
+		System.out.println(" ");
+		for(Champ cc : FabChamp.getInstance().listerChamps()){
+			System.out.println(cc.getLibelle());
+		}
+		
+		System.out.println(" ");
+		Utilisateur utilisateur =  FabUtilisateur.getInstance().creerUtilisateur("bergeus", "guillaume", "guillaume.bergeus@gmail.com", Droit.ADMIN);
+		for(Utilisateur u : FabUtilisateur.getInstance().listerUtilisateurs()){
+			System.out.println(u.getId()+ " " + u.getNom() + " " + u.getPrenom() + " " + u.getDroit());
+		}
+		System.out.println(" ");
+		HashMap<String, String> lesChamps = new HashMap<String, String>();
+		for(Champ libelle : categorie.getChamps()){
+			lesChamps.put(libelle.getLibelle(), "val");
+		}
+		Annonce annonce = FabAnnonce.getInstance().creerAnnonce(categorie, utilisateur, TypeAnnonce.offre, lesChamps);
+		FabUtilisateur.getInstance().ajouterAnnonceUtilisateur(utilisateur, annonce);
+		for(Annonce a : FabAnnonce.getInstance().listerAnnonces()){
+			System.out.println(a.getId() + " " + a.getCategorie().getNom() + " " + a.getUtilisateur().getNom() + " " + a.getType());
+			for (Entry<String, String> entry : a.getLesChamps().entrySet()){
+				System.out.println(entry.getKey() + " : " + entry.getValue());
+			}
+		}
+		
+		
+		
+		Connexion.getConnexion().fermerConnexion();
+		
+	}
 }

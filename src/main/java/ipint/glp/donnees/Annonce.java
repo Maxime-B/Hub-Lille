@@ -2,23 +2,36 @@ package ipint.glp.donnees;
 
 import java.util.HashMap;
 
+import javax.persistence.CascadeType;
+import javax.persistence.CollectionTable;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-import ipint.glp.interfaces.Publication;
 
 @Entity
-public class Annonce implements Publication {
-
+public class Annonce {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private Categorie categorie;
-	private HashMap<String, String> lesChamps = new HashMap<String, String>();
-	private TypeAnnonce type;
+	
+	@ManyToOne(cascade= CascadeType.PERSIST)
 	private Utilisateur utilisateur;
+	
+	@ManyToOne(cascade= CascadeType.PERSIST)
+	private Categorie categorie;
+
+	@CollectionTable(name="libelle", joinColumns=@javax.persistence.JoinColumn(name="valeur"))
+	private HashMap<String, String> lesChamps = new HashMap<String, String>();
+	
+	@Enumerated(EnumType.STRING)
+	private TypeAnnonce type;
+	
+	
 	
 	
 	public Annonce() {
@@ -29,7 +42,7 @@ public class Annonce implements Publication {
 	public Annonce(Categorie categorie, Utilisateur utilisateur,TypeAnnonce type) {
 		super();
 		this.categorie = categorie;
-		this.utilisateur = utilisateur;
+	
 		this.type = type;
 		initializeLesChamps();
 	}
@@ -50,15 +63,6 @@ public class Annonce implements Publication {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-
-	public Categorie getCategories() {
-		return categorie;
-	}
-
-	public void setCategories(Categorie categorie) {
-		this.categorie = categorie;
 	}
 
 	public HashMap<String, String> getLesChamps() {
