@@ -29,7 +29,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class HomeController {
 
@@ -41,33 +40,45 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 
-	private void Init(){
+	private void Init() {
 		// champs (Objet)
 		ArrayList<Champ> l = new ArrayList<Champ>();
 		l.add(new MetierChamp().creerChamp("Titre", 50, TypeChamp.TEXTE));
 		l.add(new MetierChamp().creerChamp("Description", 500, TypeChamp.TEXTE));
 		l.add(new MetierChamp().creerChamp("Prix", 10, TypeChamp.NUMERIQUE));
-		
+
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("Titre", "Vend une chaise");
 		hm.put("Description", "Bonjour je vends une chaise toute belle !");
 		hm.put("Prix", "15");
-		
+
 		HashMap<String, String> hm2 = new HashMap<String, String>();
 		hm2.put("Titre", "Vend un livre");
-		hm2.put("Description", "Bonjour je vends un livre très très interessant avec plein d'images !");
+		hm2.put("Description",
+				"Bonjour je vends un livre très très interessant avec plein d'images !");
 		hm2.put("Prix", "5");
-		
-		// Catégorie 
+
+		// Catégorie
 		new MetierCategorie().creerCategorie("Objet", l);
 		new MetierCategorie().creerCategorie("Covoiturage", l);
-		
+
 		// Utilisateur
-		Utilisateur u = new MetierUtilisateur().creerUtilisateur("Smith", "John", "John.smith@gmail.com", Droit.DEFAUT);
-				
+		Utilisateur u = new MetierUtilisateur().creerUtilisateur("Smith",
+				"John", "John.smith@gmail.com", Droit.DEFAUT);
+
 		// Annonces
-		new MetierAnnonce().creerAnnonce(new MetierCategorie().getCategorie("Objet"), u , TypeAnnonce.offre, hm);
-		new MetierAnnonce().creerAnnonce(new MetierCategorie().getCategorie("Objet"), u , TypeAnnonce.offre, hm2);
+		new MetierAnnonce().creerAnnonce(
+				new MetierCategorie().getCategorie("Objet"), u,
+				TypeAnnonce.offre, hm);
+		new MetierAnnonce().creerAnnonce(
+				new MetierCategorie().getCategorie("Objet"), u,
+				TypeAnnonce.offre, hm2);
+		new MetierAnnonce().creerAnnonce(
+				new MetierCategorie().getCategorie("Objet"), u,
+				TypeAnnonce.offre, hm);
+		new MetierAnnonce().creerAnnonce(
+				new MetierCategorie().getCategorie("Objet"), u,
+				TypeAnnonce.offre, hm2);
 	}
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -107,11 +118,21 @@ public class HomeController {
 				metierAnnonce.listerAnnoncesParCategorie(categorie));
 	}
 
-	@RequestMapping(value = "/voirLesAnnonces", method = RequestMethod.GET)
-	public ModelAndView voirLesAnnonces() {
-
-		return new ModelAndView("voirLesAnnonces", "lesAnnonces",
-				metierAnnonce.listerAnnonces());
+	@RequestMapping(value = "/init", method = RequestMethod.GET)
+	public String init(Locale locale, Model model) {
+		Init();
+		return "home";
+	}
+	
+	@RequestMapping(value = "/annonces", method = RequestMethod.GET)
+	public String annonces(Locale locale, Model model) {
+		model.addAttribute("annonces", metierAnnonce.listerAnnonces());
+		return "annonces";
+	}
+	
+	@RequestMapping(value = "/bar", method = RequestMethod.GET)
+	public String bar(Locale locale, Model model) {
+		return "bar";
 	}
 
 }
