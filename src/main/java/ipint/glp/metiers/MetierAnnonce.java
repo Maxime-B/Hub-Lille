@@ -29,6 +29,14 @@ public class MetierAnnonce {
 	public List<Annonce> listerAnnonces(){
 		return FabAnnonce.getInstance().listerAnnonces();
 	}
+
+	public void supprimerAnnonce(Annonce a) {
+		FabAnnonce.getInstance().supprimerAnnonce(a);
+	}
+
+	public void supprimerAnnonces() {
+		FabAnnonce.getInstance().supprimerAnnonce();
+	}
 	
 	
 
