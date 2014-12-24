@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="global" template="/WEB-INF/views/template/template.jsp">
+		<put-attribute name="title" value="Hub lille1" />
+		<put-attribute name="globalCss" value="/WEB-INF/views/template/globalCss.jsp" />
+		<put-attribute name="css" value="" />
+		<put-attribute name="globalMeta" value="/WEB-INF/views/template/globalMeta.jsp" />
+		<put-attribute name="meta" value="" />
+		<put-attribute name="globalJsTop" value="/WEB-INF/views/template/globalJsTop.jsp" />
+		<put-attribute name="jsTop" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/views/template/header.jsp" />
+		<put-attribute name="nav" value="" />
+		<put-attribute name="main" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/views/template/footer.jsp" />
+		<put-attribute name="globalJs" value="/WEB-INF/views/template/globalJs.jsp" />
+		<put-attribute name="js" value="" />
+	</definition>
+</tiles-definitions>

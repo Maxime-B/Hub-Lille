@@ -6,7 +6,6 @@ import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.Utilisateur;
 import ipint.glp.fabriques.FabAnnonce;
 import ipint.glp.fabriques.FabCategorie;
-import ipint.glp.fabriques.FabUtilisateur;
 
 import java.util.HashMap;
 import java.util.List;

@@ -31,8 +31,4 @@ public class Connexion {
 		connexion.getEm().getTransaction().commit();
 		em.close();
 	}
-	
-
-	
-	
 }
