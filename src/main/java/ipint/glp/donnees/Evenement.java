@@ -1,17 +1,17 @@
 package ipint.glp.donnees;
 
+import ipint.glp.donnees.compositeKey.IdEvenement;
 import ipint.glp.interfaces.Publication;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,14 +19,14 @@ import javax.persistence.TemporalType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
- * "titre" est utilisé comme id
+ * le couple "titre" et "dateDebut" sont utiliséss comme id
  * @author duhaupas
  */
-@Entity
-public class Evenement implements Publication {
+@Entity @IdClass(IdEvenement.class)
+public class Evenement implements Publication, Comparable<Evenement> {
 	@Id
 	private String titre;
-	
+	@Id
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date dateDebut;
@@ -53,7 +53,11 @@ public class Evenement implements Publication {
 		this.description = description;
 		this.utilisateur = utilisateur;
 	}
-
+	
+	public IdEvenement getId() {
+		return new IdEvenement(getTitre(), getDateDebut());
+	}
+	
 	public String getTitre() {
 		return titre;
 	}
@@ -116,7 +120,14 @@ public class Evenement implements Publication {
 	public Date getHeureDebut() {
 		return heureDebut;
 	}
+	
 	public void setHeureDebut(Date date) throws ParseException {
 		heureDebut = date;
 	}
+
+	@Override
+	public int compareTo(Evenement evenement) {
+		return this.getTimeStampDebut().compareTo(evenement.getTimeStampDebut());
+	}
+	
 }

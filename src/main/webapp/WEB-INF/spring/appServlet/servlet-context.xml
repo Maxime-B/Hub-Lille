@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns:spring="http://www.springframework.org/schema/mvc"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.springframework.org/schema/beans"
+	xmlns:tx="http://www.springframework.org/schema/tx/spring-tx-4.1.xsd"
+	xmlns:aop="http://www.springframework.org/schema/aop/spring-aop-4.1.xsd"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -79,4 +81,7 @@
 	</bean>
 
 	<context:component-scan base-package="ipint.glp.controlleurs" />
+	<context:component-scan base-package="ipint.glp.metiers" />
+	<context:component-scan base-package="ipint.glp.fabriques" />
+	<context:component-scan base-package="connexion" />
 </beans>

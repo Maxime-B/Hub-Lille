@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <tiles:insertDefinition name="evenement">
 	<tiles:putAttribute name="title">
 		<spring:message code="evenement.creer.titre" />
@@ -12,11 +13,25 @@
 				<spring:message code="evenement.creer.titre" />
 			</h1>
 
-			<form:form method="get" modelAttribute="evenement">
+			<form:form method="post" modelAttribute="evenement" >
+				<div>
+					<form:errors path="id" cssClass="error" />
 
+					<fmt:formatDate type="date" dateStyle="long" value="${evenementCree.dateDebut}" var="dateDebut"/>
+					<c:if test="${estUnSucces}">
+						<div class="alert-box success radius">
+							<spring:message code="evenement.creer.succes" arguments="${evenementCree.titre},${dateDebut}"/>
+						</div>
+					</c:if>
+					<c:if test="${!estUnSucces}">
+						<span>&nbsp;</span>
+					</c:if>
+				</div>
+				
 				<div>
 					<form:label path="titre" cssErrorClass="error" for="input-titre">
 						<spring:message code="evenement.creer.label.titre" />
+						<small><spring:message code="evenement.creer.requis" /></small>
 					</form:label>
 
 					<form:input required="required" cssErrorClass="error" path="titre"
@@ -31,8 +46,8 @@
 						<spring:message code="evenement.creer.label.description" />
 					</form:label>
 
-					<form:input cssErrorClass="error" path="description"
-						id="input-description" />
+					<form:textarea cssErrorClass="error" path="description"
+						id="input-description" rows="5" maxlength="400"/>
 
 					<form:errors path="description" cssClass="error" />
 				</div>
@@ -52,6 +67,7 @@
 						<form:label path="dateDebut" cssErrorClass="error"
 							for="input-dateDebut">
 							<spring:message code="evenement.creer.label.dateDebut" />
+							<small><spring:message code="evenement.creer.requis" /></small>
 						</form:label>
 
 						<form:input required="required" type="date" cssErrorClass="error"
@@ -72,7 +88,7 @@
 						<form:errors path="heureDebut" cssClass="error" />
 					</div>
 				</div>
-
+				
 				<spring:message code="evenement.creer.submit" var="submit" />
 				<input type="submit" value="${submit}" class="radius button" />
 			</form:form>

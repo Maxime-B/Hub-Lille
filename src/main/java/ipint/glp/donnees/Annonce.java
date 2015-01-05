@@ -31,9 +31,6 @@ public class Annonce {
 	@Enumerated(EnumType.STRING)
 	private TypeAnnonce type;
 	
-	
-	
-	
 	public Annonce() {
 		super();
 		
@@ -54,8 +51,6 @@ public class Annonce {
 	public void setType(TypeAnnonce type) {
 		this.type = type;
 	}
-
-	
 
 	public int getId() {
 		return id;
@@ -95,7 +90,5 @@ public class Annonce {
 		this.utilisateur = utilisateur;
 	}
 	
-	
-
 
 }

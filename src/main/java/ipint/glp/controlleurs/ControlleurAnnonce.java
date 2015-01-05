@@ -46,7 +46,7 @@ public class ControlleurAnnonce {
 			System.err.println(entry.getValue());
 		}
 		metierAnnonce.creerAnnonce(metierCategorie.getCategorie("biens"), new Utilisateur(), TypeAnnonce.offre, lesChamps);
-		return "home";
+		return "redirect:/annonce";
 	}
 	
 	@RequestMapping(value = "/voirLesAnnoncesParCategorie", method = RequestMethod.GET)
@@ -55,7 +55,7 @@ public class ControlleurAnnonce {
 				metierAnnonce.listerAnnoncesParCategorie(categorie));
 	}
 	
-	@RequestMapping(value = "/annonce/lister", method = RequestMethod.GET)
+	@RequestMapping(value = "/annonce", method = RequestMethod.GET)
 	public String listerAnnonces(Locale locale, Model model) {
 		model.addAttribute("annonces", metierAnnonce.listerAnnonces());
 		return "annonce/lister";

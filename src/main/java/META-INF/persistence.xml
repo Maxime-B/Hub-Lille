@@ -9,13 +9,14 @@
 	<class>ipint.glp.donnees.Publication</class>
 	<class>ipint.glp.donnees.Evenement</class>
     <properties>
-      <property name="eclipselink.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
-      <property name="eclipselink.jdbc.url" value="jdbc:derby:MyDB;create=true" />
-      <property name="eclipselink.jdbc.user" value="" />
-      <property name="eclipselink.jdbc.password" value="" />
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:MyDB;create=true" />
+      <property name="javax.persistence.jdbc.user" value="" />
+      <property name="javax.persistence.jdbc.password" value="" />
 
       <!-- EclipseLink should create the database schema automatically -->
-      <property name="eclipselink.ddl-generation" value="create-tables" />
+      <property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+      <!-- <property name="eclipselink.ddl-generation" value="create-tables" /> -->
       <property name="eclipselink.ddl-generation.output-mode" value="database" />
     </properties>
 	</persistence-unit>

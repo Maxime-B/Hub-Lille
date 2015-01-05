@@ -3,20 +3,23 @@
  */
 package ipint.glp.metiers;
 
-import java.util.Date;
+import ipint.glp.donnees.Evenement;
+import ipint.glp.donnees.compositeKey.IdEvenement;
+import ipint.glp.fabriques.FabEvenement;
+
+import java.util.Collections;
 import java.util.List;
 
-import ipint.glp.donnees.Droit;
-import ipint.glp.donnees.Evenement;
-import ipint.glp.donnees.Utilisateur;
-import ipint.glp.fabriques.FabEvenement;
-import ipint.glp.metiers.exceptions.DroitInsuffisantException;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author duhaupas
  *
  */
+@Service
 public class MetierEvenement {
+// 	@Autowired
 	private FabEvenement fabEvenement = FabEvenement.getInstance();
 
 	private static MetierEvenement instance;
@@ -32,7 +35,7 @@ public class MetierEvenement {
 		return instance;
 	}
 
-
+	@Transactional(readOnly = true)
 	public List<Evenement> lister() {
 		return fabEvenement.lister();
 	}
@@ -45,28 +48,29 @@ public class MetierEvenement {
 		fabEvenement.supprimerTout();
 	}
 
-	public int hashCode() {
-		return fabEvenement.hashCode();
+	/**
+	 * @param id
+	 * @return
+	 * @see ipint.glp.fabriques.FabEvenement#obtenir(java.lang.Object)
+	 */
+	public Evenement obtenir(IdEvenement id) {
+		return fabEvenement.obtenir(id);
 	}
 
-	public boolean equals(Object obj) {
-		return fabEvenement.equals(obj);
+	/**
+	 * @param o
+	 * @return
+	 * @see ipint.glp.fabriques.FabEvenement#modifier(ipint.glp.donnees.Evenement)
+	 */
+	public Evenement modifier(Evenement o) {
+		return fabEvenement.modifier(o);
 	}
 
-	public String toString() {
-		return fabEvenement.toString();
-	}
-	
-	public Evenement creer(String titre, Date date, String lieu,
-			String description, String duree, Utilisateur utilisateur) throws DroitInsuffisantException {
-		if (utilisateur.getDroit().ordinal() < Droit.VIE_ETUDIANTE.ordinal()) {
-			throw new DroitInsuffisantException(Droit.VIE_ETUDIANTE, utilisateur.getDroit());
-		}
-		return fabEvenement.creer(titre, date, lieu, description, duree,
-				utilisateur);
-	}
-
+	@Transactional(rollbackFor = {Exception.class})
 	public Evenement creer(Evenement evenement) {
+//		if (utilisateur.getDroit().ordinal() < Droit.VIE_ETUDIANTE.ordinal()) {
+//			throw new DroitInsuffisantException(Droit.VIE_ETUDIANTE, utilisateur.getDroit());
+//		}
 		return fabEvenement.creer(evenement);
 	}
 }

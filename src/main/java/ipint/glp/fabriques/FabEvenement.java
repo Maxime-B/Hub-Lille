@@ -4,10 +4,18 @@
 package ipint.glp.fabriques;
 
 import ipint.glp.donnees.Evenement;
-import ipint.glp.donnees.Utilisateur;
+import ipint.glp.donnees.Evenement_;
+import ipint.glp.donnees.compositeKey.IdEvenement;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+
+import org.springframework.stereotype.Repository;
 
 import connexion.Connexion;
 
@@ -15,13 +23,14 @@ import connexion.Connexion;
  * @author duhaupas
  *
  */
+@Repository
 public class FabEvenement {
-
 	private static FabEvenement fb;
-	private Connexion connexion;
+
+	//@PersistenceContext
+	private EntityManager em = Connexion.getConnexion().getEm();
 
 	private FabEvenement() {
-		connexion = Connexion.getConnexion();
 	}
 
 	public static FabEvenement getInstance() {
@@ -30,33 +39,42 @@ public class FabEvenement {
 		}
 		return fb;
 	}
-	
-	public Evenement creer(String titre, Date date, String lieu, String description,
-			String duree, Utilisateur utilisateur) {
-		Evenement o = new Evenement(titre, lieu, description, duree, utilisateur);
-		connexion.getEm().persist(o);
-		return o;
+
+	public Evenement obtenir(IdEvenement id) {
+		return em.find(Evenement.class, id);
 	}
 
 	public List<Evenement> lister() {
-		return connexion.getEm().createQuery("Select e from Evenement e").getResultList();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Evenement> cq = cb.createQuery(Evenement.class);
+		Root<Evenement> root = cq.from(Evenement.class);
+		System.out.println(Evenement_.dateDebut);
+		return em.createQuery(
+				cq.select(root)
+				.where(cb.greaterThan(root.get(Evenement_.dateDebut), cb.currentDate()))
+				.orderBy(cb.asc(root.get(Evenement_.dateDebut)), cb.asc(root.get(Evenement_.heureDebut)))
+				)
+				.setMaxResults(50)
+				.getResultList();
 	}
 
-	public void supprimer(Evenement a) {
-		connexion.getEm()
-			.createQuery("Delete from Evenement where titre = :titre")
-			.setParameter("titre", a.getTitre())
-			.executeUpdate();
+	public void supprimer(Evenement o) {
+		em.remove(o);
 	}
 
 	public void supprimerTout() {
-		connexion.getEm().getTransaction().begin();
-		connexion.getEm().createQuery("Delete from Evenement").executeUpdate();
-		connexion.getEm().getTransaction().commit();
+		em.getTransaction().begin();
+		em.createQuery("Delete from Evenement").executeUpdate();
+		em.getTransaction().commit();
 	}
 
 	public Evenement creer(Evenement o) {
-		connexion.getEm().persist(o);
+		em.persist(o);
+		return o;
+	}
+
+	public Evenement modifier(Evenement o) {
+		em.merge(o);
 		return o;
 	}
 }

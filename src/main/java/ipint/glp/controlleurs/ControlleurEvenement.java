@@ -25,28 +25,51 @@ public class ControlleurEvenement {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ControlleurEvenement.class);
 	private MetierEvenement metierEvenement = MetierEvenement.getInstance();
-	
+
 	/**
-	* Register a validator that will be lookup when a parameter is binded to a handler
-	* argument (with @ModelAttribute() for example).
-	* @param binder
-	*/
+	 * Register a validator that will be lookup when a parameter is binded to a
+	 * handler argument (with @ModelAttribute() for example).
+	 * 
+	 * @param binder
+	 */
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-	// register the ContactValidator used to validate objects of type Contact.
-	binder.setValidator(new ValideurEvenement() );
+		binder.setValidator(new ValideurEvenement());
 	}
 
-	
+	@RequestMapping(value = "/evenement", method = RequestMethod.GET)
+	public ModelAndView lister(Locale locale, Model model) {
+		return new ModelAndView("/evenement/lister", "evenements",
+				metierEvenement.lister());
+	}
+
 	@RequestMapping(value = "/evenement/creer", method = RequestMethod.GET)
-	public ModelAndView home(Locale locale, Model model,
+	public ModelAndView creer() {
+		return new ModelAndView("evenement/creer", "evenement", new Evenement());
+	}
+
+	@RequestMapping(value = "/evenement/creer", method = RequestMethod.POST)
+	public ModelAndView creer(Locale locale, Model model,
 			@Valid @ModelAttribute("evenement") Evenement evenement,
 			BindingResult bindingResultOfEvenement) {
 		if (bindingResultOfEvenement.hasErrors()) {
 			return new ModelAndView("evenement/creer", "evenement", evenement);
 		}
 		metierEvenement.creer(evenement);
-		model.addAttribute("evenement", evenement);
+		ModelAndView modelAndView = new ModelAndView("evenement/creer");
+		modelAndView.addObject("estUnSucces", true);
+		modelAndView.addObject("evenement", new Evenement());
+		modelAndView.addObject("evenementCree", evenement);
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/evenement/modifier", method = RequestMethod.GET)
+	public ModelAndView modifier(Locale locale, Model model,
+			@Valid @ModelAttribute("evenement") Evenement evenement,
+			BindingResult bindingResultOfEvenement) {
+		if (bindingResultOfEvenement.hasErrors()) {
+			return new ModelAndView("evenement/creer", "evenement", evenement);
+		}
 		return new ModelAndView("evenement/creer", "evenement", evenement);
 	}
 }

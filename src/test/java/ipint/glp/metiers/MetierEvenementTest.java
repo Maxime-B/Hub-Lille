@@ -3,7 +3,11 @@
  */
 package ipint.glp.metiers;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import ipint.glp.donnees.Evenement;
+
+import java.util.List;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -16,7 +20,8 @@ import org.junit.Test;
  *
  */
 public class MetierEvenementTest {
-
+	private MetierEvenement metierEvenement = MetierEvenement.getInstance();
+	
 	/**
 	 * @throws java.lang.Exception
 	 */
@@ -50,7 +55,12 @@ public class MetierEvenementTest {
 	 */
 	@Test
 	public void testLister() {
-		fail("Not yet implemented");
+		List<Evenement> evenements = metierEvenement.lister();
+		assertTrue(evenements.isEmpty());
+		Evenement evenement = new Evenement();
+		metierEvenement.creer(evenement);
+		evenements = metierEvenement.lister();
+		assertTrue(!evenements.isEmpty());
 	}
 
 	/**
