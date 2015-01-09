@@ -50,27 +50,30 @@
 						class="step fi-power size-8">&nbsp;&nbsp;&nbsp;</i> <spring:message
 							code="template.header.deconnecter" /></a></li>
 			</ul>
-
-
+			
 			<%-- choix de la langue --%>
 			<c:set var="URLCourante"
 				value="${requestScope['javax.servlet.forward.servlet_path']}" />
 
 			<c:url value="${URLCourante}" var="en_EN">
-				<c:forEach items="${param}" var="entry">
-					<c:if test="${'locale'!=entry.key}">
-						<c:param name="${entry.key}" value="${entry.value}" />
-					</c:if>
-				</c:forEach>
+				<c:if test="${pageContext.request.method=='GET'}">
+					<c:forEach items="${param}" var="entry">
+						<c:if test="${'locale'!=entry.key}">
+							<c:param name="${entry.key}" value="${entry.value}" />
+						</c:if>
+					</c:forEach>
+				</c:if>
 				<c:param name="locale" value="en_EN" />
 			</c:url>
 
 			<c:url value="${URLCourante}" var="fr_FR">
-				<c:forEach items="${param}" var="entry">
-					<c:if test="${'locale'!=entry.key}">
-						<c:param name="${entry.key}" value="${entry.value}" />
-					</c:if>
-				</c:forEach>
+				<c:if test="${pageContext.request.method=='GET'}">
+					<c:forEach items="${param}" var="entry">
+						<c:if test="${'locale'!=entry.key}">
+							<c:param name="${entry.key}" value="${entry.value}" />
+						</c:if>
+					</c:forEach>
+				</c:if>
 				<c:param name="locale" value="fr_FR" />
 			</c:url>
 
