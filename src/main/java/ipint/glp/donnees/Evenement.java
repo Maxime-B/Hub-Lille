@@ -31,7 +31,7 @@ public class Evenement implements Publication, Comparable<Evenement> {
 	@Temporal(TemporalType.DATE)
 	private Date dateDebut;
 	
-	@DateTimeFormat(pattern = "hh:mm")
+	@DateTimeFormat(pattern = "HH:MM")
 	@Temporal(TemporalType.TIME)
 	private Date heureDebut;
 
