@@ -8,6 +8,8 @@
 	<class>ipint.glp.donnees.Champ</class>
 	<class>ipint.glp.donnees.Publication</class>
 	<class>ipint.glp.donnees.Evenement</class>
+	<class>ipint.glp.donnees.Job</class>
+	
     <properties>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver" />
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:MyDB;create=true" />

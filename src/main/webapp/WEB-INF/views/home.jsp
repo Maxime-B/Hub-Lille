@@ -7,8 +7,14 @@
 		<div class="row">
 			<div class="large-12 columns">
 				<h1>accueil</h1>
-				<div><a href="${pageContext.request.contextPath}/init">initialiser la base de données</a></div>
-				<div><a href="${pageContext.request.contextPath}/index">vraie page d'accueil</a></div>
+				<div>
+					<a href="${pageContext.request.contextPath}/init">initialiser
+						la base de données</a>
+				</div>
+				<div>
+					<a href="${pageContext.request.contextPath}/index">vraie page
+						d'accueil</a>
+				</div>
 				<div>
 					<h2>Annonce</h2>
 					<a
@@ -21,8 +27,12 @@
 						<a href="${pageContext.request.contextPath}/evenement/creer">Publier
 							un événement</a>
 					</div>
+					<h2>Job</h2>
+					<a href="${pageContext.request.contextPath}/job/creer">Publier
+						un job</a>
 				</div>
 			</div>
+		</div>
 		</div>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
