@@ -90,9 +90,23 @@ public class ControlleurJob {
 	 
 	   
 	@RequestMapping(value = "/job/listerJob", method = RequestMethod.GET)
-	public String jobs(Locale locale, Model model) {
-		model.addAttribute("jobs", metierJob.listerJobs());
+	public String jobs(Locale locale, Model model,String mot) {
+		List<Job>lesJobs = new ArrayList<Job>();
+		if( mot == null)
+			lesJobs = metierJob.listerJobs();
+		
+		else lesJobs =metierJob.chercherJob(mot);
+		
+		model.addAttribute("jobs",lesJobs );
+		model.addAttribute("mot",mot);
 		return "job/listerJob";
 	}
+	
+/*	@RequestMapping(value = "/job/chercherJob", method = RequestMethod.GET)
+	public String chercher(Locale locale, Model model, String mot) {
+		model.addAttribute("lesjobsCherches", metierJob.chercherJob(mot));
+		model.addAttribute("mot",mot);
+		return "job/chercherJob";
+	}*/
 	
 }

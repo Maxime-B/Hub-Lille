@@ -53,5 +53,9 @@ public class MetierJob {
 	public Job creerJob(Job j){
 		return FabJob.getInstance().creer(j);
 	}
+	public List<Job> chercherJob(String mot){
+		return FabJob.getInstance().chercherJobParMotCle(mot);
+		
+	}
 
 }

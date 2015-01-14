@@ -74,11 +74,9 @@ public class FabJob {
 		}
 		
 		public List<Job> chercherJobParMotCle(String mot){
-			//Query query = connexion.getEm().createQuery("Select from Job where Job.titre ='%mot%' or Job.description ='%mot%");
-			Query query = connexion.getEm().createQuery("Select from Job where Job.titre ='mot'");
-			
-			
-			
+			Query query = connexion.getEm().createQuery("Select jb from Job jb where LOWER(jb.titre) like LOWER(:mot) or LOWER(jb.description) like LOWER(:mot)");
+			query.setParameter("mot", "%"+mot+"%");
+			//Query query = connexion.getEm().createQuery("Select Job.id from Job where Job.titre ='mot'");
 			List<Job> jobs = query.getResultList();
 			lesJobs.clear();
 			for(Job a : jobs){
@@ -86,7 +84,6 @@ public class FabJob {
 			}
 			return jobs;
 		}
-		
 		
 		public Job creer(Job o) {
 			connexion.getEm().persist(o);
