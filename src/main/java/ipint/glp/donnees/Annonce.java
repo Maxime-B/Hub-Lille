@@ -31,6 +31,8 @@ public class Annonce {
 	@Enumerated(EnumType.STRING)
 	private TypeAnnonce type;
 	
+
+	
 	public Annonce() {
 		super();
 		

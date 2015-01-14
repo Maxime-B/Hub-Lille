@@ -8,8 +8,8 @@ import ipint.glp.fabriques.FabChamp;
 
 public class MetierChamp {
 
-	public Champ creerChamp(String libelle, Integer limite, TypeChamp typeChamp) {
-		return FabChamp.getInstance().creerChamp(libelle, limite, typeChamp);
+	public Champ creerChamp(String libelle, Integer limite, TypeChamp typeChamp,boolean obligatoire) {
+		return FabChamp.getInstance().creerChamp(libelle, limite, typeChamp, obligatoire);
 	}
 
 	public List<Champ> listerChamps() {

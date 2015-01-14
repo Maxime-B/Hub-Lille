@@ -44,22 +44,37 @@ public class ControlleurAccueil {
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public String init(Model model) {
 		Champ c1 = FabChamp.getInstance().creerChamp("titre", 60,
-				TypeChamp.TEXTE);
+				TypeChamp.TEXTE,true);
 		Champ c2 = FabChamp.getInstance()
-				.creerChamp("description", 500, TypeChamp.TEXTE);
+				.creerChamp("description", 500, TypeChamp.TEXTEAREA,true);
 		Champ c3 = FabChamp.getInstance()
-				.creerChamp("depart", 10, TypeChamp.TEXTE);
+				.creerChamp("depart", 10, TypeChamp.TEXTE,true);
 		Champ c4 = FabChamp.getInstance()
-				.creerChamp("prix", 10, TypeChamp.TEXTE);
+				.creerChamp("arrivee", 10, TypeChamp.TEXTE,true);
+		Champ c5 = FabChamp.getInstance()
+				.creerChamp("date", 10, TypeChamp.DATE,true);
+		Champ c6 = FabChamp.getInstance()
+				.creerChamp("prix", 10, TypeChamp.TEXTE,false);
+		Champ c7 = FabChamp.getInstance()
+				.creerChamp("photo1", 300, TypeChamp.IMAGE,false);
+		Champ c8 = FabChamp.getInstance()
+				.creerChamp("photo2", 300, TypeChamp.IMAGE,false);
+		Champ c9 = FabChamp.getInstance()
+				.creerChamp("photo3", 300, TypeChamp.IMAGE,false);
 		List<Champ> champs1 = new ArrayList<Champ>();
 		champs1.add(c1);
 		champs1.add(c2);
 		champs1.add(c3);
 		champs1.add(c4);
+		champs1.add(c5);
+		champs1.add(c6);
+		champs1.add(c7);
+		champs1.add(c8);
+		champs1.add(c9);
 		List<Champ> champs2 = new ArrayList<Champ>();
 		champs2.add(c1);
 		champs2.add(c2);
-		champs2.add(c4);
+		champs2.add(c6);
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
 				"covoiturage", champs1);
 		Categorie categorie2 = FabCategorie.getInstance().creerCategorie(
@@ -72,9 +87,9 @@ public class ControlleurAccueil {
 	private void init2() {
 		// champs (Objet)
 		ArrayList<Champ> l = new ArrayList<Champ>();
-		l.add(new MetierChamp().creerChamp("Titre", 50, TypeChamp.TEXTE));
-		l.add(new MetierChamp().creerChamp("Description", 500, TypeChamp.TEXTE));
-		l.add(new MetierChamp().creerChamp("Prix", 10, TypeChamp.NUMERIQUE));
+		l.add(new MetierChamp().creerChamp("Titre", 50, TypeChamp.TEXTE,true));
+		l.add(new MetierChamp().creerChamp("Description", 500, TypeChamp.TEXTEAREA,true));
+		l.add(new MetierChamp().creerChamp("Prix", 10, TypeChamp.NUMERIQUE,true));
 
 		HashMap<String, String> hm = new HashMap<String, String>();
 		hm.put("Titre", "Vend une chaise");

@@ -19,16 +19,18 @@ public class Champ {
 	@Enumerated(EnumType.STRING)
 	private TypeChamp typeChamp;
 	
+	private boolean obligatoire;
 	
 	public Champ(){
 		super();
 	}
 	
-	public Champ(String libelle, Integer limite, TypeChamp typeChamp) {
+	public Champ(String libelle, Integer limite, TypeChamp typeChamp,boolean obligatoire) {
 		super();
 		this.libelle = libelle;
 		this.limite = limite;
 		this.typeChamp = typeChamp;
+		this.setObligatoire(obligatoire);
 	}
 
 	public String getLibelle() {
@@ -53,6 +55,14 @@ public class Champ {
 
 	public void setTypeChamp(TypeChamp typeChamp) {
 		this.typeChamp = typeChamp;
+	}
+
+	public boolean isObligatoire() {
+		return obligatoire;
+	}
+
+	public void setObligatoire(boolean obligatoire) {
+		this.obligatoire = obligatoire;
 	}
 	
 }

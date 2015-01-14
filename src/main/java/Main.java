@@ -30,9 +30,9 @@ public class Main {
 			}
 		}
 		Champ c1 = FabChamp.getInstance().creerChamp("titre", 60,
-				TypeChamp.TEXTE);
+				TypeChamp.TEXTE,true);
 		Champ c2 = FabChamp.getInstance()
-				.creerChamp("date", 20, TypeChamp.DATE);
+				.creerChamp("date", 20, TypeChamp.DATE,true);
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(c1);
 		champs.add(c2);
