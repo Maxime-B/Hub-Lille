@@ -6,8 +6,11 @@ import ipint.glp.donnees.Droit;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.TypeChamp;
 import ipint.glp.donnees.Utilisateur;
+import ipint.glp.fabriques.FabAnnonce;
 import ipint.glp.fabriques.FabCategorie;
 import ipint.glp.fabriques.FabChamp;
+import ipint.glp.fabriques.FabEvenement;
+import ipint.glp.fabriques.FabJob;
 import ipint.glp.fabriques.FabUtilisateur;
 import ipint.glp.metiers.MetierAnnonce;
 import ipint.glp.metiers.MetierCategorie;
@@ -38,6 +41,9 @@ public class ControlleurAccueil {
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
+		model.addAttribute("annonces", FabAnnonce.getInstance().listerAnnonces());
+		model.addAttribute("evenements", FabEvenement.getInstance().lister());
+		model.addAttribute("jobs", FabJob.getInstance().listerJob());
 		return "index";
 	}
 	
@@ -76,9 +82,9 @@ public class ControlleurAccueil {
 		champs2.add(c2);
 		champs2.add(c6);
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
-				"covoiturage", champs1);
+				"Covoiturage", champs1);
 		Categorie categorie2 = FabCategorie.getInstance().creerCategorie(
-				"biens", champs2);
+				"Biens", champs2);
 		Utilisateur utilisateur = FabUtilisateur.getInstance()
 				.creerUtilisateur("toto", "titi", "toto.titi@gmail.com",
 						Droit.ADMIN);
