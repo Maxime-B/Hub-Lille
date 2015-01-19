@@ -21,6 +21,7 @@
 				</div>
 			</div>
 		</div>
+		
 		<!-- Annonces -->
 		<div class="row">
 			<div class="large-8 columns">
@@ -32,32 +33,24 @@
 		</div>
 		<div class="row">
 			<div class="large-10 columns">
-				<ul class="example-orbit" data-orbit>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/satelite-orbit.jpg"
-						alt="slide 1" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li class="active"><img
-						src="${pageContext.request.contextPath}/ressources/img/andromeda-orbit.jpg"
-						alt="slide 2" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/launch-orbit.jpg"
-						alt="slide 3" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/launch-orbit.jpg"
-						alt="slide 4" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-				</ul>
+				<c:if test="${not empty annonces}">
+					<ul class="example-orbit" data-orbit>
+						<c:forEach items="${annonces}" var="annonce">
+							<li><img
+								src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">[${annonce.titre}] ${annonce.description}</div></li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<c:if test="${empty annonces}">
+					<tr>
+						<td colspan="5">Aucune Annonce</td>
+					</tr>
+				</c:if>
 			</div>
 		</div>
 
-		<!-- Annonces -->
+		<!-- Jobs -->
 		<div class="row">
 			<div class="large-8 columns">
 				<h4>Les derniers jobs</h4>
@@ -68,32 +61,24 @@
 		</div>
 		<div class="row">
 			<div class="large-10 columns">
-				<ul class="example-orbit" data-orbit>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/satelite-orbit.jpg"
-						alt="slide 1" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li class="active"><img
-						src="${pageContext.request.contextPath}/ressources/img/andromeda-orbit.jpg"
-						alt="slide 2" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/launch-orbit.jpg"
-						alt="slide 3" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/launch-orbit.jpg"
-						alt="slide 4" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-				</ul>
+				<c:if test="${not empty jobs}">
+					<ul class="example-orbit" data-orbit>
+						<c:forEach items="${jobs}" var="job">
+							<li><img
+								src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">[${job.titre}] ${job.description}</div></li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<c:if test="${empty jobs}">
+					<tr>
+						<td colspan="5">Aucun job</td>
+					</tr>
+				</c:if>
 			</div>
 		</div>
 
-		<!-- Annonces -->
+		<!-- Events -->
 		<div class="row">
 			<div class="large-8 columns">
 				<h4>Les derniers evenements</h4>
@@ -104,28 +89,20 @@
 		</div>
 		<div class="row">
 			<div class="large-10 columns">
-				<ul class="example-orbit" data-orbit>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/satelite-orbit.jpg"
-						alt="slide 1" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li class="active"><img
-						src="${pageContext.request.contextPath}/ressources/img/andromeda-orbit.jpg"
-						alt="slide 2" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/launch-orbit.jpg"
-						alt="slide 3" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-					<li><img
-						src="${pageContext.request.contextPath}/ressources/img/launch-orbit.jpg"
-						alt="slide 4" />
-						<div class="orbit-caption">[Annonce] Tickets Voyage dans
-							l'espace !</div></li>
-				</ul>
+				<c:if test="${not empty evenements}">
+					<ul class="example-orbit" data-orbit>
+						<c:forEach items="${evenements}" var="evenement">
+							<li><img
+								src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">[${evenement.titre}] ${evenement.description}</div></li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<c:if test="${empty evenements}">
+					<tr>
+						<td colspan="5">Aucun evenement</td>
+					</tr>
+				</c:if>
 			</div>
 		</div>
 	</tiles:putAttribute>
