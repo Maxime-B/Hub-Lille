@@ -61,12 +61,12 @@ public class ControlleurAccueil {
 				.creerChamp("date", 10, TypeChamp.DATE,true);
 		Champ c6 = FabChamp.getInstance()
 				.creerChamp("prix", 10, TypeChamp.TEXTE,false);
-	/*	Champ c7 = FabChamp.getInstance()
+		Champ c7 = FabChamp.getInstance()
 				.creerChamp("photo1", 300, TypeChamp.IMAGE,false);
 		Champ c8 = FabChamp.getInstance()
 				.creerChamp("photo2", 300, TypeChamp.IMAGE,false);
 		Champ c9 = FabChamp.getInstance()
-				.creerChamp("photo3", 300, TypeChamp.IMAGE,false);*/
+				.creerChamp("photo3", 300, TypeChamp.IMAGE,false);
 		List<Champ> champs1 = new ArrayList<Champ>();
 		champs1.add(c1);
 		champs1.add(c2);
@@ -74,9 +74,9 @@ public class ControlleurAccueil {
 		champs1.add(c4);
 		champs1.add(c5);
 		champs1.add(c6);
-		/*champs1.add(c7);
+		champs1.add(c7);
 		champs1.add(c8);
-		champs1.add(c9);*/
+		champs1.add(c9);
 		List<Champ> champs2 = new ArrayList<Champ>();
 		champs2.add(c1);
 		champs2.add(c2);

@@ -34,13 +34,14 @@ public class FabAnnonce {
 		this.listerAnnonces();
 		Annonce a = new Annonce();
 		a.setCategorie(categorie);
-		categorie.addAnnonce(a);
+		
 		a.setType(typeAnnonce);
 		a.setUtilisateur(utilisateur);
 		a.setLesChamps(lesChamps);
 		connexion.getEm().persist(a);
 		utilisateur.addAnnonce(a);
 		lesAnnonces.put(a.getId(),a);
+		categorie.addAnnonce(a);
 		return a;
 	}
 

@@ -7,7 +7,8 @@
 	<tiles:putAttribute name="main">
 		<section class="section">
 				<h1><spring:message code="annonce.creer.titre" /></h1>
-				<form method="post">
+				<form method="post" enctype='multipart/form-data' >
+					<input type="hidden" name="categorie" value="${categorie}">
 					<c:forEach items="${lesChamps}" var="item">
 					 <spring:message code="annonce.creer.label.${item.libelle}" /> 
 					 <c:if test="${item.obligatoire}"><small><spring:message code="annonce.creer.requis" /></small></c:if>
@@ -22,11 +23,11 @@
 							</c:when>
 							<c:when test="${item.typeChamp=='TEXTEAREA'}">
   							   
-  							  : <textarea name="${item.libelle}"></textarea>
+  							  : <textarea name="${item.libelle}" rows="15"></textarea>
 							</c:when>
 							<c:when test="${item.typeChamp=='IMAGE'}">
   							   
-  							  : <input type="file" type="text" name="${item.libelle}">
+  							  : <input type="file" accept="image/*" name="${item.libelle}">
 							</c:when>
 							
 							<c:otherwise>
@@ -35,7 +36,8 @@
 
 						<br />
 					</c:forEach>
-					<input type="submit" value=" <spring:message code="annonce.creer.submit" />" />
+					
+					<input type="submit" name="creer">
 				</form>
 		</section>
 	</tiles:putAttribute>

@@ -11,10 +11,13 @@ import ipint.glp.fabriques.FabCategorie;
 import ipint.glp.fabriques.FabChamp;
 import ipint.glp.fabriques.FabUtilisateur;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+
+import org.apache.derby.tools.sysinfo;
 
 import connexion.Connexion;
 
@@ -22,7 +25,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		Connexion.getConnexion();
+		/*Connexion.getConnexion();
 		for (Categorie c : FabCategorie.getInstance().listerCategories()) {
 			System.out.println(c.getNom());
 			for (Champ ch : c.getChamps()) {
@@ -81,7 +84,9 @@ public class Main {
 			System.out.println(an.getId() + " " + an.getCategorie().getNom()
 					+ " " + an.getUtilisateur().getNom() + " " + an.getType());
 		}
-		Connexion.getConnexion().fermerConnexion();
-		
+		Connexion.getConnexion().fermerConnexion();*/
+		final File f = new File("");
+		final String dossierPath = f.getAbsolutePath();
+		System.out.print(dossierPath);
 	}
 }

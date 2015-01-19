@@ -31,7 +31,7 @@ public class Annonce {
 	@Enumerated(EnumType.STRING)
 	private TypeAnnonce type;
 	
-
+	private String image1;
 	
 	public Annonce() {
 		super();
@@ -90,6 +90,14 @@ public class Annonce {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+
+	public String getImage1() {
+		return image1;
+	}
+
+	public void setImage1(String image1) {
+		this.image1 = image1;
 	}
 	
 
