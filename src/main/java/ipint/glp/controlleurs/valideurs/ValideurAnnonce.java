@@ -1,0 +1,42 @@
+package ipint.glp.controlleurs.valideurs;
+
+import ipint.glp.controlleurs.forms.FormAnnonce;
+import ipint.glp.donnees.Champ;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+import org.springframework.validation.Validator;
+
+public class ValideurAnnonce implements Validator {
+
+	@Override
+	public boolean supports(Class<?> arg0) {
+		return FormAnnonce.class.isAssignableFrom(arg0);
+	}
+
+	@Override
+	public void validate(Object arg0, Errors e) {
+		FormAnnonce formAnnonce = (FormAnnonce) arg0;
+
+		ValidationUtils.rejectIfEmptyOrWhitespace(e, "categorie",
+				"annonce.erreur.requis");
+		if (e.hasErrors()) {
+			return;
+		}
+		if (formAnnonce.getCategorieObject() == null) {
+			e.rejectValue("categorie", "annonce.erreur.categorie.invalide");
+		}
+		for (Champ champ : formAnnonce.getCategorieObject().getChamps()) {
+			String libelle = champ.getLibelle();
+			String value = formAnnonce.getLesChamps().get(libelle);
+			if (champ.isObligatoire()) {
+				ValidationUtils.rejectIfEmptyOrWhitespace(e, "lesChamps['" +libelle + "']",
+						"annonce.erreur.requis");
+			}
+			if (value != null && value.length() > champ.getLimite()) {
+				e.rejectValue("lesChamps", "FormAnnonce.erreur.maxlength",
+						new Object[] { libelle, champ.getLimite() }, null);
+			}
+		}
+	}
+}

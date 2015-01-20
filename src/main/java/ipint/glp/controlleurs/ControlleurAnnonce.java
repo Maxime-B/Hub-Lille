@@ -1,5 +1,8 @@
 package ipint.glp.controlleurs;
 
+import ipint.glp.controlleurs.forms.FormAnnonce;
+import ipint.glp.controlleurs.valideurs.ValideurAnnonce;
+import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
 import ipint.glp.donnees.TypeAnnonce;
@@ -17,11 +20,16 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -36,24 +44,49 @@ public class ControlleurAnnonce {
 			.getLogger(ControlleurAnnonce.class);
 	private MetierAnnonce metierAnnonce = new MetierAnnonce();
 	private MetierCategorie metierCategorie = new MetierCategorie();
-
+	private ValideurAnnonce validateurAnnonce = new ValideurAnnonce();
+	
+	
+	/**
+	 * Register a validator that will be lookup when a parameter is binded to a
+	 * handler argument (with @ModelAttribute() for example).
+	 * 
+	 * @param binder
+	 */
+	@InitBinder
+	protected void initBinder(WebDataBinder binder) {
+		binder.setValidator(new ValideurAnnonce());
+	}
+	
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
 
 	@RequestMapping("/annonce/creer")
-	public String creerAnnonce(@RequestParam("categorieChoisie")String categorieChoisie, Model model) {
+	public ModelAndView creerAnnonce(@RequestParam("categorieChoisie")String categorieChoisie, Model model) {
 		System.err.println(categorieChoisie);
-		model.addAttribute("lesChamps", metierCategorie.getCategorie(categorieChoisie).getChamps());
-		model.addAttribute("categorie",categorieChoisie);
-		return "annonce/creer";
+		Categorie categorie = metierCategorie.getCategorie(categorieChoisie);
+		if (categorie == null) {
+			return new ModelAndView("annonce/categorie/choix");
+		}
+		System.err.println(categorie);
+		FormAnnonce formAnnonce = new FormAnnonce();
+		formAnnonce.setCategorieObject(categorie);
+		return new ModelAndView("annonce/creer", "annonce", formAnnonce);
 	}
 	
 	@RequestMapping(value = "/annonce/creer", method = RequestMethod.POST)
-	public String creerAnnonce(HttpServletRequest request,@RequestParam Map parameters) {
+	public String creerAnnonce(HttpServletRequest request,@RequestParam Map parameters, @Valid @ModelAttribute("annonce") FormAnnonce formAnnonce,
+			BindingResult bindingResultOfAnnonce,Model model) {
+		
+		model.addAttribute("estUnSucces", true);
+		if (bindingResultOfAnnonce.hasErrors()) {
+			model.addAttribute("estUnSucces", false);
+			return "annonce/creer";
+		}
+		
 		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
-		Categorie c = metierCategorie.getCategorie(lesChamps.get("categorie"));
-		for(Champ ch : c.getChamps())
+		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
 		{
 			if(ch.getTypeChamp() == TypeChamp.IMAGE)
 			{
@@ -63,7 +96,7 @@ public class ControlleurAnnonce {
 				if (!image.isEmpty()) {
 		            try {
 		                byte[] bytes = image.getBytes();
-		                System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
+		                //System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
 		                File f2 = new File("");
 		        		
 		        		File f = new File(name);
@@ -86,13 +119,8 @@ public class ControlleurAnnonce {
 			System.err.println(entry.getValue());	
 		}
 		
-		
-	
-	
-    
-		
-		
-		metierAnnonce.creerAnnonce(metierCategorie.getCategorie("Covoiturage"), new Utilisateur(), TypeAnnonce.offre, lesChamps);
+		System.err.println("reussi");
+		metierAnnonce.creerAnnonce(metierCategorie.getCategorie("Covoiturage"), new Utilisateur(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		return "redirect:/annonce";
 	}
 	
