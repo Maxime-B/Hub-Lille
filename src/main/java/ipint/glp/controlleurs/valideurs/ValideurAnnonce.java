@@ -31,11 +31,13 @@ public class ValideurAnnonce implements Validator {
 			String libelle = champ.getLibelle();
 			String path = "lesChamps['" +libelle + "']";
 			String value = formAnnonce.getLesChamps().get(libelle);
+			
 			if (champ.isObligatoire()) {
 				ValidationUtils.rejectIfEmptyOrWhitespace(e, path,
 						"annonce.erreur.requis");
 			}
-			if (value != null && value.length() > champ.getLimite()) {
+			
+			if (value != null && champ.getLimite() != null && value.length() > champ.getLimite()) {
 				e.rejectValue(path, "annonce.erreur.maxlength",
 						new Object[] {champ.getLimite() }, null);
 			}
