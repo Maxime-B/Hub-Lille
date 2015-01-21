@@ -74,9 +74,7 @@ public class ControlleurAccueil {
 		champs1.add(c4);
 		champs1.add(c5);
 		champs1.add(c6);
-		champs1.add(c7);
-		champs1.add(c8);
-		champs1.add(c9);
+		
 		List<Champ> champs2 = new ArrayList<Champ>();
 		champs2.add(c1);
 		champs2.add(c2);

@@ -12,7 +12,7 @@
 				<spring:message code="annonce.creer.titre" />
 			</h1>
 
-			<form:form method="post" enctype="multipart/form-data"
+			<form:form action="creer" method="post" enctype="multipart/form-data"
 				modelAttribute="annonce">
 				<c:if test='${estUnSucces}'>
 					<div class="alert-box success radius">

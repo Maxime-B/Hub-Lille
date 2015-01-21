@@ -53,7 +53,7 @@ public class ControlleurAnnonce {
 	 * 
 	 * @param binder
 	 */
-	@InitBinder
+	@InitBinder("Annonce")
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(new ValideurAnnonce());
 	}
@@ -86,7 +86,7 @@ public class ControlleurAnnonce {
 		}
 		
 		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
-		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
+	/*	for(Champ ch : formAnnonce.getCategorieObject().getChamps())
 		{
 			if(ch.getTypeChamp() == TypeChamp.IMAGE)
 			{
@@ -112,16 +112,17 @@ public class ControlleurAnnonce {
 		        	System.err.println( "You failed to upload " + name + " because the file was empty.");
 		        }
 			}
-		}
-		String Path = request.getContextPath();
+		}*/
+		
 		for(Entry<String, String> entry : lesChamps.entrySet()) {
 			System.err.println(entry.getKey());
 			System.err.println(entry.getValue());	
 		}
 		
 		System.err.println("reussi");
-		metierAnnonce.creerAnnonce(metierCategorie.getCategorie("Covoiturage"), new Utilisateur(), TypeAnnonce.offre, formAnnonce.getLesChamps());
-		return "redirect:/annonce";
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie("Covoiturage"), new Utilisateur(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		model.addAttribute("annonce", annonce);
+		return "annonce/confirmer";
 	}
 	
 	@RequestMapping(value = "/voirLesAnnoncesParCategorie", method = RequestMethod.GET)
@@ -141,4 +142,12 @@ public class ControlleurAnnonce {
 		model.addAttribute("categories", metierCategorie.listerCategories());
 		return "annonce/categorie/choisir";
 	}
+	
+	@RequestMapping(value = "/annonce/consulter", method = RequestMethod.GET)
+	public String consulterAnnonce(Model model, @RequestParam("ref") int reference) {
+		Annonce annonce = metierAnnonce.rechercher(reference);
+		model.addAttribute("annonce", annonce);
+		return "annonce/consulter";
+	}
+	
 }

@@ -36,6 +36,11 @@ public class MetierAnnonce {
 	public void supprimerAnnonces() {
 		FabAnnonce.getInstance().supprimerAnnonce();
 	}
+
+	public Annonce rechercher(int reference) {
+		// TODO Auto-generated method stub
+		return FabAnnonce.getInstance().rechercherParId(reference);
+	}
 	
 	
 
