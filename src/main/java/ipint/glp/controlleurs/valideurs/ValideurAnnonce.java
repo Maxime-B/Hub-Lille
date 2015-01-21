@@ -26,16 +26,18 @@ public class ValideurAnnonce implements Validator {
 		if (formAnnonce.getCategorieObject() == null) {
 			e.rejectValue("categorie", "annonce.erreur.categorie.invalide");
 		}
+		
 		for (Champ champ : formAnnonce.getCategorieObject().getChamps()) {
 			String libelle = champ.getLibelle();
+			String path = "lesChamps['" +libelle + "']";
 			String value = formAnnonce.getLesChamps().get(libelle);
 			if (champ.isObligatoire()) {
-				ValidationUtils.rejectIfEmptyOrWhitespace(e, "lesChamps['" +libelle + "']",
+				ValidationUtils.rejectIfEmptyOrWhitespace(e, path,
 						"annonce.erreur.requis");
 			}
 			if (value != null && value.length() > champ.getLimite()) {
-				e.rejectValue("lesChamps", "FormAnnonce.erreur.maxlength",
-						new Object[] { libelle, champ.getLimite() }, null);
+				e.rejectValue(path, "annonce.erreur.maxlength",
+						new Object[] {champ.getLimite() }, null);
 			}
 		}
 	}
