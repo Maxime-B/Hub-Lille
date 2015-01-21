@@ -26,6 +26,7 @@ public class ValideurAnnonceTest {
 	private static FormAnnonce formAnnonce;
 	private static Errors errors;
 	private static ValideurAnnonce valideurAnnonce;
+	private static Champ champ;
 	
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
@@ -46,6 +47,10 @@ public class ValideurAnnonceTest {
 		Mockito.when(formAnnonce.getCategorieObject()).thenReturn(categorie);
 		Mockito.when(formAnnonce.getCategorie()).thenReturn("test");
 		
+		champ = Mockito.mock(Champ.class);
+		Mockito.when(champ.getLimite()).thenReturn(null);
+		Mockito.when(champ.isObligatoire()).thenReturn(false);
+		
 		errors = new BeanPropertyBindingResult(formAnnonce, "FormAnnonce");
 	}
 
@@ -56,10 +61,9 @@ public class ValideurAnnonceTest {
 
 	@Test
 	public void requisOk() {
-		Champ champ = Mockito.mock(Champ.class);
 		Mockito.when(champ.getLibelle()).thenReturn("requis");
 		Mockito.when(champ.isObligatoire()).thenReturn(true);
-		Mockito.when(champ.getLimite()).thenReturn(200);
+		
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(champ);
 		Mockito.when(categorie.getChamps()).thenReturn(champs);
@@ -80,7 +84,7 @@ public class ValideurAnnonceTest {
 		Champ champ = Mockito.mock(Champ.class);
 		Mockito.when(champ.getLibelle()).thenReturn("requis");
 		Mockito.when(champ.isObligatoire()).thenReturn(true);
-		Mockito.when(champ.getLimite()).thenReturn(200);
+		
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(champ);
 		Mockito.when(categorie.getChamps()).thenReturn(champs);
@@ -97,8 +101,7 @@ public class ValideurAnnonceTest {
 	public void nonRequisOk() {
 		Champ champ = Mockito.mock(Champ.class);
 		Mockito.when(champ.getLibelle()).thenReturn("nonRequis");
-		Mockito.when(champ.isObligatoire()).thenReturn(false);
-		Mockito.when(champ.getLimite()).thenReturn(200);
+		
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(champ);
 		Mockito.when(categorie.getChamps()).thenReturn(champs);
@@ -115,7 +118,6 @@ public class ValideurAnnonceTest {
 	public void tailleOk() {
 		Champ champ = Mockito.mock(Champ.class);
 		Mockito.when(champ.getLibelle()).thenReturn("taille");
-		Mockito.when(champ.isObligatoire()).thenReturn(false);
 		Mockito.when(champ.getLimite()).thenReturn(6);
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(champ);
@@ -133,7 +135,6 @@ public class ValideurAnnonceTest {
 	public void tailleKo() {
 		Champ champ = Mockito.mock(Champ.class);
 		Mockito.when(champ.getLibelle()).thenReturn("taille");
-		Mockito.when(champ.isObligatoire()).thenReturn(false);
 		Mockito.when(champ.getLimite()).thenReturn(6);
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(champ);
