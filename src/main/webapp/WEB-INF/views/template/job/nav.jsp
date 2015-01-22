@@ -5,6 +5,6 @@
 <li><a href="${pageContext.request.contextPath}/job/listerJob"><spring:message
 				code="job.nav.lister" /></a></li>
 				<li><a href="${pageContext.request.contextPath}/"><spring:message
-				code="job.nav.home" /></a></li>
+				code="job.nav.home" /></a></li>				
 <!--  <li><a href="${pageContext.request.contextPath}/job/chercherJob">chercher un job</a></li>-->
 </ul>

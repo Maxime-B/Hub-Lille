@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
+import ipint.glp.donnees.Job;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.Utilisateur;
 import connexion.Connexion;
@@ -87,6 +88,9 @@ public class FabAnnonce {
 
 	}
 
+	
+	
+	
 	public Annonce rechercherParId(int reference) {
 		// TODO Auto-generated method stub
 		String query ="select a from Annonce a where a.id ="+reference;

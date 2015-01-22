@@ -2,10 +2,12 @@ package ipint.glp.metiers;
 
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
+import ipint.glp.donnees.Job;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.Utilisateur;
 import ipint.glp.fabriques.FabAnnonce;
 import ipint.glp.fabriques.FabCategorie;
+import ipint.glp.fabriques.FabJob;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,6 +30,8 @@ public class MetierAnnonce {
 	public List<Annonce> listerAnnonces(){
 		return FabAnnonce.getInstance().listerAnnonces();
 	}
+	
+	
 
 	public void supprimerAnnonce(Annonce a) {
 		FabAnnonce.getInstance().supprimerAnnonce(a);

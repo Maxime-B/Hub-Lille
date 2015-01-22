@@ -5,6 +5,7 @@ import ipint.glp.controlleurs.valideurs.ValideurAnnonce;
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
+import ipint.glp.donnees.Job;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.TypeChamp;
 import ipint.glp.donnees.Utilisateur;
@@ -14,7 +15,9 @@ import ipint.glp.metiers.MetierCategorie;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -124,16 +127,21 @@ public class ControlleurAnnonce {
 		model.addAttribute("annonce", annonce);
 		return "annonce/confirmer";
 	}
+
 	
-	@RequestMapping(value = "/voirLesAnnoncesParCategorie", method = RequestMethod.GET)
-	public ModelAndView voirLesAnnoncesParCategorie(String categorie) {
-		return new ModelAndView("voirLesAnnoncesParCategorie", "lesAnnonces",
-				metierAnnonce.listerAnnoncesParCategorie(categorie));
-	}
 	
 	@RequestMapping(value = "/annonce", method = RequestMethod.GET)
-	public String listerAnnonces(Locale locale, Model model) {
-		model.addAttribute("annonces", metierAnnonce.listerAnnonces());
+	public String listerAnnonces(Locale locale,Model model,String categorie ){
+		
+		List<Annonce>lesAnnonces = new ArrayList<Annonce>();
+		if (categorie== null)
+			lesAnnonces= metierAnnonce.listerAnnonces();
+		else
+			lesAnnonces =metierAnnonce.listerAnnoncesParCategorie(categorie);
+			
+		model.addAttribute("annonces",lesAnnonces );
+		model.addAttribute("categorie",categorie);
+		//model.addAttribute("annonces", metierAnnonce.listerAnnonces());
 		return "annonce/lister";
 	}
 	

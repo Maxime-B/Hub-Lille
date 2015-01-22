@@ -8,28 +8,28 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
-			<h1>
-				Votre annonce à été créee avec succès
-			</h1>
-			
-			<div class="row">
-				<div>Categorie</div>
-				<div>${annonce.categorie.nom }</div>
-			</div>
+			<h3><b>
+				Votre annonce est crÃ©ee avec succÃ©s
+			</h3></b>
 			
 			
+				<div>Votre annonce est de la catÃ©gorie :
+				${annonce.categorie.nom }</div>
 			
+			
+			<div style="text-align:left">
+			Avec les informations suivantes:
 				<c:forEach items='${annonce.lesChamps}' var="item">
-					<div class="row">
-						<div>${item.key}</div>
-						<div>${item.value}</div>
-					</div>
+					
+						<div><u>${item.key} :</u>
+						${item.value}</div>
+					
 				
 					
 				</c:forEach>
 		
+			</div>
 			
-			<a href="/">Retour à la page d'accueil</a>
 				
 		</section>
 	</tiles:putAttribute>

@@ -8,9 +8,20 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
-			<h1>
+			
+			<div style="text-align:left">
+			<h3>
 				<spring:message code="annonce.creer.titre" />
-			</h1>
+			</h3>
+			<h6>
+				<spring:message code="annonce.creer.sousTitre" />
+			</h6>
+			<h6>
+				<u><a href="annonce/comment" ><spring:message code="annonce.creer.comment" /></a></u>
+			</h6>
+  
+		</div>
+			
 
 			<form:form action="creer" method="post" enctype="multipart/form-data"
 				modelAttribute="annonce">
@@ -27,7 +38,7 @@
 
 				<c:forEach items='${annonce.categorieObject.champs}' var="item"><c:set var="path" value="lesChamps['${item.libelle}']" />
 					<c:set var="path" value="lesChamps['${item.libelle}']" />
-				
+					<div>
 					<form:label path="${path}" cssErrorClass="error">
 						<spring:message code="annonce.creer.label.${item.libelle}" />
 						<c:if test='${item.obligatoire}'>
@@ -35,7 +46,7 @@
 						</c:if>
 					 	 :
 					</form:label>
-
+					&nbsp
 					<c:choose>
 						<c:when test="${item.typeChamp=='TEXTEAREA'}">
 							<form:textarea rows="15" path="${path}" cssErrorClass="error" />
@@ -60,10 +71,15 @@
 					</c:choose>
 
 					<form:errors path="${path}" cssClass="error" />
+					</div>
 					<br />
 				</c:forEach>
-
-				<input type="submit" value="Valider" />
+<div style="text-align:right">
+				<spring:message code="job.creer.submit" var="submit" />
+				<!--<input type="submit" value="${submit}" class="radius button" />-->
+					
+   <input type="submit"  value="${submit}" class="radius button" />
+</div>
 			</form:form>
 		</section>
 	</tiles:putAttribute>
