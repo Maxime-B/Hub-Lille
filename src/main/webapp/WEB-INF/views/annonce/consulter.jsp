@@ -31,6 +31,11 @@
 			</tr>
 					
 				</c:forEach>
+						<tr>
+				<td>Contact</td>
+				<td><A HREF="mailto:${annonce.utilisateur.email}">${annonce.utilisateur.email}</A></td>
+				
+			</tr>
 			</table>
 			
 			<a href="/">Retour à la page d'accueil</a>

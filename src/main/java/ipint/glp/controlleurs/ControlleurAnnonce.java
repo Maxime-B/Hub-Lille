@@ -123,7 +123,10 @@ public class ControlleurAnnonce {
 		}
 		
 		System.err.println("reussi");
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), new Utilisateur(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		Utilisateur util = new Utilisateur();
+		util.setEmail("test@test.fr");
+		
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), util, TypeAnnonce.offre, formAnnonce.getLesChamps());
 		model.addAttribute("annonce", annonce);
 		return "annonce/confirmer";
 	}
