@@ -34,7 +34,7 @@
 					<span>&nbsp;</span>
 				</c:if>
 
-				<form:input type="hidden" path="categorie" />
+				<input type="hidden" name="categorie"  value="${annonce.categorieObject.nom}"/>
 
 				<c:forEach items='${annonce.categorieObject.champs}' var="item"><c:set var="path" value="lesChamps['${item.libelle}']" />
 					<c:set var="path" value="lesChamps['${item.libelle}']" />

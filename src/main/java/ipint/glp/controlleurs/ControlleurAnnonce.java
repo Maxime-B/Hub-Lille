@@ -79,7 +79,7 @@ public class ControlleurAnnonce {
 	}
 	
 	@RequestMapping(value = "/annonce/creer", method = RequestMethod.POST)
-	public String creerAnnonce(HttpServletRequest request,@RequestParam Map parameters, @Valid @ModelAttribute("annonce") FormAnnonce formAnnonce,
+	public String creerAnnonce(@RequestParam("categorie")String categorie,HttpServletRequest request,@RequestParam Map parameters, @Valid @ModelAttribute("annonce") FormAnnonce formAnnonce,
 			BindingResult bindingResultOfAnnonce,Model model) {
 		
 		model.addAttribute("estUnSucces", true);
@@ -123,7 +123,7 @@ public class ControlleurAnnonce {
 		}
 		
 		System.err.println("reussi");
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie("Covoiturage"), new Utilisateur(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), new Utilisateur(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		model.addAttribute("annonce", annonce);
 		return "annonce/confirmer";
 	}
