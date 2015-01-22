@@ -124,7 +124,7 @@ public class ControlleurAnnonce {
 		
 		System.err.println("reussi");
 		Utilisateur util = new Utilisateur();
-		util.setEmail("test@test.fr");
+	//	util.setEmail("test@test.fr");
 		
 		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), util, TypeAnnonce.offre, formAnnonce.getLesChamps());
 		model.addAttribute("annonce", annonce);
