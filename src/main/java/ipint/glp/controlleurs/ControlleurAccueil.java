@@ -36,7 +36,10 @@ public class ControlleurAccueil {
 	
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-		return "home";
+		model.addAttribute("annonces", FabAnnonce.getInstance().listerAnnonces());
+		model.addAttribute("evenements", FabEvenement.getInstance().lister());
+		model.addAttribute("jobs", FabJob.getInstance().listerJob());
+		return "index";
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
@@ -93,7 +96,7 @@ public class ControlleurAccueil {
 		Utilisateur utilisateur = FabUtilisateur.getInstance()
 				.creerUtilisateur("toto", "titi", "toto.titi@gmail.com",
 						Droit.ADMIN);
-		return "home";
+		return "index";
 	}
 	private void init2() {
 		// champs (Objet)
