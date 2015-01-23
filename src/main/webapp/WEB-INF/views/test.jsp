@@ -13,52 +13,138 @@
 			<div class="large-6 columns">
 				<div class="row collapse postfix-round">
 					<div class="small-9 columns">
-						<input type="text" placeholder="Value">
+						<input type="text" placeholder="Mot a rechercher">
 					</div>
 					<div class="small-3 columns">
-						<a href="#" class="button postfix">Go</a>
+						<a href="#" class="button postfix">Rechercher</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<div class="row">    
-    
-    <!-- Main Content Section -->
-    <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
-    <div class="large-9 push-3 columns">
-      
-      <h3>Page Title <small>Page subtitle</small></h3>
-      
-      <p>Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin. Venison tail chuck pork chop, andouille ball tip beef ribs flank boudin bacon. Salami andouille pork belly short ribs flank cow. Salami sirloin turkey kielbasa. Sausage venison pork loin leberkas chuck short loin, cow ham prosciutto pastrami jowl. Ham hock jerky tri-tip, fatback hamburger shoulder swine pancetta ground round. Tri-tip prosciutto meatball turkey, brisket spare ribs shankle chuck cow chicken ham hock boudin meatloaf jowl.</p>
- 
-      <p>Ground round pastrami pork loin tenderloin jerky. Jerky spare ribs biltong, ham hock ham capicola pork. Jerky turducken pork, meatloaf sausage capicola swine corned beef turkey short loin. Tongue prosciutto pork loin, ground round spare ribs venison kielbasa strip steak.</p>
- 
-      <p>Hamburger bresaola turkey t-bone, leberkas salami pork chop ham hock beef ribs. Rump biltong meatball venison, short ribs pork loin shank shankle corned beef beef. Cow salami jowl short loin hamburger fatback. Short ribs pork belly shoulder pastrami drumstick salami corned beef ham hock bresaola. Swine filet mignon cow sausage ball tip. Cow ribeye ground round, sausage pork loin pig beef ball tip turkey boudin.</p>
- 
-      <p>Prosciutto ball tip filet mignon andouille frankfurter chicken rump sausage meatball. Filet mignon meatloaf ground round andouille ham hock pork. Bresaola short loin meatball chuck hamburger pig. Turkey venison chuck, tongue fatback tail swine jerky corned beef shank kielbasa prosciutto ribeye ham tri-tip. Rump bacon pork belly meatloaf shoulder short loin meatball kielbasa pork loin tongue bresaola brisket corned beef jowl prosciutto. Beef ribs shankle short ribs pork belly corned beef fatback pork chop tongue biltong boudin strip steak sirloin meatloaf pancetta.</p>
-            
-    </div>
-    
-    
-    <!-- Nav Sidebar -->
-    <!-- This is source ordered to be pulled to the left on larger screens -->
-    <div class="large-3 pull-9 columns">
-        
-      <ul class="side-nav">
-        <li><a href="http://foundation.zurb.com/templates4/sidebar.html#">Section 1</a></li>
-        <li><a href="http://foundation.zurb.com/templates4/sidebar.html#">Section 2</a></li>
-        <li><a href="http://foundation.zurb.com/templates4/sidebar.html#">Section 3</a></li>
-        <li><a href="http://foundation.zurb.com/templates4/sidebar.html#">Section 4</a></li>
-        <li><a href="http://foundation.zurb.com/templates4/sidebar.html#">Section 5</a></li>
-        <li><a href="http://foundation.zurb.com/templates4/sidebar.html#">Section 6</a></li>
-      </ul>
-      
-      <p><img src="./Foundation Template   Sidebar_files/320x240&amp;text=Ad"></p>
-        
-    </div>
-    
-  </div>
+
+		<div class="row">
+
+			<!-- Main Content Section -->
+			<!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+			<div class="large-9 push-3 columns">
+				
+				<!-- Announces -->
+				<p>
+				<h3>
+					<div class="large-8 columns">
+						Dernieres Annonces 
+					</div>
+					<div class="large-4 columns">
+						<a class="small radius button" href="${pageContext.request.contextPath}/annonce/categorie/choisir">Deposer une annonce</a>
+					</div>
+				</h3>
+				
+				<c:if test="${not empty annonces}">
+					<ul class="example-orbit" data-orbit>
+						<c:forEach items="${annonces}" var="a">
+
+							<li>
+							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">
+									<c:forEach items="${a.lesChamps}" var="entry">
+										<%--${entry.key}--%>${entry.value}
+									</c:forEach>
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<c:if test="${empty annonces}">
+					<tr>
+						<td colspan="5">Aucune annonce trouvee</td>
+					</tr>
+				</c:if>
+				</p>
+				<br/>
+				
+				<!-- Events -->
+				
+				<p>
+				<h3>
+					<div class="large-8 columns">
+						Derniers evenements 
+					</div>
+					<div class="large-4 columns">
+						<a class="small radius button" href="${pageContext.request.contextPath}/evenement/creer">Deposer un evenement</a>
+					</div>
+				</h3>
+				
+				<c:if test="${not empty evenements}">
+					<ul class="example-orbit" data-orbit>
+						<c:forEach items="${evenements}" var="e">
+
+							<li>
+							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">
+								[${e.titre}] ${e.description}
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<c:if test="${empty evenements}">
+					<tr>
+						<td colspan="5">Aucun evenement trouve</td>
+					</tr>
+				</c:if>
+				</p>
+				<br/>
+				
+				<!-- Jobs -->
+				
+				<p>
+				<h3>
+					<div class="large-8 columns">
+						Derniers jobs 
+					</div>
+					<div class="large-4 columns">
+						<a class="small radius button" href="${pageContext.request.contextPath}/job/creer">Deposer un jobs</a>
+					</div>
+				</h3>
+				
+				<c:if test="${not empty jobs}">
+					<ul class="example-orbit" data-orbit>
+						<c:forEach items="${jobs}" var="j">
+
+							<li>
+							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">
+									[${j.titre}] ${j.description}
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<c:if test="${empty evenements}">
+					<tr>
+						<td colspan="5">Aucun job trouve</td>
+					</tr>
+				</c:if>
+				</p>
+				<br/>
+				
+			</div>
+
+
+			<!-- Nav Sidebar -->
+			<!-- This is source ordered to be pulled to the left on larger screens -->
+			<div class="large-3 pull-9 columns">
+				<p></p>
+				<ul class="side-nav">
+					<li><a href="${pageContext.request.contextPath}/annonce">Annonces</a></li>
+					<li><a href="${pageContext.request.contextPath}/evenement">Evenement</a></li>
+					<li><a href="${pageContext.request.contextPath}/job/listerJob">Jobs</a></li>
+
+				</ul>
+
+			</div>
+
+		</div>
 
 
 	</tiles:putAttribute>
