@@ -46,6 +46,13 @@ public class ControlleurAccueil {
 		model.addAttribute("jobs", FabJob.getInstance().listerJob());
 		return "index";
 	}
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(Locale locale, Model model) {
+		model.addAttribute("annonces", FabAnnonce.getInstance().listerAnnonces());
+		model.addAttribute("evenements", FabEvenement.getInstance().lister());
+		model.addAttribute("jobs", FabJob.getInstance().listerJob());
+		return "test";
+	}
 	
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public String init(Model model) {
