@@ -13,97 +13,122 @@
 			<div class="large-6 columns">
 				<div class="row collapse postfix-round">
 					<div class="small-9 columns">
-						<input type="text" placeholder="Value">
+						<input type="text" placeholder="Mot a rechercher">
 					</div>
 					<div class="small-3 columns">
-						<a href="#" class="button postfix">Go</a>
+						<a href="#" class="button postfix">Rechercher</a>
 					</div>
 				</div>
 			</div>
 		</div>
-		
-		<!-- Annonces -->
+
 		<div class="row">
-			<div class="large-8 columns">
-				<h4>Les dernieres annonces</h4>
-			</div>
-			<div class="large-4 columns">
-				<a class="small radius button">Deposer une annonce</a>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 columns">
+
+			<!-- Main Content Section -->
+			<!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
+				<!-- Announces -->
+				<p>
+				<h3>
+					<div class="large-8 columns">
+						Dernieres Annonces 
+					</div>
+					<div class="large-4 columns">
+						<a class="small radius button" href="${pageContext.request.contextPath}/annonce/categorie/choisir">Deposer une annonce</a>
+					</div>
+				</h3>
+				
 				<c:if test="${not empty annonces}">
 					<ul class="example-orbit" data-orbit>
-						<c:forEach items="${annonces}" var="annonce">
-							<li><img
-								src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
-								<div class="orbit-caption">[${annonce.titre}] ${annonce.description}</div></li>
+						<c:forEach items="${annonces}" var="a">
+
+							<li>
+							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">
+									<c:forEach items="${a.lesChamps}" var="entry">
+										<%--${entry.key}--%>${entry.value}
+									</c:forEach>
+								</div>
+							</li>
 						</c:forEach>
 					</ul>
 				</c:if>
 				<c:if test="${empty annonces}">
 					<tr>
-						<td colspan="5">Aucune Annonce</td>
+						<td colspan="5">Aucune annonce trouvee</td>
 					</tr>
 				</c:if>
-			</div>
-		</div>
-
-		<!-- Jobs -->
-		<div class="row">
-			<div class="large-8 columns">
-				<h4>Les derniers jobs</h4>
-			</div>
-			<div class="large-4 columns">
-				<a class="small radius button">Deposer un job</a>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 columns">
-				<c:if test="${not empty jobs}">
-					<ul class="example-orbit" data-orbit>
-						<c:forEach items="${jobs}" var="job">
-							<li><img
-								src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
-								<div class="orbit-caption">[${job.titre}] ${job.description}</div></li>
-						</c:forEach>
-					</ul>
-				</c:if>
-				<c:if test="${empty jobs}">
-					<tr>
-						<td colspan="5">Aucun job</td>
-					</tr>
-				</c:if>
-			</div>
-		</div>
-
-		<!-- Events -->
-		<div class="row">
-			<div class="large-8 columns">
-				<h4>Les derniers evenements</h4>
-			</div>
-			<div class="large-4 columns">
-				<a class="small radius button">Deposer un evenement</a>
-			</div>
-		</div>
-		<div class="row">
-			<div class="large-10 columns">
+				</p>
+				<br/>
+				
+				<!-- Events -->
+				
+				<p>
+				<h3>
+					<div class="large-8 columns">
+						Derniers evenements 
+					</div>
+					<div class="large-4 columns">
+						<a class="small radius button" href="${pageContext.request.contextPath}/evenement/creer">Deposer un evenement</a>
+					</div>
+				</h3>
+				
 				<c:if test="${not empty evenements}">
 					<ul class="example-orbit" data-orbit>
-						<c:forEach items="${evenements}" var="evenement">
-							<li><img
-								src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
-								<div class="orbit-caption">[${evenement.titre}] ${evenement.description}</div></li>
+						<c:forEach items="${evenements}" var="e">
+
+							<li>
+							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">
+								[${e.titre}] ${e.description}
+								</div>
+							</li>
 						</c:forEach>
 					</ul>
 				</c:if>
 				<c:if test="${empty evenements}">
 					<tr>
-						<td colspan="5">Aucun evenement</td>
+						<td colspan="5">Aucun evenement trouve</td>
 					</tr>
 				</c:if>
-			</div>
+				</p>
+				<br/>
+				
+				<!-- Jobs -->
+				
+				<p>
+				<h3>
+					<div class="large-8 columns">
+						Derniers jobs 
+					</div>
+					<div class="large-4 columns">
+						<a class="small radius button" href="${pageContext.request.contextPath}/job/creer">Deposer un jobs</a>
+					</div>
+				</h3>
+				
+				<c:if test="${not empty jobs}">
+					<ul class="example-orbit" data-orbit>
+						<c:forEach items="${jobs}" var="j">
+
+							<li>
+							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								<div class="orbit-caption">
+									[${j.titre}] ${j.description}
+								</div>
+							</li>
+						</c:forEach>
+					</ul>
+				</c:if>
+				<c:if test="${empty evenements}">
+					<tr>
+						<td colspan="5">Aucun job trouve</td>
+					</tr>
+				</c:if>
+				</p>
+				<br/>
+				
+
 		</div>
+
+
 	</tiles:putAttribute>
 </tiles:insertDefinition>

@@ -26,8 +26,6 @@
 
 			<!-- Main Content Section -->
 			<!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
-			<div class="large-9 push-3 columns">
-				
 				<!-- Announces -->
 				<p>
 				<h3>
@@ -128,21 +126,6 @@
 				</p>
 				<br/>
 				
-			</div>
-
-
-			<!-- Nav Sidebar -->
-			<!-- This is source ordered to be pulled to the left on larger screens -->
-			<div class="large-3 pull-9 columns">
-				<p></p>
-				<ul class="side-nav">
-					<li><a href="${pageContext.request.contextPath}/annonce">Annonces</a></li>
-					<li><a href="${pageContext.request.contextPath}/evenement">Evenement</a></li>
-					<li><a href="${pageContext.request.contextPath}/job/listerJob">Jobs</a></li>
-
-				</ul>
-
-			</div>
 
 		</div>
 
