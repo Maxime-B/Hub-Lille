@@ -56,7 +56,7 @@ public class ControlleurAnnonce {
 	 * 
 	 * @param binder
 	 */
-	@InitBinder("Annonce")
+	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
 		binder.setValidator(new ValideurAnnonce());
 	}
@@ -81,7 +81,7 @@ public class ControlleurAnnonce {
 	@RequestMapping(value = "/annonce/creer", method = RequestMethod.POST)
 	public String creerAnnonce(@RequestParam("categorie")String categorie,HttpServletRequest request,@RequestParam Map parameters, @Valid @ModelAttribute("annonce") FormAnnonce formAnnonce,
 			BindingResult bindingResultOfAnnonce,Model model) {
-		
+		//validateurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		model.addAttribute("estUnSucces", true);
 		if (bindingResultOfAnnonce.hasErrors()) {
 			model.addAttribute("estUnSucces", false);
