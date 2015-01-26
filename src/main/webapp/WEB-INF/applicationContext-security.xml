@@ -25,16 +25,23 @@
 		<logout logout-success-url="/cas/cas-logout" />
 		<!-- <csrf disabled="true"/> -->
 	</http>
-
-	<authentication-manager alias="authManager">
-		<authentication-provider ref="casAuthProvider" />
-	</authentication-manager>
-
+	
 	<user-service id="userService">
+		<user name="clement.duhaupas" authorities="ROLE_USER" />
+		<user name="guillaume.bergeus" authorities="ROLE_USER" />
+		<user name="hind.bahaoui" authorities="ROLE_USER" />
+		<user name="latifou.sano" authorities="ROLE_USER" />
+		<user name="maxime.briche" authorities="ROLE_USER" />
+		<user name="soukaina.bekkai" authorities="ROLE_USER" />
+		
 		<user name="admin" authorities="ROLE_SUPERVISOR,ROLE_USER" />
 		<user name="etudiant" authorities="ROLE_USER" />
 		<user name="prof" authorities="ROLE_USER" />
 	</user-service>
+	
+	<authentication-manager alias="authManager">
+		<authentication-provider ref="casAuthProvider" />
+	</authentication-manager>
 
 	<!-- This filter handles a Single Logout Request from the CAS Server -->
 	<b:bean id="singleLogoutFilter" class="org.jasig.cas.client.session.SingleSignOutFilter" />
@@ -146,12 +153,22 @@
 	<!-- Configuration for the environment can be overriden by system properties -->
 	<context:property-placeholder
 		system-properties-mode="OVERRIDE" properties-ref="environment" />
+	
 	<util:properties id="environment">
 		<b:prop key="service.protocol">http</b:prop>
+		<b:prop key="cas.protocol">https</b:prop>
+		<b:prop key="service.host">b12p9.fil.univ-lille1.fr:8080</b:prop>
+		<b:prop key="cas.server.host">sso-cas.univ-lille1.fr</b:prop>
+		<b:prop key="cas.app.name"></b:prop>
+		<b:prop key="service.app.name">hublille1</b:prop>
+	</util:properties>
+	
+	<!-- <util:properties id="environment">
+		<b:prop key="service.protocol">http</b:prop>
 		<b:prop key="cas.protocol">http</b:prop>
-		<b:prop key="service.host">localhost:8080</b:prop>
+		<b:prop key="service.host">localhost:8080<f/b:prop>
 		<b:prop key="cas.server.host">localhost:2080</b:prop>
 		<b:prop key="cas.app.name">cas</b:prop>
 		<b:prop key="service.app.name">hublille1</b:prop>
-	</util:properties>
+	</util:properties> -->
 </b:beans>
