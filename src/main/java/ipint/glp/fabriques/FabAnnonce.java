@@ -95,6 +95,9 @@ public class FabAnnonce {
 		// TODO Auto-generated method stub
 		String query ="select a from Annonce a where a.id ="+reference;
 		ArrayList<Annonce> l = (ArrayList<Annonce>) connexion.getEm().createQuery(query).getResultList();
+		if (l.isEmpty()) {
+			return null;
+		}
 		return l.get(0);
 	}
 	

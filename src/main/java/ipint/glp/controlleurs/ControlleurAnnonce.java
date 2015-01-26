@@ -47,8 +47,6 @@ public class ControlleurAnnonce {
 			.getLogger(ControlleurAnnonce.class);
 	private MetierAnnonce metierAnnonce = new MetierAnnonce();
 	private MetierCategorie metierCategorie = new MetierCategorie();
-	private ValideurAnnonce validateurAnnonce = new ValideurAnnonce();
-	
 	
 	/**
 	 * Register a validator that will be lookup when a parameter is binded to a
@@ -58,7 +56,7 @@ public class ControlleurAnnonce {
 	 */
 	@InitBinder
 	protected void initBinder(WebDataBinder binder) {
-		binder.setValidator(new ValideurAnnonce());
+		binder.addValidators(new ValideurAnnonce());
 	}
 	
 	/**
@@ -81,7 +79,6 @@ public class ControlleurAnnonce {
 	@RequestMapping(value = "/annonce/creer", method = RequestMethod.POST)
 	public String creerAnnonce(@RequestParam("categorie")String categorie,HttpServletRequest request,@RequestParam Map parameters, @Valid @ModelAttribute("annonce") FormAnnonce formAnnonce,
 			BindingResult bindingResultOfAnnonce,Model model) {
-		//validateurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		model.addAttribute("estUnSucces", true);
 		if (bindingResultOfAnnonce.hasErrors()) {
 			model.addAttribute("estUnSucces", false);
@@ -127,8 +124,8 @@ public class ControlleurAnnonce {
 	//	util.setEmail("test@test.fr");
 		
 		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), util, TypeAnnonce.offre, formAnnonce.getLesChamps());
-		model.addAttribute("annonce", annonce);
-		return "annonce/confirmer";
+		//model.addAttribute("annonce", annonce);
+		return "redirect:/annonce";
 	}
 
 	

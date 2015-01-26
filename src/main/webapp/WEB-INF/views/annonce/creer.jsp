@@ -8,20 +8,21 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
-			
-			<div style="text-align:left">
-			<h3>
-				<spring:message code="annonce.creer.titre" />
-			</h3>
-			<h6>
-				<spring:message code="annonce.creer.sousTitre" />
-			</h6>
-			<h6>
-				<u><a href="annonce/comment" ><spring:message code="annonce.creer.comment" /></a></u>
-			</h6>
-  
-		</div>
-			
+
+			<div style="text-align: left">
+				<h3>
+					<spring:message code="annonce.creer.titre" />
+				</h3>
+				<h6>
+					<spring:message code="annonce.creer.sousTitre" />
+				</h6>
+				<h6>
+					<u><a href="annonce/comment"><spring:message
+								code="annonce.creer.comment" /></a></u>
+				</h6>
+
+			</div>
+
 
 			<form:form action="creer" method="post" enctype="multipart/form-data"
 				modelAttribute="annonce">
@@ -31,55 +32,56 @@
 					</div>
 				</c:if>
 				<c:if test='${!estUnSucces}'>
-					<span>&nbsp;</span>
+					<span> </span>
 				</c:if>
 
-				<input type="hidden" name="categorie"  value="${annonce.categorieObject.nom}"/>
+				<input type="hidden" name="categorie"
+					value="${annonce.categorieObject.nom}" />
 
-				<c:forEach items='${annonce.categorieObject.champs}' var="item"><c:set var="path" value="lesChamps['${item.libelle}']" />
+				<c:forEach items='${annonce.categorieObject.champs}' var="item">
+					<c:set var="path" value="lesChamps['${item.libelle}']" />
 					<c:set var="path" value="lesChamps['${item.libelle}']" />
 					<div>
-					<form:label path="${path}" cssErrorClass="error">
-						<spring:message code="annonce.creer.label.${item.libelle}" />
-						<c:if test='${item.obligatoire}'>
-							<small><spring:message code="annonce.creer.requis" /></small>
-						</c:if>
+						<form:label path="${path}" cssErrorClass="error">
+							<spring:message code="annonce.creer.label.${item.libelle}" />
+							<c:if test='${item.obligatoire}'>
+								<small><spring:message code="annonce.creer.requis" /></small>
+							</c:if>
 					 	 :
 					</form:label>
-					&nbsp
-					<c:choose>
-						<c:when test="${item.typeChamp=='TEXTEAREA'}">
-							<form:textarea rows="15" path="${path}" cssErrorClass="error" />
-						</c:when>
 
-						<c:when test="${item.typeChamp=='TEXTE'}">
-							<form:input type="text" path="${path}" cssErrorClass="error" />
-						</c:when>
+						<c:choose>
+							<c:when test="${item.typeChamp=='TEXTEAREA'}">
+								<form:textarea rows="15" path="${path}" cssErrorClass="error" />
+							</c:when>
 
-						<c:when test="${item.typeChamp=='DATE'}">
-							<form:input type="date" path="${path}" cssErrorClass="error" />
-						</c:when>
+							<c:when test="${item.typeChamp=='TEXTE'}">
+								<form:input type="text" path="${path}" cssErrorClass="error" />
+							</c:when>
 
-						<c:when test="${item.typeChamp=='NUMERIQUE'}">
-							<form:input type="number" min="0" path="${path}"
-								cssErrorClass="error" />
-						</c:when>
+							<c:when test="${item.typeChamp=='DATE'}">
+								<form:input type="date" path="${path}" cssErrorClass="error" />
+							</c:when>
 
-						<c:when test="${item.typeChamp=='IMAGE'}">
-							<input type="file" accept="image/*" name="${item.libelle}" />
-						</c:when>
-					</c:choose>
+							<c:when test="${item.typeChamp=='NUMERIQUE'}">
+								<form:input type="number" min="0" path="${path}"
+									cssErrorClass="error" />
+							</c:when>
 
-					<form:errors path="${path}" cssClass="error" />
+							<c:when test="${item.typeChamp=='IMAGE'}">
+								<input type="file" accept="image/*" name="${item.libelle}" />
+							</c:when>
+						</c:choose>
+
+						<form:errors path="${path}" cssClass="error" />
 					</div>
 					<br />
 				</c:forEach>
-<div style="text-align:right">
-				<spring:message code="job.creer.submit" var="submit" />
-				<!--<input type="submit" value="${submit}" class="radius button" />-->
-					
-   <input type="submit"  value="${submit}" class="radius button" />
-</div>
+				<div style="text-align: right">
+					<spring:message code="job.creer.submit" var="submit" />
+
+					<input type="submit" value="${submit}" class="radius button" />
+				</div>
 			</form:form>
 		</section>
 	</tiles:putAttribute>
