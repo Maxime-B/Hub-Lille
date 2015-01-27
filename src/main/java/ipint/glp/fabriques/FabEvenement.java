@@ -40,10 +40,6 @@ public class FabEvenement {
 		return fb;
 	}
 
-	public Evenement obtenir(IdEvenement id) {
-		return em.find(Evenement.class, id);
-	}
-
 	public List<Evenement> lister() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Evenement> cq = cb.createQuery(Evenement.class);
@@ -57,16 +53,15 @@ public class FabEvenement {
 				.setMaxResults(50)
 				.getResultList();
 	}
-
+	
+	public Evenement obtenir(IdEvenement id) {
+		return em.find(Evenement.class, id);
+	}
+	
 	public void supprimer(Evenement o) {
 		em.remove(o);
 	}
 
-	public void supprimerTout() {
-		em.getTransaction().begin();
-		em.createQuery("Delete from Evenement").executeUpdate();
-		em.getTransaction().commit();
-	}
 
 	public Evenement creer(Evenement o) {
 		em.persist(o);
@@ -76,5 +71,11 @@ public class FabEvenement {
 	public Evenement modifier(Evenement o) {
 		em.merge(o);
 		return o;
+	}
+	
+	public void supprimerTout() {
+		em.getTransaction().begin();
+		em.createQuery("Delete from Evenement").executeUpdate();
+		em.getTransaction().commit();
 	}
 }

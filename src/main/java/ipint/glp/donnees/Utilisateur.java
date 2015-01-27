@@ -17,8 +17,7 @@ import javax.persistence.OneToMany;
 public class Utilisateur {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private String login;
 	
 	private String nom;
 	private String prenom;
@@ -38,21 +37,36 @@ public class Utilisateur {
 		
 	}
 	
-	public Utilisateur(int id, String nom, String prenom, String email, Droit droit) {
+	public Utilisateur(String login, String prenom, String nom, String email, Droit droit) {
 		super();
-		this.id = id;
+		this.login = login;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
 		this.droit = droit;
 	}
-
-	public int getId() {
-		return id;
+	
+	public String getId() {
+		return login;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setId(String id) {
+		login = (String)id;
+	}
+
+	
+	/**
+	 * @return the login
+	 */
+	public String getLogin() {
+		return login;
+	}
+
+	/**
+	 * @param login the login to set
+	 */
+	public void setLogin(String login) {
+		this.login = login;
 	}
 
 	public String getNom() {
@@ -102,6 +116,4 @@ public class Utilisateur {
 	public void removeAnnonce(Annonce a){
 		lesAnnonces.remove(a);
 	}
-	
-	
 }

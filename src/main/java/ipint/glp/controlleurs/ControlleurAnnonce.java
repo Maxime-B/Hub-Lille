@@ -5,7 +5,6 @@ import ipint.glp.controlleurs.valideurs.ValideurAnnonce;
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.TypeAnnonce;
-import ipint.glp.donnees.Utilisateur;
 import ipint.glp.metiers.MetierAnnonce;
 import ipint.glp.metiers.MetierCategorie;
 
@@ -21,6 +20,7 @@ import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.cas.authentication.CasAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -115,7 +115,7 @@ public class ControlleurAnnonce {
 		
 	//	util.setEmail("test@test.fr");
 		
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//model.addAttribute("annonce", annonce);
 		return "redirect:/annonce";
 	}
