@@ -1,16 +1,16 @@
 package ipint.glp.fabriques;
 
+import ipint.glp.donnees.Annonce;
+import ipint.glp.donnees.Categorie;
+import ipint.glp.donnees.TypeAnnonce;
+import ipint.glp.donnees.Utilisateur;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Query;
 
-import ipint.glp.donnees.Annonce;
-import ipint.glp.donnees.Categorie;
-import ipint.glp.donnees.Job;
-import ipint.glp.donnees.TypeAnnonce;
-import ipint.glp.donnees.Utilisateur;
 import connexion.Connexion;
 
 public class FabAnnonce {

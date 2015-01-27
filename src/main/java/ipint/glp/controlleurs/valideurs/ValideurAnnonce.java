@@ -25,6 +25,7 @@ public class ValideurAnnonce implements Validator {
 		}
 		if (formAnnonce == null || formAnnonce.getCategorieObject() == null || formAnnonce.getCategorieObject().getChamps() == null) {
 			e.rejectValue("categorie", "annonce.erreur.categorie.invalide");
+			return;
 		}
 		
 		for (Champ champ : formAnnonce.getCategorieObject().getChamps()) {
