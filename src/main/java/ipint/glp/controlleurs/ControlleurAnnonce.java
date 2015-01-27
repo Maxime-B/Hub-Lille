@@ -4,17 +4,11 @@ import ipint.glp.controlleurs.forms.FormAnnonce;
 import ipint.glp.controlleurs.valideurs.ValideurAnnonce;
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
-import ipint.glp.donnees.Champ;
-import ipint.glp.donnees.Job;
 import ipint.glp.donnees.TypeAnnonce;
-import ipint.glp.donnees.TypeChamp;
 import ipint.glp.donnees.Utilisateur;
 import ipint.glp.metiers.MetierAnnonce;
 import ipint.glp.metiers.MetierCategorie;
 
-import java.io.BufferedOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -36,8 +30,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
@@ -120,10 +112,10 @@ public class ControlleurAnnonce {
 		}
 		
 		System.err.println("reussi");
-		Utilisateur util = new Utilisateur();
+		
 	//	util.setEmail("test@test.fr");
 		
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), util, TypeAnnonce.offre, formAnnonce.getLesChamps());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//model.addAttribute("annonce", annonce);
 		return "redirect:/annonce";
 	}

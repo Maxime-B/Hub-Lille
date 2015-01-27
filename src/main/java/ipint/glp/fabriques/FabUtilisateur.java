@@ -1,6 +1,5 @@
 package ipint.glp.fabriques;
 
-import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Droit;
 import ipint.glp.donnees.Utilisateur;
 
@@ -49,6 +48,11 @@ public class FabUtilisateur {
 			lesUtilisateurs.put(u.getId(), u);
 		}
 		return utilisateurs;
+	}
+
+	public Utilisateur getUtilisateur() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

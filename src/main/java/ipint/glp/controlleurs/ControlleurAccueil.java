@@ -120,22 +120,22 @@ public class ControlleurAccueil {
 		new MetierCategorie().creerCategorie("Objet", l);
 		new MetierCategorie().creerCategorie("Covoiturage", l);
 
-		// Utilisateur
-		Utilisateur u = new MetierUtilisateur().creerUtilisateur("Smith",
-				"John", "John.smith@gmail.com", Droit.DEFAUT);
-
-		// Annonces
-		new MetierAnnonce().creerAnnonce(
-				new MetierCategorie().getCategorie("Objet"), u,
-				TypeAnnonce.offre, hm);
-		new MetierAnnonce().creerAnnonce(
-				new MetierCategorie().getCategorie("Objet"), u,
-				TypeAnnonce.offre, hm2);
-		new MetierAnnonce().creerAnnonce(
-				new MetierCategorie().getCategorie("Objet"), u,
-				TypeAnnonce.offre, hm);
-		new MetierAnnonce().creerAnnonce(
-				new MetierCategorie().getCategorie("Objet"), u,
-				TypeAnnonce.offre, hm2);
+//		// Utilisateur
+//		Utilisateur u = new MetierUtilisateur().creerUtilisateur("Smith",
+//				"John", "John.smith@gmail.com", Droit.DEFAUT);
+//
+//		// Annonces
+//		new MetierAnnonce().creerAnnonce(
+//				new MetierCategorie().getCategorie("Objet"), u,
+//				TypeAnnonce.offre, hm);
+//		new MetierAnnonce().creerAnnonce(
+//				new MetierCategorie().getCategorie("Objet"), u,
+//				TypeAnnonce.offre, hm2);
+//		new MetierAnnonce().creerAnnonce(
+//				new MetierCategorie().getCategorie("Objet"), u,
+//				TypeAnnonce.offre, hm);
+//		new MetierAnnonce().creerAnnonce(
+//				new MetierCategorie().getCategorie("Objet"), u,
+//				TypeAnnonce.offre, hm2);
 	}
 }

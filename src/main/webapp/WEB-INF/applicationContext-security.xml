@@ -27,7 +27,7 @@
 	</http>
 	
 	<user-service id="userService">
-		<user name="clement.duhaupas" authorities="ROLE_USER" />
+		<user name="clement.duhaupas" authorities="ROLE_USER,ROLE_ADMIN" />
 		<user name="guillaume.bergeus" authorities="ROLE_USER" />
 		<user name="hind.bahaoui" authorities="ROLE_USER" />
 		<user name="latifou.sano" authorities="ROLE_USER" />

@@ -10,10 +10,20 @@ public class MetierUtilisateur {
 	FabUtilisateur fabUtilisateur = FabUtilisateur.getInstance();
 
 	
-	public Utilisateur creerUtilisateur(String nom, String prenom,
+	private Utilisateur creerUtilisateur(String login, String prenom, String nom,
 			String email, Droit droit) {
 		return fabUtilisateur.creerUtilisateur(nom, prenom, email, droit);
 	}
+	
+	public Utilisateur getUtilisateur(){
+		Utilisateur utilisateur = fabUtilisateur.getUtilisateur();
+		if (utilisateur == null) {
+			utilisateur = creerUtilisateur(null, null, null, null, null);
+		}
+		return utilisateur;
+	}
+	
+	
 
 	public List<Utilisateur> listerUtilisateurs() {
 		return fabUtilisateur.listerUtilisateurs();

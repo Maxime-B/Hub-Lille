@@ -9,18 +9,23 @@ import ipint.glp.fabriques.FabAnnonce;
 import ipint.glp.fabriques.FabCategorie;
 import ipint.glp.fabriques.FabJob;
 
+import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
 
 public class MetierAnnonce {
 	
+	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
+	
 	public MetierAnnonce(){
 		
 	}
 	
-	public Annonce creerAnnonce(Categorie categorie,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
-		Annonce annonce = FabAnnonce.getInstance().creerAnnonce(categorie, utilisateur, TypeAnnonce.offre, lesChamps);
-		return annonce;
+	public Annonce creerAnnonce(Categorie categorie,Principal principal,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
+//		metierUtilisateur
+//		Annonce annonce = FabAnnonce.getInstance().creerAnnonce(categorie, principal, TypeAnnonce.offre, lesChamps);
+//		return annonce;
+		return null;
 	}
 	
 	public List<Annonce> listerAnnoncesParCategorie(String categorie){
