@@ -37,7 +37,14 @@
 
 				<input type="hidden" name="categorie"
 					value="${annonce.categorieObject.nom}" />
+				<label>
+					<spring:message code="job.creer.label.titre" /></label>
+				<input type="text" name="titre" placeholder="50 char max"/>
+					<!--<label>Description:</label> <input type="text" name="description" />  -->
+					<label><spring:message code="job.creer.label.description" /></label></label>
+					<textarea id="description" name="description" rows="5" cols="30"placeholder="50 caractère max"> 
 
+				</textarea>
 				<c:forEach items='${annonce.categorieObject.champs}' var="item">
 					<c:set var="path" value="lesChamps['${item.libelle}']" />
 					<c:set var="path" value="lesChamps['${item.libelle}']" />

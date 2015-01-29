@@ -59,10 +59,10 @@ public class ControlleurAccueil {
 	
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
 	public String init(Model model) {
-		Champ c1 = FabChamp.getInstance().creerChamp("titre", 60,
+		/*Champ c1 = FabChamp.getInstance().creerChamp("titre", 60,
 				TypeChamp.TEXTE,true);
 		Champ c2 = FabChamp.getInstance()
-				.creerChamp("description", 500, TypeChamp.TEXTEAREA,true);
+				.creerChamp("description", 500, TypeChamp.TEXTEAREA,true);*/
 		Champ c3 = FabChamp.getInstance()
 				.creerChamp("depart", 10, TypeChamp.TEXTE,true);
 		Champ c4 = FabChamp.getInstance()
@@ -78,16 +78,16 @@ public class ControlleurAccueil {
 		Champ c9 = FabChamp.getInstance()
 				.creerChamp("photo3", 300, TypeChamp.IMAGE,false);
 		List<Champ> champs1 = new ArrayList<Champ>();
-		champs1.add(c1);
-		champs1.add(c2);
+		//champs1.add(c1);
+		//champs1.add(c2);
 		champs1.add(c3);
 		champs1.add(c4);
 		champs1.add(c5);
 		champs1.add(c6);
 		
 		List<Champ> champs2 = new ArrayList<Champ>();
-		champs2.add(c1);
-		champs2.add(c2);
+		//champs2.add(c1);
+		//champs2.add(c2);
 		champs2.add(c6);
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
 				"Covoiturage", champs1);
@@ -98,7 +98,7 @@ public class ControlleurAccueil {
 						Droit.ADMIN);
 		return "index";
 	}
-	private void init2() {
+	/*private void init2() {
 		// champs (Objet)
 		ArrayList<Champ> l = new ArrayList<Champ>();
 		l.add(new MetierChamp().creerChamp("Titre", 50, TypeChamp.TEXTE,true));
@@ -118,7 +118,7 @@ public class ControlleurAccueil {
 
 		// Catègorie
 		new MetierCategorie().creerCategorie("Objet", l);
-		new MetierCategorie().creerCategorie("Covoiturage", l);
+		new MetierCategorie().creerCategorie("Covoiturage", l);*/
 
 //		// Utilisateur
 //		Utilisateur u = new MetierUtilisateur().creerUtilisateur("Smith",
@@ -137,5 +137,5 @@ public class ControlleurAccueil {
 //		new MetierAnnonce().creerAnnonce(
 //				new MetierCategorie().getCategorie("Objet"), u,
 //				TypeAnnonce.offre, hm2);
-	}
+	
 }
