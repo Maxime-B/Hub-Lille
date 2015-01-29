@@ -70,7 +70,7 @@ public class ControlleurAccueil {
 		Champ c5 = FabChamp.getInstance()
 				.creerChamp("date", 10, TypeChamp.DATE,true);
 		Champ c6 = FabChamp.getInstance()
-				.creerChamp("prix", 10, TypeChamp.TEXTE,false);
+				.creerChamp("prix", 10, TypeChamp.NUMERIQUE,false);
 		Champ c7 = FabChamp.getInstance()
 				.creerChamp("photo1", 300, TypeChamp.IMAGE,false);
 		Champ c8 = FabChamp.getInstance()
@@ -89,10 +89,13 @@ public class ControlleurAccueil {
 		//champs2.add(c1);
 		//champs2.add(c2);
 		champs2.add(c6);
+		
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
 				"Covoiturage", champs1);
+		
 		Categorie categorie2 = FabCategorie.getInstance().creerCategorie(
 				"Biens", champs2);
+		
 		Utilisateur utilisateur = FabUtilisateur.getInstance()
 				.creer("toto.titi", "toto", "titi", "toto.titi@gmail.com",
 						Droit.ADMIN);

@@ -2,6 +2,8 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+
 <tiles:insertDefinition name="annonce">
 	<tiles:putAttribute name="title">
 		<spring:message code="annonce.creer.titre" />
@@ -20,9 +22,7 @@
 					<u><a href="annonce/comment"><spring:message
 								code="annonce.creer.comment" /></a></u>
 				</h6>
-
 			</div>
-
 
 			<form:form action="creer" method="post" enctype="multipart/form-data"
 				modelAttribute="annonce">
@@ -35,19 +35,21 @@
 					<span> </span>
 				</c:if>
 
-				<input type="hidden" name="categorie"
+				<form:input type="hidden" path="categorie"
 					value="${annonce.categorieObject.nom}" />
-				<label>
-					<spring:message code="job.creer.label.titre" /></label>
-				<input type="text" name="titre" placeholder="50 char max"/>
-					<!--<label>Description:</label> <input type="text" name="description" />  -->
-					<label><spring:message code="job.creer.label.description" /></label></label>
-					<textarea id="description" name="description" rows="5" cols="30"placeholder="50 caract�re max"> 
+				<form:errors path="categorie" cssClass="error" />
 
-				</textarea>
+				<form:label path="titre" cssErrorClass="error"><spring:message code="job.creer.label.titre" /></form:label>
+				<form:input type="text" path="titre" placeholder="50 char max" cssErrorClass="error"/>
+				<form:errors path="titre" cssClass="error" />
+
+				<form:label path="description" cssErrorClass="error"><spring:message code="job.creer.label.description" /></form:label>
+				<form:textarea path="description" rows="5" cols="30"
+					placeholder="200 caractère max" cssErrorClass="error"></form:textarea>
+				<form:errors path="description" cssClass="error" />
+				
 				<c:forEach items='${annonce.categorieObject.champs}' var="item">
-					<c:set var="path" value="lesChamps['${item.libelle}']" />
-					<c:set var="path" value="lesChamps['${item.libelle}']" />
+					<c:set var="path" value="${fn:toLowerCase(item.typeChamp)}['${item.libelle}']" />
 					<div>
 						<form:label path="${path}" cssErrorClass="error">
 							<spring:message code="annonce.creer.label.${item.libelle}" />
@@ -67,12 +69,12 @@
 							</c:when>
 
 							<c:when test="${item.typeChamp=='DATE'}">
-								<form:input type="date" path="${path}" cssErrorClass="error" />
+								<form:input  path="${path}" cssErrorClass="error" /><!-- type="date" -->
 							</c:when>
 
 							<c:when test="${item.typeChamp=='NUMERIQUE'}">
-								<form:input type="number" min="0" path="${path}"
-									cssErrorClass="error" />
+								<form:input min="0" path="${path}"
+									cssErrorClass="error" /><!-- type="number" -->
 							</c:when>
 
 							<c:when test="${item.typeChamp=='IMAGE'}">

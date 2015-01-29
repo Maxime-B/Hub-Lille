@@ -21,8 +21,8 @@
 				<c:if test="${not empty annonces}">
 				 <c:forEach items="${annonces}" var="annonce" >
 					<tr>
-						<td><%-- ${annonce.titre}  --%>${annonce.lesChamps.titre}</td>
-						<td><%-- ${annonce.description} --%> ${annonce.lesChamps.description}</td>
+						<td>${annonce.titre}</td>
+						<td>${annonce.description}</td>
 					</tr>
 					</c:forEach>
 				</c:if>

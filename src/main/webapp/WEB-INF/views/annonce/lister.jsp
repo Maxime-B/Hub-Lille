@@ -44,7 +44,7 @@
 										style="width: 200px; height: 35px">
 											<option></option>
 											<c:forEach items="${categories}" var="item">
-												<option value="${item.nom}">${item.nom}</option>
+												<option value="${item.nom}" selected>${item.nom}</option>
 											</c:forEach>
 									</select></td>
 									<td><input type="submit" value="chercher"

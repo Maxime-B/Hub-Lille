@@ -58,6 +58,7 @@ static FabAnnonce fb;
 		a.setUtilisateur(utilisateur);
 		a.setLesChamps(lesChamps);
 		connexion.getEm().persist(a);
+		connexion.getEm().flush();
 		utilisateur.addAnnonce(a);
 		lesAnnonces.put(a.getId(),a);
 		categorie.addAnnonce(a);

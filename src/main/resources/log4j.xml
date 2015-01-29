@@ -4,14 +4,14 @@
 
 	<!-- Appenders -->
 	<appender name="file" class="org.apache.log4j.FileAppender">
-		<param name="file" value="/tmp/Hub-Lille1.log"/>
-   <param name="immediateFlush" value="true"/>
-   <param name="threshold" value="true"/>
-   <param name="append" value="false"/>
-   <layout class="org.apache.log4j.PatternLayout">
-      <param name="conversionPattern" value="%t %-5p %c{2} - %m%n"/>
-   </layout>
-</appender>
+		<param name="file" value="Hub-Lille1.log" />
+		<param name="immediateFlush" value="true" />
+		<param name="threshold" value="true" />
+		<param name="append" value="false" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="conversionPattern" value="%t %-5p: %c - %m%n" />
+		</layout>
+	</appender>
 
 	<appender name="console" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.out" />
@@ -19,21 +19,21 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
-	
+
 	<!-- Application Loggers -->
 	<logger name="ipint.glp.controlleurs">
 		<level value="info" />
 	</logger>
-	
+
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="org.springframework.beans">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="org.springframework.context">
 		<level value="info" />
 	</logger>
@@ -41,17 +41,39 @@
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
-	
+
 	<logger name="log4j.rootLogger" additivity="false">
-   <level value="DEBUG"/>
-   <appender-ref ref="console"/>
-</logger>
+		<level value="DEBUG" />
+		<appender-ref ref="console" />
+	</logger>
 
 	<!-- Root Logger -->
-	<root>
-		<priority value="warn" />
-		<appender-ref ref="file" />
-	</root>
+	<!-- <root> -->
+	<!-- <priority value="warn" /> -->
+	<!-- <appender-ref ref="console" /> -->
+	<!-- </root> -->
+
+	<!-- debug -->
+	<appender name="CONSOLE_DEBUG" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.err" />
+		<param name="Threshold" value="DEBUG" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{ABSOLUTE} %-5p: %c - %m%n" />
+		</layout>
+		<filter class="org.apache.log4j.varia.LevelRangeFilter">
+			<param name="LevelMin" value="DEBUG" />
+			<param name="LevelMax" value="DEBUG" />
+		</filter>
+	</appender>
+
+	<category name="org.springframework.jdbc" additivity="true">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE_DEBUG" />
+	</category>
 	
+	<category name="ipint.glp.controlleurs" additivity="true">
+		<priority value="DEBUG" />
+		<appender-ref ref="CONSOLE_DEBUG" />
+	</category>
 
 </log4j:configuration>

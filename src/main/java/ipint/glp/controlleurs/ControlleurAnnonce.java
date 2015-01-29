@@ -9,14 +9,11 @@ import ipint.glp.metiers.MetierAnnonce;
 import ipint.glp.metiers.MetierCategorie;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,8 +21,6 @@ import org.springframework.security.cas.authentication.CasAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,16 +35,7 @@ public class ControlleurAnnonce {
 	private MetierAnnonce metierAnnonce = new MetierAnnonce();
 	private MetierCategorie metierCategorie = new MetierCategorie();
 	
-	/**
-	 * Register a validator that will be lookup when a parameter is binded to a
-	 * handler argument (with @ModelAttribute() for example).
-	 * 
-	 * @param binder
-	 */
-	@InitBinder("Annone")
-	protected void initBinder(WebDataBinder binder) {
-		binder.addValidators(new ValideurAnnonce());
-	}
+	ValideurAnnonce valideurAnnonce =  new ValideurAnnonce();
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -57,12 +43,10 @@ public class ControlleurAnnonce {
 
 	@RequestMapping("/annonce/creer")
 	public ModelAndView creerAnnonce(@RequestParam("categorieChoisie")String categorieChoisie, Model model) {
-		System.err.println(categorieChoisie);
 		Categorie categorie = metierCategorie.getCategorie(categorieChoisie);
 		if (categorie == null) {
 			return new ModelAndView("annonce/categorie/choix");
 		}
-		System.err.println(categorie);
 		FormAnnonce formAnnonce = new FormAnnonce();
 		formAnnonce.setCategorieObject(categorie);
 		return new ModelAndView("annonce/creer", "annonce", formAnnonce);
@@ -122,16 +106,18 @@ public class ControlleurAnnonce {
 //		//model.addAttribute("annonce", annonce);
 //		return "redirect:/annonce";
 //	}
+	
 	@RequestMapping(value = "/annonce/creer", method = RequestMethod.POST)
-	public String creerAnnonce(@RequestParam("categorie")String categorie,@RequestParam("titre")String titre,@RequestParam("description")String description,HttpServletRequest request,@RequestParam Map parameters, @Valid @ModelAttribute("annonce") FormAnnonce formAnnonce,
+	public String creerAnnonce(@RequestParam("categorie")String categorie, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
 			BindingResult bindingResultOfAnnonce,Model model) {
 		model.addAttribute("estUnSucces", true);
+		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		if (bindingResultOfAnnonce.hasErrors()) {
 			model.addAttribute("estUnSucces", false);
 			return "annonce/creer";
 		}
 		
-		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
+//		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
 	/*	for(Champ ch : formAnnonce.getCategorieObject().getChamps())
 		{
 			if(ch.getTypeChamp() == TypeChamp.IMAGE)
@@ -160,21 +146,18 @@ public class ControlleurAnnonce {
 			}
 		}*/
 		
-		for(Entry<String, String> entry : lesChamps.entrySet()) {
-			System.err.println(entry.getKey());
-			System.err.println(entry.getValue());	
-		}
-		
-		System.err.println("reussi");
+//		for(Entry<String, String> entry : lesChamps.entrySet()) {
+//			System.err.println(entry.getKey());
+//			System.err.println(entry.getValue());	
+//		}
 		
 	//	util.setEmail("test@test.fr");
-		formAnnonce.getLesChamps().put("titre", titre);
-		formAnnonce.getLesChamps().put("description", description);
 		
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),titre, description, (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//model.addAttribute("annonce", annonce);
-		return "redirect:/annonce";
+		System.err.println(annonce.getId());
+		return "redirect:/annonce/consulter?ref=" + annonce.getId();
 	}
 
 
