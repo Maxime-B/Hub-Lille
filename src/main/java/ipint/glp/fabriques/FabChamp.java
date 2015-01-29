@@ -56,4 +56,8 @@ public class FabChamp {
 		}
 		return champs;
 	}
+	
+	public Champ getChamp(String libelle){
+		return lesChamps.get(libelle);
+	}
 }

@@ -15,4 +15,8 @@ public class MetierChamp {
 	public List<Champ> listerChamps() {
 		return FabChamp.getInstance().listerChamps();
 	}
+	
+	public Champ getChamp(String libelle){
+		return FabChamp.getInstance().getChamp(libelle);
+	}
 }
