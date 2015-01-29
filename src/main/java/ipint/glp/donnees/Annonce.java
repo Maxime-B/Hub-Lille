@@ -19,6 +19,7 @@ public class Annonce {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	
 	@ManyToOne(cascade= CascadeType.PERSIST)
 	private Utilisateur utilisateur;
 	
@@ -31,8 +32,26 @@ public class Annonce {
 	@Enumerated(EnumType.STRING)
 	private TypeAnnonce type;
 	
+	private String titre;
+	private String description;
 	private String image1;
 	
+	public String getTitre() {
+		return titre;
+	}
+
+	public void setTitre(String titre) {
+		this.titre = titre;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 	public Annonce() {
 		super();
 		

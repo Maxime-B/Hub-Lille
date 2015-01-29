@@ -16,7 +16,7 @@ import connexion.Connexion;
 public class FabAnnonce {
 
 
-	static FabAnnonce fb;
+static FabAnnonce fb;
 	private HashMap<Integer,Annonce> lesAnnonces;
 	private Connexion connexion;
 	
@@ -34,11 +34,26 @@ public class FabAnnonce {
 	}
 	
 
-	public Annonce creerAnnonce(Categorie categorie,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
+//	public Annonce creerAnnonce(Categorie categorie,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
+//		this.listerAnnonces();
+//		Annonce a = new Annonce();
+//		a.setCategorie(categorie);
+//		
+//		a.setType(typeAnnonce);
+//		a.setUtilisateur(utilisateur);
+//		a.setLesChamps(lesChamps);
+//		connexion.getEm().persist(a);
+//		utilisateur.addAnnonce(a);
+//		lesAnnonces.put(a.getId(),a);
+//		categorie.addAnnonce(a);
+//		return a;
+//	}
+	public Annonce creerAnnonce(Categorie categorie,String titre, String description,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
 		this.listerAnnonces();
 		Annonce a = new Annonce();
 		a.setCategorie(categorie);
-		
+		a.setDescription(description);
+		a.setTitre(titre);
 		a.setType(typeAnnonce);
 		a.setUtilisateur(utilisateur);
 		a.setLesChamps(lesChamps);
@@ -101,6 +116,40 @@ public class FabAnnonce {
 		return l.get(0);
 	}
 	
+	public List<Annonce> chercherAnnonceParMotCle(String motCle){
+		Query query = connexion.getEm().createQuery("Select ann from Annonce ann where LOWER(ann.titre) like LOWER(:motCle) or LOWER(ann.description) like LOWER(:motCle)");
+		query.setParameter("motCle", "%"+motCle+"%");
+		
+		//Query query = connexion.getEm().createQuery("Select Job.id from Job where Job.titre ='mot'");
+		List<Annonce> anns = query.getResultList();
+		lesAnnonces.clear();
+		for(Annonce a : anns){
+			lesAnnonces.put(a.getId(), a);
+		}
+		return anns;
+	}
+	public List<Annonce> chercherAnnonceParMotCleCate(String motCle,Categorie categorie){
+	/*	Query query = connexion.getEm().createQuery("Select ann from Annonce ann where LOWER(ann.titre) like LOWER(:motCle) or LOWER(ann.description) like LOWER(:motCle) and ann.categorie= :categorie)");
+	query.setParameter("motCle", "%"+motCle+"%");
+		query.setParameter("categorie", categorie.getNom());*/
+		//Query query = connexion.getEm().createQuery("Select Job.id from Job where Job.titre ='mot'");
+		//List<Annonce> anns = query.getResultList();
+		List<Annonce> anns = categorie.getLesAnnonces();
+		System.out.println(anns.size());
+		List<Annonce> annsFinal = new ArrayList();
+		lesAnnonces.clear();
+		for(Annonce a : anns){
+			//lesAnnonces.put(a.getId(), a);
+			System.out.println("**********************");
+			System.out.println(a.getTitre().indexOf(motCle));
+			if ((a.getTitre().indexOf(motCle)>=0) || (a.getDescription().indexOf(motCle)>=0))
+			//if ((a.getTitre()==motCle) || (a.getDescription()==motCle))
+				annsFinal.add(a);
+		}
+		System.out.println(annsFinal.size());
+		return annsFinal;
+		
+	}
 	
 
 }
