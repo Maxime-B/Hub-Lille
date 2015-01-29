@@ -55,7 +55,7 @@ public class ValideurAnnonce implements Validator {
 		// le reste des champs
 		for (Champ champ : formAnnonce.getCategorieObject().getChamps()) {
 			String libelle = champ.getLibelle();
-			String path = "lesChamps['" + libelle + "']";
+			String path = champ.getTypeChamp().name().toLowerCase() + "['" + libelle + "']";
 			String value = formAnnonce.getLesChamps().get(libelle);
 
 			if (champ.isObligatoire()) {
