@@ -26,7 +26,11 @@ public class MetierUtilisateur {
 	public Utilisateur getUtilisateur(CasAuthenticationToken principal){
 		//TODO supprimer ce if en production
 		if (principal == null) {
-			return new Utilisateur("null", "null", "null", "null", Droit.DEFAUT);
+			Utilisateur utilisateur = fabUtilisateur.obtenir("null");
+			if (utilisateur == null) {
+				utilisateur = creerUtilisateur("null", "null", "null", "null", Droit.DEFAUT);
+			}
+			return utilisateur;
 		}
 		
 		Utilisateur utilisateur = fabUtilisateur.obtenir(principal.getName());
