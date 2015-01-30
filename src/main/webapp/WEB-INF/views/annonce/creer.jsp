@@ -52,7 +52,7 @@
 					<c:set var="path" value="${fn:toLowerCase(item.typeChamp)}['${item.libelle}']" />
 					<div>
 						<form:label path="${path}" cssErrorClass="error">
-							<spring:message code="annonce.creer.label.${item.libelle}" />
+							${item.libelle}
 							<c:if test='${item.obligatoire}'>
 								<small><spring:message code="annonce.creer.requis" /></small>
 							</c:if>

@@ -17,17 +17,17 @@ public class ControlleurChamp {
 
 	MetierChamp metierChamp = new MetierChamp();
 	
-	@RequestMapping(value = "/nouveauChamp", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/nouveauChamp", method = RequestMethod.GET)
 	public String nouveauChamp(Locale locale, Model model) {
 		model.addAttribute("champ", new Champ());
 		model.addAttribute("typeChamps",TypeChamp.values());
-		return "nouveauChamp";
+		return "/admin/nouveauChamp";
 	}
 	
-	@RequestMapping(value = "/creationChamp", method = RequestMethod.POST)
+	@RequestMapping(value = "/admin/creationChamp", method = RequestMethod.POST)
 	public String creationChamp(@ModelAttribute("champ")Champ champ,Locale locale, Model model) {
 		metierChamp.creerChamp(champ.getLibelle(), champ.getLimite(), champ.getTypeChamp(), champ.isObligatoire());
 		model.addAttribute("champs",metierChamp.listerChamps());
-		return "nouvelleCategorie";
+		return "/admin/nouvelleCategorie";
 	}
 }
