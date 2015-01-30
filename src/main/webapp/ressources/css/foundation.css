@@ -2121,8 +2121,8 @@ meta.foundation-mq-topbar {
         background: #ae2573; }
       .top-bar-section .dropdown li:not(.has-form):not(.active):hover > a:not(.button) {
         color: #FFFFFF;
-        background-color: #ae2573;
-        background: #ae2573; }
+        background-color: #bf3684;
+        background: #bf3684; }
       .top-bar-section .dropdown li label {
         white-space: nowrap;
         background: #333333; }
@@ -3364,17 +3364,17 @@ ul.pagination {
   list-style-position: outside;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif; }
   .side-nav li {
-    margin: 0 0 0.4375rem 0;
+    margin: 0;
     font-size: 0.875rem;
     font-weight: normal; }
     .side-nav li a:not(.button) {
       display: block;
-      color: #008CBA;
+      color: #bf3684;
       margin: 0;
       padding: 0.4375rem 0.875rem; }
       .side-nav li a:not(.button):hover, .side-nav li a:not(.button):focus {
-        background: rgba(0, 0, 0, 0.025);
-        color: #1cc7ff; }
+        background: rgba(174, 37, 115, 0.1);
+        color: #ae2573; }
     .side-nav li.active > a:first-child:not(.button) {
       color: #1cc7ff;
       font-weight: normal;
@@ -3678,7 +3678,7 @@ ol,
 dl {
   font-size: 1rem;
   line-height: 1.6;
-  margin-bottom: 1.25rem;
+  margin-bottom: 0rem;
   list-style-position: outside;
   font-family: inherit; }
 

@@ -1,4 +1,4 @@
-<ul class="side-nav">
+<ul class="four side-nav">
 	<li><a href="${pageContext.request.contextPath}/annonce">Annonces</a>
 		<ul style="list-style-type: none;">
 			<li><a href="${pageContext.request.contextPath}/annonce/categorie/choisir">Creer une
