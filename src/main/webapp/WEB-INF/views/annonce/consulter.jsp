@@ -13,40 +13,51 @@
 			<c:if test="${!empty param['estUnSucces']}">
 				<div class="alert-box success radius">L'annonce ${annonce.titre} est maintenant consultable.</div>
 			</c:if>
-
-			<table>
-				<tr>
-					<td>Description</td>
-					<td>${annonce.description}</td>
-				</tr>
-
-				<tr>
-					<td>Categorie</td>
-					<td>${annonce.categorie.nom }</td>
-				</tr>
-
+			<div class="row">
+				<div class="row">
+				  <div class="small-8 columns">
+				  	<div class="row">
+					<b>Nature de l'annonce</b>
+					<p>${annonce.type }</p>
+				</div>
+				<div class="row">
+					<b>Description</b>
+					<p>${annonce.description}</p>
+				</div>
+				
+				<div class="row">
+					<b>Categorie</b>
+					<p>${annonce.categorie.nom }</p>
+				</div>
 				<c:forEach items='${annonce.lesChamps}' var="item">
-					<tr>
-						<td>${item.key}</td>
-						<td>${item.value}</td>
-					</tr>
+					<div class="row">
+						<b>${item.key}<b>
+						<p>${item.value}<p>
+					</div>
 				</c:forEach>
-			</table>
-
-			<br />
-
-			<table>
-				<tr>
-					<td>Nature de l'annonce</td>
-					<td>${annonce.type }</td>
-				</tr>
-
-				<tr>
-					<td>Contact</td>
-					<td><A HREF="mailto:${annonce.utilisateur.email}">${annonce.utilisateur.email}</A>
-					</td>
-				</tr>
-			</table>
+				  </div>
+				  <div class="small-4 columns">
+				  <div class="row">
+				  <img src="/hublille1/ressources/img/pas-dimage.png" width="200" height="450" style="border: solid 1px;"/>
+				  </div>
+				  <br/><br/>
+				  <div class="row">
+				  Prix : ${annonce.lesChamps['prix']}
+				  </div>
+				  <br/><br/>
+				 
+				  	<form action="contacter" method="get">
+					<input type="hidden" name="ref" value="${annonce.id}"/>
+					<input type="submit" name="Contacter" value="Contacter"class="radius button"  style="padding: 10px 50px" >
+					</form>
+				  </div>
+				</div>
+				
+			</div>
+			
+		
+			
+		
 
 			<br /> <a href="/">Retour à la page d'accueil</a>
 

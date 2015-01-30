@@ -84,12 +84,13 @@ public class ControlleurAccueil {
 		champs1.add(c4);
 		champs1.add(c5);
 		champs1.add(c6);
+		champs1.add(c7);
 		
 		List<Champ> champs2 = new ArrayList<Champ>();
 		//champs2.add(c1);
 		//champs2.add(c2);
 		champs2.add(c6);
-		
+		champs2.add(c7);
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
 				"Covoiturage", champs1);
 		
