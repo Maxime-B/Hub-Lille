@@ -69,12 +69,12 @@
 							</c:when>
 
 							<c:when test="${item.typeChamp=='DATE'}">
-								<form:input  path="${path}" cssErrorClass="error" /><!-- type="date" -->
+								<form:input  path="${path}" cssErrorClass="error" type="date"/>
 							</c:when>
 
 							<c:when test="${item.typeChamp=='NUMERIQUE'}">
 								<form:input min="0" path="${path}"
-									cssErrorClass="error" /><!-- type="number" -->
+									cssErrorClass="error" type="number" />
 							</c:when>
 
 							<c:when test="${item.typeChamp=='IMAGE'}">

@@ -21,7 +21,7 @@
 				<c:if test="${not empty annonces}">
 				 <c:forEach items="${annonces}" var="annonce" >
 					<tr>
-						<td>${annonce.titre}</td>
+						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}">${annonce.titre}</a></td>
 						<td>${annonce.description}</td>
 					</tr>
 					</c:forEach>

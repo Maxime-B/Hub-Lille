@@ -5,8 +5,10 @@ import ipint.glp.controlleurs.valideurs.ValideurAnnonce;
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.TypeAnnonce;
+import ipint.glp.donnees.Utilisateur;
 import ipint.glp.metiers.MetierAnnonce;
 import ipint.glp.metiers.MetierCategorie;
+import ipint.glp.metiers.MetierUtilisateur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +36,7 @@ public class ControlleurAnnonce {
 			.getLogger(ControlleurAnnonce.class);
 	private MetierAnnonce metierAnnonce = new MetierAnnonce();
 	private MetierCategorie metierCategorie = new MetierCategorie();
+	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
 	
 	ValideurAnnonce valideurAnnonce =  new ValideurAnnonce();
 	
@@ -152,8 +155,8 @@ public class ControlleurAnnonce {
 //		}
 		
 	//	util.setEmail("test@test.fr");
-		
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur, TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//model.addAttribute("annonce", annonce);
 		System.err.println(annonce.getId());

@@ -15,12 +15,13 @@
 		<intercept-url pattern="/index" access="permitAll" />
 		<intercept-url pattern="/cas/cas-logout" access="permitAll" />
 		<intercept-url pattern="/cas/casfailed" access="permitAll" />
-
+		
 		<intercept-url pattern="/utilisateur/**" access="isAuthenticated()" />
-		<!-- <intercept-url pattern="/annonce/creer" access="isAuthenticated()" 
-			/> -->
-		<!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" 
-			/> -->
+		<!-- <intercept-url pattern="/admin/**" access="hasRole('ADMIN')" /> -->
+		<intercept-url pattern="/moderateur/**" access="hasRole('MODERATEUR')" />
+		<intercept-url pattern="/vie-etudiante/**" access="hasRole('VIE_ETUDIANTE')" />
+		<intercept-url pattern="/association/**" access="hasRole('ASSOCIATION')" />
+		<!-- <intercept-url pattern="/annonce/creer" access="isAuthenticated()" /> -->
 
 		<custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER" />
 		<custom-filter ref="singleLogoutFilter" before="CAS_FILTER" />

@@ -25,12 +25,26 @@
 	</li>
 	<li><a href="${pageContext.request.contextPath}/init"> #
 			Initialisation de la BD</a></li>
+</ul>
+
+<hr>
+<h6>Administration<h6>
+<ul class="four side-nav">
+	<li><a href="${pageContext.request.contextPath}/admin/droit">Droits</a>
+		<ul style="list-style-type: none;">
+			<li><a
+				href="${pageContext.request.contextPath}/admin/droit/modifier">Modifier les droits</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/droit"/>Lister les utilisateurs speciaux</a></li>
+		</ul></li>
+		
+		
+
 	<li><a
-		href="${pageContext.request.contextPath}/admin/categorieAdmin">Administration</a></li>
+		href="${pageContext.request.contextPath}/admin/categorieAdmin">Categorie</a></li>
 	<ul style="list-style-type: none;">
 		<li><a
 			href="${pageContext.request.contextPath}/admin/categorieAdmin">Administrer
-				catégorie</a></li>
+				catÃ©gorie</a></li>
 	</ul>
 	</li>
 </ul>
