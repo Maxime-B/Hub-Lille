@@ -8,51 +8,31 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
-	<http entry-point-ref="casEntryPoint" auto-config="true"
+	<!-- http://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#el-common-built-in -->
+	<http entry-point-ref="casEntryPoint" auto-config="false"
 		use-expressions="true">
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/index" access="permitAll" />
 		<intercept-url pattern="/cas/cas-logout" access="permitAll" />
 		<intercept-url pattern="/cas/casfailed" access="permitAll" />
 
-		<intercept-url pattern="/test" access="hasRole('ROLE_SUPERVISOR')" />
-		<intercept-url pattern="/utilisateur/**" access="hasRole('ROLE_USER')" />
-		<!-- <intercept-url pattern="/annonce/creer" access="hasRole('ROLE_USER')" 
+		<intercept-url pattern="/utilisateur/**" access="isAuthenticated()" />
+		<!-- <intercept-url pattern="/annonce/creer" access="isAuthenticated()" 
+			/> -->
+		<!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" 
 			/> -->
 
 		<custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER" />
 		<custom-filter ref="singleLogoutFilter" before="CAS_FILTER" />
 		<custom-filter ref="casFilter" position="CAS_FILTER" />
-		<logout logout-success-url="/cas/cas-logout" />
+		<logout logout-url="/utilisateur/deconnecter"
+			logout-success-url="/cas/cas-logout" invalidate-session="true"
+			delete-cookies="JSESSIONID" />
 		<!-- <csrf disabled="true"/> -->
 	</http>
 
-	<user-service id="userService">
-		<user name="clement.duhaupas" authorities="ROLE_USER,ROLE_ADMIN" />
-		<user name="guillaume.bergeus" authorities="ROLE_USER" />
-		<user name="hind.bahaoui" authorities="ROLE_USER" />
-		<user name="latifou.sano" authorities="ROLE_USER" />
-		<user name="maxime.briche" authorities="ROLE_USER" />
-		<user name="soukaina.bekkai" authorities="ROLE_USER" />
-
-		<user name="admin" authorities="ROLE_SUPERVISOR,ROLE_USER" />
-		<user name="etudiant" authorities="ROLE_USER" />
-		<user name="prof" authorities="ROLE_USER" />
-	</user-service>
-
-	<b:bean id="anonymousAuthFilter"
-		class="org.springframework.security.web.authentication.AnonymousAuthenticationFilter">
-		<b:property name="key" value="foobar" />
-		<b:property name="userAttribute" value="anonymousUser,ROLE_ANONYMOUS" />
-	</b:bean>
-
-	<b:bean id="anonymousAuthenticationProvider"
-		class="org.springframework.security.authentication.AnonymousAuthenticationProvider">
-		<b:property name="key" value="foobar" />
-	</b:bean>
-
 	<authentication-manager alias="authManager">
-		<authentication-provider ref="casAuthProvider" />
+		<authentication-provider ref="casAuthProvider"/>
 	</authentication-manager>
 
 	<!-- This filter handles a Single Logout Request from the CAS Server -->
@@ -105,17 +85,10 @@
 		p:serviceProperties-ref="serviceProperties" p:key="casAuthProviderKey">
 		<b:property name="authenticationUserDetailsService">
 			<b:bean
-				class="org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper">
-				<b:constructor-arg ref="userService" />
+				class="ipint.glp.controlleurs.security.AuthenticationUserDetailsServiceImpl"><!-- org.springframework.security.core.userdetails.UserDetailsByNameServiceWrapper -->
+				<!-- <b:constructor-arg ref="userService" /> -->
 			</b:bean>
 		</b:property>
-
-		<!-- <b:property name="ticketValidator"> -->
-		<!-- <b:bean class="org.jasig.cas.client.validation.Cas10TicketValidator"> -->
-		<!-- <b:constructor-arg index="0" -->
-		<!-- value="${cas.protocol}://${cas.server.host}/${cas.app.name}" /> -->
-		<!-- </b:bean> -->
-		<!-- </b:property> -->
 
 		<!-- erreur de parsing de xml, le seul pouvant transmettre des attributs -->
 		<b:property name="ticketValidator">
@@ -124,19 +97,6 @@
 					value="${cas.protocol}://${cas.server.host}/${cas.app.name}" />
 			</b:bean>
 		</b:property>
-
-		<!-- <b:property name="ticketValidator"> -->
-		<!-- <b:bean class="org.jasig.cas.client.validation.Cas20ServiceTicketValidator"> -->
-		<!-- <b:constructor-arg index="0" -->
-		<!-- value="${cas.protocol}://${cas.server.host}/${cas.app.name}" /> -->
-		<!-- </b:bean> -->
-		<!-- </b:property> -->
-
-		<!-- proxy du client cas nécessitant que le service soit en https -->
-		<!-- <b:property name="ticketValidator"> <b:bean class="org.jasig.cas.client.validation.Cas20ProxyTicketValidator" 
-			p:acceptAnyProxy="true" p:proxyCallbackUrl="${service.protocol}://${service.host}/${service.app.name}/j_spring_cas_security_proxyreceptor" 
-			p:proxyGrantingTicketStorage-ref="pgtStorage"> <b:constructor-arg value="${cas.protocol}://${cas.server.host}/${cas.app.name}" 
-			/> </b:bean> </b:property> -->
 
 		<b:property name="statelessTicketCache">
 			<b:bean
@@ -160,20 +120,32 @@
 		</b:property>
 	</b:bean>
 
-
+	<!-- 1.4. Hierarchical Roles -->
+	<b:bean id="roleVoter"
+		class="org.springframework.security.access.vote.RoleHierarchyVoter">
+		<b:constructor-arg ref="roleHierarchy" />
+	</b:bean>
+	<b:bean id="roleHierarchy"
+		class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
+		<b:property name="hierarchy">
+			<b:value>
+				ADMIN > MODERATEUR
+				MODERATEUR > VIE_ETUDIANTE
+				VIE_ETUDIANTE > ASSOCIATION
+				ASSOCIATION > DEFAUT
+			</b:value>
+		</b:property>
+	</b:bean>
+	<!-- fin 1.4. Hierarchical Roles -->
 
 	<!-- Configuration for the environment can be overriden by system properties -->
 	<context:property-placeholder
 		system-properties-mode="OVERRIDE" properties-ref="environment" />
 
-	<!-- <util:properties id="environment"> -->
-	<!-- <b:prop key="service.protocol">http</b:prop> -->
-	<!-- <b:prop key="cas.protocol">https</b:prop> -->
-	<!-- <b:prop key="service.host">b12p9.fil.univ-lille1.fr:8080</b:prop> -->
-	<!-- <b:prop key="cas.server.host">sso-cas.univ-lille1.fr</b:prop> -->
-	<!-- <b:prop key="cas.app.name"></b:prop> -->
-	<!-- <b:prop key="service.app.name">hublille1</b:prop> -->
-	<!-- </util:properties> -->
+	<!-- <util:properties id="environment"> <b:prop key="service.protocol">http</b:prop> 
+		<b:prop key="cas.protocol">https</b:prop> <b:prop key="service.host">b12p9.fil.univ-lille1.fr:8080</b:prop> 
+		<b:prop key="cas.server.host">sso-cas.univ-lille1.fr</b:prop> <b:prop key="cas.app.name"></b:prop> 
+		<b:prop key="service.app.name">hublille1</b:prop> </util:properties> -->
 
 	<util:properties id="environment">
 		<b:prop key="service.protocol">http</b:prop>
