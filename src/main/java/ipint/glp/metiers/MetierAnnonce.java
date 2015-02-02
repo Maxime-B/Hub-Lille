@@ -26,8 +26,7 @@ public class MetierAnnonce {
 		Annonce annonce = FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.offre, lesChamps);
 		return annonce;
 	}*/
-	public Annonce creerAnnonce(Categorie categorie,String titre, String description,CasAuthenticationToken principal,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
-		Utilisateur utilisateur = metierUtilisateur.getUtilisateur(principal);
+	public Annonce creerAnnonce(Categorie categorie,String titre, String description,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
 		return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.offre, lesChamps);
 	}
 	

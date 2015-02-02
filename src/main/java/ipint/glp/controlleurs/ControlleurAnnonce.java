@@ -1,14 +1,18 @@
 package ipint.glp.controlleurs;
 
 import ipint.glp.controlleurs.forms.FormAnnonce;
+import ipint.glp.controlleurs.forms.FormContact;
+import ipint.glp.controlleurs.valideurs.ValidateurContact;
 import ipint.glp.controlleurs.valideurs.ValideurAnnonce;
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.TypeChamp;
+import ipint.glp.donnees.Utilisateur;
 import ipint.glp.metiers.MetierAnnonce;
 import ipint.glp.metiers.MetierCategorie;
+import ipint.glp.metiers.MetierUtilisateur;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -18,10 +22,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +42,6 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.common.io.Files;
-
 @Controller
 public class ControlleurAnnonce implements ServletContextAware{
 
@@ -47,8 +49,10 @@ public class ControlleurAnnonce implements ServletContextAware{
 			.getLogger(ControlleurAnnonce.class);
 	private MetierAnnonce metierAnnonce = new MetierAnnonce();
 	private MetierCategorie metierCategorie = new MetierCategorie();
+	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
 	
 	ValideurAnnonce valideurAnnonce =  new ValideurAnnonce();
+	ValidateurContact validateurcontact = new ValidateurContact();
 	@Autowired
 	ServletContext servletcontext;
 	/**
@@ -167,8 +171,8 @@ public class ControlleurAnnonce implements ServletContextAware{
 //		}
 		
 	//	util.setEmail("test@test.fr");
-		
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur, TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//model.addAttribute("annonce", annonce);
 		System.err.println(annonce.getId());
@@ -231,6 +235,33 @@ public class ControlleurAnnonce implements ServletContextAware{
 		model.addAttribute("ref",ref);
 		return "annonce/consulter";
 	}
+
+	@RequestMapping(value = "/annonce/contacter")
+	public String contactAnnonce(@RequestParam("ref")int ref, @ModelAttribute("formcontact") FormContact formcontact,
+			BindingResult bindingResultOfContact,Model model)
+			{
+				Annonce annonce = metierAnnonce.rechercher(ref);
+				formcontact.setEmeteur("latifou.sano@gmail.com");
+				model.addAttribute("a", annonce);
+				return "annonce/contacter";
+			}
+	
+	@RequestMapping(value = "/annonce/contacter",method = RequestMethod.POST)
+	public String contacterAnnonce(@RequestParam("ref")int ref, @ModelAttribute("formcontact") FormContact formcontact,
+			BindingResult bindingResultOfContact,Model model)
+			{
+		validateurcontact.validate(formcontact, bindingResultOfContact);
+		if (bindingResultOfContact.hasErrors()) {
+			return "annonce/contacter";
+		}
+		
+		
+				Annonce annonce = metierAnnonce.rechercher(ref);
+		model.addAttribute("estUnSucces", true);
+		model.addAttribute("a", annonce);
+				return "annonce/contacter";
+			}
+			
 
 	@Override
 	public void setServletContext(ServletContext sc) {

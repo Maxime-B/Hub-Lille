@@ -60,7 +60,6 @@
 		
 
 			<br /> <a href="/">Retour à la page d'accueil</a>
-
 		</section>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

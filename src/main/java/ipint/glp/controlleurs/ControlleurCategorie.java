@@ -24,19 +24,19 @@ public class ControlleurCategorie {
 	MetierCategorie metierCategorie = new MetierCategorie();
 	MetierChamp metierChamp = new MetierChamp();
 	
-	@RequestMapping(value = "/categorieAdmin", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/categorieAdmin", method = RequestMethod.GET)
 	public String adminCategorie(Locale locale, Model model) {
 		model.addAttribute("categories",metierCategorie.listerCategories());
-		return "categorieAdmin";
+		return "admin/categorieAdmin";
 	}
 
-	@RequestMapping(value = "/nouvelleCategorie", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/nouvelleCategorie", method = RequestMethod.GET)
 	public String nouvelleCategorie(Locale locale, Model model) {
 		model.addAttribute("champs",metierChamp.listerChamps());
-		return "nouvelleCategorie";
+		return "admin/nouvelleCategorie";
 	}
 	
-	@RequestMapping(value = "/creationCategorie", method = RequestMethod.GET)
+	@RequestMapping(value = "/admin/creationCategorie", method = RequestMethod.GET)
 	public String creationCategorie(Locale locale,Model model, @RequestParam("nomCategorie") String nomCategorie,String[] champs) {
 		List<Champ> lesChamps = new ArrayList<Champ>();
 		for(String libelle : champs){
@@ -44,6 +44,7 @@ public class ControlleurCategorie {
 			lesChamps.add(metierChamp.getChamp(libelle));
 		}
 		metierCategorie.creerCategorie(nomCategorie, lesChamps);
-		return "nouvelleCategorie";
+		model.addAttribute("champs",metierChamp.listerChamps());
+		return "/admin/nouvelleCategorie";
 	}
 }

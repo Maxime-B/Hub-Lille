@@ -5,7 +5,5 @@
 <tiles-definitions>
 	<definition name="job" extends="global"
 		template="/WEB-INF/views/template/template.jsp">
-		<put-attribute name="nav"
-			value="/WEB-INF/views/template/job/nav.jsp" />
 	</definition>
 </tiles-definitions>

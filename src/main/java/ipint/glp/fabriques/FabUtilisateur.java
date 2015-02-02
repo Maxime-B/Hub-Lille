@@ -2,11 +2,15 @@ package ipint.glp.fabriques;
 
 import ipint.glp.donnees.Droit;
 import ipint.glp.donnees.Utilisateur;
+import ipint.glp.donnees.Utilisateur_;
 
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import connexion.Connexion;
 
@@ -44,6 +48,19 @@ public class FabUtilisateur {
 		Query query = connexion.getEm().createQuery("Select ut from Utilisateur ut");
 		List<Utilisateur> utilisateurs = query.getResultList();
 		return utilisateurs;
+	}
+	
+	public List<Utilisateur> listerParDroitSpeciaux() {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Utilisateur> cq = cb.createQuery(Utilisateur.class);
+		Root<Utilisateur> root = cq.from(Utilisateur.class);
+		return em.createQuery(
+			cq.select(root)
+			.where(cb.notEqual(root.get(Utilisateur_.droit), Droit.DEFAUT))
+			.orderBy(cb.asc(root.get(Utilisateur_.droit)))
+		)
+		//.setMaxResults(50)
+		.getResultList();
 	}
 	
 	public Utilisateur obtenir(String login) {

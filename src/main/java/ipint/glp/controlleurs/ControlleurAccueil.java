@@ -97,9 +97,6 @@ public class ControlleurAccueil {
 		Categorie categorie2 = FabCategorie.getInstance().creerCategorie(
 				"Biens", champs2);
 		
-		Utilisateur utilisateur = FabUtilisateur.getInstance()
-				.creer("toto.titi", "toto", "titi", "toto.titi@gmail.com",
-						Droit.ADMIN);
 		return "index";
 	}
 	/*private void init2() {
