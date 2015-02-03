@@ -1,4 +1,3 @@
-//JSP
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
@@ -15,7 +14,7 @@
 
 			<div style="text-align: left">
 				<h3>
-					<spring:message code="annonce.creer.titre" />
+					<spring:message code="annonce.contacter.titre" /> "${a.titre }"
 				</h3>
 				
 			</div>
@@ -24,7 +23,7 @@
 				modelAttribute="formcontact">
 				<c:if test='${estUnSucces}'>
 					<div class="alert-box success radius">
-						<spring:message code="annonce.creer.succes" />
+						<spring:message code="annonce.contacter.succes" />
 					</div>
 				</c:if>
 				<c:if test='${!estUnSucces}'>
@@ -32,18 +31,18 @@
 				</c:if>
 
 									<input type="hidden" name="ref" value="${a.id}"/>
-				Emetteur
-				<form:input type="text" path="emeteur" placeholder="50 char max" cssErrorClass="error"/>
+				<spring:message code="annonce.contacter.emetteur" />
+				<form:input type="text" path="emeteur"  cssErrorClass="error"/>
 				<form:errors path="emeteur" cssClass="error" />
 				
 				
-				Objet
-				<form:input type="text" path="objet" placeholder="50 char max" cssErrorClass="error"/>
+				<spring:message code="annonce.contacter.objet" />
+				<form:input type="text" path="objet"  cssErrorClass="error"/>
 				<form:errors path="emeteur" cssClass="error" />
 
-				Message
+				<spring:message code="annonce.contacter.message" />
 				<form:textarea path="message" rows="5" cols="30"
-					placeholder="200 caractÃ¨re max" cssErrorClass="error"></form:textarea>
+					 cssErrorClass="error"></form:textarea>
 				<form:errors path="message" cssClass="error" />
 				
 			

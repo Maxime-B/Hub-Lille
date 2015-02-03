@@ -25,11 +25,11 @@ public class ValidateurContact implements Validator{
 	public void validate(Object arg0, Errors e) {
 		// TODO Auto-generated method stub
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "emeteur",
-				"evenement.erreur.titre.requis");
+				"annonce.contacter.erreur.emetteur.requis");
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "objet",
-				"evenement.erreur.dateDebut.requis");
+				"annonce.contacter.erreur.objet.requis");
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "message",
-				"evenement.erreur.dateDebut.requis");
+				"annonce.contacter.erreur.message.requis");
 	}
 
 
