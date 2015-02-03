@@ -17,12 +17,15 @@
 					<form:input type="text" path="login" /> 
 					
 					<form:label path="droit">droit</form:label>
-					<form:input type="text" path="droit" />
+					<form:select path="droit">
+						<c:forEach items="${droits}" var="droit">
+							<form:option value="${droit}">${droit}</form:option>
+						</c:forEach>
+					</form:select>
 						
 					<input type="submit" value="valider" class="radius button"/>
 				</fieldset>
 			</form:form>
-
 		</section>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

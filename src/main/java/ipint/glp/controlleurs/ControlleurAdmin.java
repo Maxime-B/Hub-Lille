@@ -28,12 +28,14 @@ public class ControlleurAdmin {
 	}
 	
 	@RequestMapping(value = "/admin/droit/modifier", method = RequestMethod.GET)
-	public ModelAndView modifierDroitForm() {
+	public ModelAndView modifierDroitForm(Model model) {
+		model.addAttribute("droits", Droit.values());
 		return new ModelAndView("/admin/droit/modifier","utilisateur", new FormDroit());
 	}
 
 	@RequestMapping(value = "/admin/droit/modifier", method = RequestMethod.POST)
-	public String modifierDroit(@ModelAttribute("utilisateur") FormDroit formDroit) {
+	public String modifierDroit(Model model, @ModelAttribute("utilisateur") FormDroit formDroit) {
+		model.addAttribute("droits", Droit.values());
 		Utilisateur utilisateur = metierUtilisateur.getUtilisateur(formDroit.getLogin());
 		//TODO validateur
 //		Droit droitObject;

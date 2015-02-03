@@ -56,7 +56,7 @@ public class FabUtilisateur {
 		Root<Utilisateur> root = cq.from(Utilisateur.class);
 		return em.createQuery(
 			cq.select(root)
-			.where(cb.notEqual(root.get(Utilisateur_.droit), Droit.DEFAUT))
+			.where(cb.notEqual(root.get(Utilisateur_.droit), Droit.ROLE_DEFAUT))
 			.orderBy(cb.asc(root.get(Utilisateur_.droit)))
 		)
 		//.setMaxResults(50)
@@ -72,7 +72,8 @@ public class FabUtilisateur {
 	}
 
 	public Utilisateur modifier(Utilisateur o) {
-		em.merge(o);
+		em.persist(o);
+		//em.merge(o);
 		return o;
 	}
 	

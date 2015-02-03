@@ -29,11 +29,10 @@ public class MetierUtilisateur {
 		if (principal == null) {
 			Utilisateur utilisateur = fabUtilisateur.obtenir("null");
 			if (utilisateur == null) {
-				utilisateur = creerUtilisateur("null", "null", "null", "null", Droit.DEFAUT);
+				utilisateur = creerUtilisateur("null", "null", "null", "null", Droit.ROLE_DEFAUT);
 			}
 			return utilisateur;
 		}
-		
 		return getUtilisateur(principal.getAssertion());
 	}
 	
@@ -50,7 +49,7 @@ public class MetierUtilisateur {
 		Utilisateur utilisateur = fabUtilisateur.obtenir(assertion.getPrincipal().getName());
 		if (utilisateur == null) {
 			Map<String, String> map = assertion.getPrincipal().getAttributes();
-			utilisateur = creerUtilisateur(assertion.getPrincipal().getName(), map.get("givenname"), map.get("sn"), map.get("mail"), Droit.DEFAUT);
+			utilisateur = creerUtilisateur(assertion.getPrincipal().getName(), map.get("givenname"), map.get("sn"), map.get("mail"), Droit.ROLE_DEFAUT);
 		} else if (utilisateur.getEmail() == null) {
 			Map<String, String> map = assertion.getPrincipal().getAttributes();
 			utilisateur.setPrenom(map.get("givenname"));
@@ -68,7 +67,7 @@ public class MetierUtilisateur {
 	public Utilisateur getUtilisateur(String login) {
 		Utilisateur utilisateur = fabUtilisateur.obtenir(login);
 		if (utilisateur == null) {
-			utilisateur = creerUtilisateur(login,null,null,null, Droit.DEFAUT);
+			utilisateur = creerUtilisateur(login,null,null,null, Droit.ROLE_DEFAUT);
 		}
 		return utilisateur;
 	}

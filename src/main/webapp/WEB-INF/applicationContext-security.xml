@@ -10,18 +10,20 @@
 
 	<!-- http://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#el-common-built-in -->
 	<http entry-point-ref="casEntryPoint" auto-config="false"
-		use-expressions="true">
+		use-expressions="true" access-decision-manager-ref="accessDecisionManager">
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/index" access="permitAll" />
 		<intercept-url pattern="/cas/cas-logout" access="permitAll" />
 		<intercept-url pattern="/cas/casfailed" access="permitAll" />
-		
+
 		<intercept-url pattern="/utilisateur/**" access="isAuthenticated()" />
-		<!-- <intercept-url pattern="/admin/**" access="hasRole('ADMIN')" /> -->
-		<intercept-url pattern="/moderateur/**" access="hasRole('MODERATEUR')" />
-		<intercept-url pattern="/vie-etudiante/**" access="hasRole('VIE_ETUDIANTE')" />
-		<intercept-url pattern="/association/**" access="hasRole('ASSOCIATION')" />
-		<!-- <intercept-url pattern="/annonce/creer" access="isAuthenticated()" /> -->
+		<!-- <intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')" 
+			/> -->
+		<intercept-url pattern="/moderateur/**" access="hasRole('ROLE_MODERATEUR')" />
+		<intercept-url pattern="/vie-etudiante/**" access="hasRole('ROLE_VIE_ETUDIANTE')" />
+		<intercept-url pattern="/association/**" access="hasRole('ROLE_ASSOCIATION')" />
+		<!-- <intercept-url pattern="/annonce/creer" access="isAuthenticated()" 
+			/> -->
 
 		<custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER" />
 		<custom-filter ref="singleLogoutFilter" before="CAS_FILTER" />
@@ -33,7 +35,7 @@
 	</http>
 
 	<authentication-manager alias="authManager">
-		<authentication-provider ref="casAuthProvider"/>
+		<authentication-provider ref="casAuthProvider" />
 	</authentication-manager>
 
 	<!-- This filter handles a Single Logout Request from the CAS Server -->
@@ -44,7 +46,7 @@
 		class="org.springframework.security.web.authentication.logout.LogoutFilter"
 		p:filterProcessesUrl="/utilisateur/deconnecter">
 		<b:constructor-arg
-			value="${cas.protocol}://${cas.server.host}/${cas.app.name}/logout" />
+			value="${cas.protocol}://${cas.server.host}/${cas.app.name}/logout?service=${service.protocol}://${service.host}/${service.app.name}/" />
 		<b:constructor-arg>
 			<b:bean
 				class="org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler" />
@@ -121,19 +123,60 @@
 		</b:property>
 	</b:bean>
 
+	<global-method-security secured-annotations="enabled"
+		pre-post-annotations="enabled">
+		<expression-handler ref="defaultMethodSecurityExpressionHandler" />
+	</global-method-security>
+
+	<b:bean id="defaultMethodSecurityExpressionHandler"
+		class="org.springframework.security.access.expression.method.DefaultMethodSecurityExpressionHandler">
+		<b:property name="roleHierarchy" ref="roleHierarchy" />
+	</b:bean>
+
 	<!-- 1.4. Hierarchical Roles -->
+	<b:bean id="accessDecisionManager"
+		class="org.springframework.security.access.vote.AffirmativeBased">
+		<b:property name="decisionVoters">
+			<b:list>
+				<b:ref bean="roleVoter" />
+				<b:bean
+					class="org.springframework.security.web.access.expression.WebExpressionVoter" />
+				<b:bean
+					class="org.springframework.security.access.vote.AuthenticatedVoter" />
+				<b:ref bean="webExpressionHandler" />
+			</b:list>
+		</b:property>
+	</b:bean>
+
+	<b:bean id="webExpressionHandler"
+		class="org.springframework.security.web.access.expression.WebExpressionVoter">
+		<b:property name="expressionHandler">
+			<b:ref bean="expressionHandler" />
+		</b:property>
+	</b:bean>
+
+	<b:bean id="expressionHandler"
+		class="org.springframework.security.web.access.expression.DefaultWebSecurityExpressionHandler">
+		<b:property name="roleHierarchy" ref="roleHierarchy" />
+	</b:bean>
+
 	<b:bean id="roleVoter"
 		class="org.springframework.security.access.vote.RoleHierarchyVoter">
 		<b:constructor-arg ref="roleHierarchy" />
+		<!-- A décommenter pour ne plus etre obligé de préfixé les roles par ROLE_ -->
+		<!-- <b:property name="rolePrefix" value="" /> -->
 	</b:bean>
+
 	<b:bean id="roleHierarchy"
 		class="org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl">
 		<b:property name="hierarchy">
 			<b:value>
-				ADMIN > MODERATEUR
-				MODERATEUR > VIE_ETUDIANTE
-				VIE_ETUDIANTE > ASSOCIATION
-				ASSOCIATION > DEFAUT
+				ROLE_ADMIN > ROLE_MODERATEUR
+				ROLE_MODERATEUR >
+				ROLE_VIE_ETUDIANTE
+				ROLE_VIE_ETUDIANTE >
+				ROLE_ASSOCIATION
+				ROLE_ASSOCIATION > ROLE_DEFAUT
 			</b:value>
 		</b:property>
 	</b:bean>
