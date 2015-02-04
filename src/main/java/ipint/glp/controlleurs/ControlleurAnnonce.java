@@ -154,7 +154,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 			if( motCle == null && categorie !=null)
 				lesAnnonces=metierAnnonce.listerAnnoncesParCategorie(categorie);
 			else 
-				if(motCle != null && categorie ==null)
+				if(motCle != null && categorie == "")
 					lesAnnonces=metierAnnonce.chercherAnnonceParMotCle(motCle);
 			//lesAnnonces= metierAnnonce.chercherAnnonceParMotCle(motCle);
 				else
