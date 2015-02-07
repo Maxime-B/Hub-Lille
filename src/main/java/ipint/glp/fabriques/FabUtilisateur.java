@@ -4,7 +4,9 @@ import ipint.glp.donnees.Droit;
 import ipint.glp.donnees.Utilisateur;
 import ipint.glp.donnees.Utilisateur_;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -32,14 +34,14 @@ public class FabUtilisateur {
 		return fu;
 	}
 	
-	public Utilisateur creer(String login, String nom, String prenom, String email, Droit droit){
+	public Utilisateur creer(String login, String nom, String prenom, String email, Set<Droit> droits){
 		this.listerUtilisateurs();
 		Utilisateur u = new Utilisateur();
 		u.setLogin(login);
 		u.setNom(nom);
 		u.setPrenom(prenom);
 		u.setEmail(email);
-		u.setDroit(droit);
+		u.setDroits(droits);
 		connexion.getEm().persist(u);
 		return u;
 	}
@@ -50,14 +52,18 @@ public class FabUtilisateur {
 		return utilisateurs;
 	}
 	
-	public List<Utilisateur> listerParDroitSpeciaux() {
+	public List<Utilisateur> listerParRole() {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Utilisateur> cq = cb.createQuery(Utilisateur.class);
 		Root<Utilisateur> root = cq.from(Utilisateur.class);
+		HashSet<Droit> droitsParDefaut = new HashSet<Droit>();
+		droitsParDefaut.add(Droit.DEFAUT);
+		
 		return em.createQuery(
 			cq.select(root)
-			.where(cb.notEqual(root.get(Utilisateur_.droit), Droit.ROLE_DEFAUT))
-			.orderBy(cb.asc(root.get(Utilisateur_.droit)))
+			.where(cb.notEqual(root.get(Utilisateur_.droits), droitsParDefaut))
+			.orderBy(cb.asc(root.get(Utilisateur_.login)))
+			.distinct(true)
 		)
 		//.setMaxResults(50)
 		.getResultList();

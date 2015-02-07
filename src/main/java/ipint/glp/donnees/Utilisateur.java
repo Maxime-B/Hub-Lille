@@ -2,8 +2,11 @@ package ipint.glp.donnees;
 
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -21,8 +24,9 @@ public class Utilisateur {
 	
 	private String email;
 	
+	@ElementCollection(targetClass = Droit.class) 
 	@Enumerated(EnumType.STRING)
-	private Droit droit;
+	private Set<Droit> droits;
 
 	
 	@OneToMany(mappedBy="utilisateur", targetEntity=Annonce.class)
@@ -33,13 +37,23 @@ public class Utilisateur {
 		
 	}
 	
-	public Utilisateur(String login, String prenom, String nom, String email, Droit droit) {
+	public Utilisateur(String login, String prenom, String nom, String email) {
 		super();
 		this.login = login;
 		this.nom = nom;
 		this.prenom = prenom;
 		this.email = email;
-		this.droit = droit;
+		this.droits = new HashSet<Droit>();
+		droits.add(Droit.DEFAUT);
+	}
+	
+	public Utilisateur(String login, String prenom, String nom, String email, Set<Droit> droits) {
+		super();
+		this.login = login;
+		this.nom = nom;
+		this.prenom = prenom;
+		this.email = email;
+		this.droits = droits;
 	}
 	
 	public String getId() {
@@ -89,14 +103,6 @@ public class Utilisateur {
 		this.email = email;
 	}
 
-	public Droit getDroit() {
-		return droit;
-	}
-
-	public void setDroit(Droit droit) {
-		this.droit = droit;
-	}
-
 	public List<Annonce> getLesAnnonces() {
 		return lesAnnonces;
 	}
@@ -111,5 +117,26 @@ public class Utilisateur {
 	
 	public void removeAnnonce(Annonce a){
 		lesAnnonces.remove(a);
+	}
+
+	/**
+	 * @return the droits
+	 */
+	public Set<Droit> getDroits() {
+		return droits;
+	}
+
+	/**
+	 * @param droits the droits to set
+	 */
+	public void setDroits(Set<Droit> droits) {
+		this.droits = droits;
+	}
+
+	/**
+	 * @param lesAnnonces the lesAnnonces to set
+	 */
+	public void setLesAnnonces(List<Annonce> lesAnnonces) {
+		this.lesAnnonces = lesAnnonces;
 	}
 }

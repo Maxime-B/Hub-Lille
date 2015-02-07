@@ -22,20 +22,14 @@ public class ControlleurAdmin {
 	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
 	
 	@RequestMapping(value = "/admin/droit", method = RequestMethod.GET)
-	public String listerDroit(Model model) {
-		model.addAttribute("utilisateurs", metierUtilisateur.listerParDroitSpeciaux());
-		return "/admin/droit/lister";
-	}
-	
-	@RequestMapping(value = "/admin/droit/modifier", method = RequestMethod.GET)
-	public ModelAndView modifierDroitForm(Model model) {
+	public ModelAndView gererDroitFrom(Model model) {
+		model.addAttribute("utilisateurs", metierUtilisateur.listerParRole());
 		model.addAttribute("droits", Droit.values());
 		return new ModelAndView("/admin/droit/modifier","utilisateur", new FormDroit());
 	}
 
-	@RequestMapping(value = "/admin/droit/modifier", method = RequestMethod.POST)
-	public String modifierDroit(Model model, @ModelAttribute("utilisateur") FormDroit formDroit) {
-		model.addAttribute("droits", Droit.values());
+	@RequestMapping(value = "/admin/droit", method = RequestMethod.POST)
+	public String gererDroit(Model model, @ModelAttribute("utilisateur") FormDroit formDroit) {
 		Utilisateur utilisateur = metierUtilisateur.getUtilisateur(formDroit.getLogin());
 		//TODO validateur
 //		Droit droitObject;
@@ -44,8 +38,12 @@ public class ControlleurAdmin {
 //		} catch (IllegalArgumentException illegalArgumentException) {
 //			return "/admin/droit/modifier";
 //		}
-		utilisateur.setDroit(Droit.valueOf(formDroit.getDroit()));
+		
+		utilisateur.setDroits(formDroit.getDroitsObject());
 		metierUtilisateur.modifier(utilisateur);
+		model.addAttribute("utilisateurs", metierUtilisateur.listerParRole());
+		model.addAttribute("droits", Droit.values());
+		model.addAttribute("estUnSucces", true);
 		return "/admin/droit/modifier";
 	}
 }

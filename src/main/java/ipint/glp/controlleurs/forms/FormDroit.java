@@ -1,11 +1,20 @@
 package ipint.glp.controlleurs.forms;
 
+import ipint.glp.donnees.Droit;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 public class FormDroit {
 	private String login;
-	private String droit;
+	private List<String> droits;
 	
 	public FormDroit() {
 		super();
+		this.droits = new ArrayList<String>();
+		droits.add("");
 	}
 	
 	/**
@@ -20,18 +29,31 @@ public class FormDroit {
 	public void setLogin(String login) {
 		this.login = login;
 	}
+
 	/**
-	 * @return the droit
+	 * @return the droits
 	 */
-	public String getDroit() {
-		return droit;
-	}
-	/**
-	 * @param droit the droit to set
-	 */
-	public void setDroit(String droit) {
-		this.droit = droit;
+	public List<String> getDroits() {
+		return droits;
 	}
 	
-	
+	/**
+	 * @return the droits
+	 */
+	public Set<Droit> getDroitsObject() {
+		HashSet<Droit> droitsObject = new HashSet<Droit>();
+		for(String droit : droits) {
+			droitsObject.add(Droit.valueOf(droit));
+		}
+		return droitsObject;
+	}
+
+	/**
+	 * @param droits the droits to set
+	 */
+	public void setDroits(List<String> droits) {
+		this.droits = droits;
+	}
+
+
 }

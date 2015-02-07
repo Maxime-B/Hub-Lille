@@ -4,19 +4,22 @@ import ipint.glp.donnees.Droit;
 import ipint.glp.donnees.Utilisateur;
 import ipint.glp.fabriques.FabUtilisateur;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.jasig.cas.client.validation.Assertion;
 import org.springframework.security.cas.authentication.CasAuthenticationToken;
 
 public class MetierUtilisateur {
 	FabUtilisateur fabUtilisateur = FabUtilisateur.getInstance();
-
 	
 	private Utilisateur creerUtilisateur(String login, String prenom, String nom,
-			String email, Droit droit) {
-		return fabUtilisateur.creer(login, nom, prenom, email, droit);
+			String email) {
+		HashSet<Droit> droits = new HashSet<Droit>();
+		droits.add(Droit.DEFAUT);
+		return fabUtilisateur.creer(login, nom, prenom, email, droits);
 	}
 	
 	/**
@@ -29,7 +32,7 @@ public class MetierUtilisateur {
 		if (principal == null) {
 			Utilisateur utilisateur = fabUtilisateur.obtenir("null");
 			if (utilisateur == null) {
-				utilisateur = creerUtilisateur("null", "null", "null", "null", Droit.ROLE_DEFAUT);
+				utilisateur = creerUtilisateur("null", "null", "null", "null");
 			}
 			return utilisateur;
 		}
@@ -49,7 +52,7 @@ public class MetierUtilisateur {
 		Utilisateur utilisateur = fabUtilisateur.obtenir(assertion.getPrincipal().getName());
 		if (utilisateur == null) {
 			Map<String, String> map = assertion.getPrincipal().getAttributes();
-			utilisateur = creerUtilisateur(assertion.getPrincipal().getName(), map.get("givenname"), map.get("sn"), map.get("mail"), Droit.ROLE_DEFAUT);
+			utilisateur = creerUtilisateur(assertion.getPrincipal().getName(), map.get("givenname"), map.get("sn"), map.get("mail"));
 		} else if (utilisateur.getEmail() == null) {
 			Map<String, String> map = assertion.getPrincipal().getAttributes();
 			utilisateur.setPrenom(map.get("givenname"));
@@ -67,7 +70,7 @@ public class MetierUtilisateur {
 	public Utilisateur getUtilisateur(String login) {
 		Utilisateur utilisateur = fabUtilisateur.obtenir(login);
 		if (utilisateur == null) {
-			utilisateur = creerUtilisateur(login,null,null,null, Droit.ROLE_DEFAUT);
+			utilisateur = creerUtilisateur(login,null,null,null);
 		}
 		return utilisateur;
 	}
@@ -76,8 +79,8 @@ public class MetierUtilisateur {
 	 * @return
 	 * @see ipint.glp.fabriques.FabUtilisateur#listerParDroitSpeciaux()
 	 */
-	public List<Utilisateur> listerParDroitSpeciaux() {
-		return fabUtilisateur.listerParDroitSpeciaux();
+	public List<Utilisateur> listerParRole() {
+		return fabUtilisateur.listerParRole();
 	}
 
 	/**
