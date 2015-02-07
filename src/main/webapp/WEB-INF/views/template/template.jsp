@@ -18,7 +18,7 @@
 <tiles:insertAttribute name="jsTop" />
 </head>
 <body >
-	<header id="header" class="top-bar"> <tiles:insertAttribute name="header" />
+	<header id="header"> <tiles:insertAttribute name="header" />
 	</header>
 <div class="row">
 	<aside id="aside" class="small-3 columns "> <nav> <tiles:insertAttribute
