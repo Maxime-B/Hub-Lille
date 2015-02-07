@@ -31,7 +31,6 @@
                               </tr>
                        </table>
                      </form:form>
-<script src="<c:url value="/ressources/js/jquery-1.11.2.js"/>"></script>
 <script src="<c:url value="/ressources/js/creerCategorie.js"/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

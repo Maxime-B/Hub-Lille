@@ -5,8 +5,6 @@
 <%@ page
 	import="org.springframework.security.cas.authentication.CasAuthenticationToken"%>
 
-<%-- ${pageContext.request.userPrincipal.assertion.attributes} --%>
-
 <div class="contain-to-grid sticky">
 	<nav class="top-bar" data-topbar role="navigation"
 		data-options="sticky_on: large">

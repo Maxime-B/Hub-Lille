@@ -2,11 +2,11 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <tiles:insertDefinition name="global">
-	<tiles:putAttribute name="title">Nouvelle catégorie
+	<tiles:putAttribute name="title">Nouvelle catÃ©gorie
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<form action="creationCategorie">
-			Nom de la catégorie : <input type="text" name="nomCategorie" />
+			Nom de la catÃ©gorie : <input type="text" name="nomCategorie" />
 			<table>
 				<tr>
 					<th>Nom du champ</th>
@@ -28,18 +28,15 @@
 			</table>
 			<a href="nouveauChamp">Ajouter un nouveau champ</a>
 			<div id="champsChoisi">
-				<ul id="sortable">
+				<ul id="sortable" class="no-bullet">
 				</ul>
 			</div>
 			<br> <input type="submit" value="Valider" />
 		</form>
 
 	</tiles:putAttribute>
+	
 	<tiles:putAttribute name="js">
-
-		<script src="<c:url value="/ressources/js/jquery-1.11.2.js"/>"></script>
-		<script
-			src="<c:url value="http://code.jquery.com/ui/1.11.2/jquery-ui.js"/>"></script>
 		<script src="<c:url value="/ressources/js/creerCategorie.js"/>"></script>
 		<script>
 			$(function() {
@@ -48,9 +45,9 @@
 			});
 		</script>
 	</tiles:putAttribute>
+	
 	<tiles:putAttribute name="css">
-		<link rel="stylesheet"
-			href="http://code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+		<style>#sortable li {cursor:move}</style>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
 
