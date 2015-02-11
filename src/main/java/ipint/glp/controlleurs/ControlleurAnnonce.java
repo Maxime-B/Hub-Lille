@@ -7,6 +7,7 @@ import ipint.glp.controlleurs.valideurs.ValideurAnnonce;
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
+import ipint.glp.donnees.EmailManager;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.TypeChamp;
 import ipint.glp.donnees.Utilisateur;
@@ -29,6 +30,8 @@ import org.apache.commons.lang.Validate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.security.cas.authentication.CasAuthenticationToken;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -186,7 +189,10 @@ public class ControlleurAnnonce implements ServletContextAware{
 			BindingResult bindingResultOfContact,Model model)
 			{
 				Annonce annonce = metierAnnonce.rechercher(ref);
+				
 				formcontact.setEmeteur("latifou.sano@gmail.com");
+				formcontact.setDestinataire("latifou.sano@gmail.com");
+
 				model.addAttribute("a", annonce);
 				return "annonce/contacter";
 			}
@@ -200,8 +206,13 @@ public class ControlleurAnnonce implements ServletContextAware{
 			return "annonce/contacter";
 		}
 		
-		
-				Annonce annonce = metierAnnonce.rechercher(ref);
+		ApplicationContext context = new ClassPathXmlApplicationContext("Spring-Mail.xml");
+    	EmailManager mm = (EmailManager) context.getBean("mailMail");
+    	Annonce annonce = metierAnnonce.rechercher(ref);
+		formcontact.setDestinataire(annonce.getUtilisateur().getEmail());
+
+    	
+    	mm.sendMail(formcontact.getEmeteur(), formcontact.getDestinataire(), formcontact.getObjet(), formcontact.getMessage());
 		model.addAttribute("estUnSucces", true);
 		model.addAttribute("a", annonce);
 				return "annonce/contacter";

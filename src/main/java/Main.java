@@ -3,6 +3,7 @@ import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
 import ipint.glp.donnees.Droit;
+import ipint.glp.donnees.EmailManager;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.TypeChamp;
 import ipint.glp.donnees.Utilisateur;
@@ -85,8 +86,13 @@ public class Main {
 					+ " " + an.getUtilisateur().getNom() + " " + an.getType());
 		}
 		Connexion.getConnexion().fermerConnexion();*/
-		final File f = new File("");
-		final String dossierPath = f.getAbsolutePath();
-		System.out.print(dossierPath);
+        System.out.print("ok");
+
+	        EmailManager e = new EmailManager();
+	        		e.sendMail("from@no-spam.com",
+	    		   "to@no-spam.com",
+	    		   "Testing123", 
+	    		   "Testing only \n\n Hello Spring Email Sender");
+	        System.out.print("ok");
 	}
 }
