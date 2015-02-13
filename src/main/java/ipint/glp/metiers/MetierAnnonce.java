@@ -45,7 +45,10 @@ public class MetierAnnonce {
 	}
 	
 	
-
+	public Annonce modifier(Annonce a)
+	{
+		return FabAnnonce.getInstance().modifier(a);
+	}
 	public void supprimerAnnonce(Annonce a) {
 		FabAnnonce.getInstance().supprimerAnnonce(a);
 	}

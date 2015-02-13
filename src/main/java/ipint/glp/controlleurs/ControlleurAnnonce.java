@@ -84,11 +84,22 @@ public class ControlleurAnnonce implements ServletContextAware{
 		}
 		
 //		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
+		
+		
+//		for(Entry<String, String> entry : lesChamps.entrySet()) {
+//			System.err.println(entry.getKey());
+//			System.err.println(entry.getValue());	
+//		}
+		
+	//	util.setEmail("test@test.fr");
+		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur, TypeAnnonce.offre, formAnnonce.getLesChamps());
+		int nb = 1;
 		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
 		{
 			if(ch.getTypeChamp() == TypeChamp.IMAGE)
 			{
-				String name="latifu.jpg";
+				String name=annonce.getId()+"_"+nb+".jpg";
 				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
 				MultipartFile image = multipartRequest.getFile(ch.getLibelle());
 				if (!image.isEmpty()) {
@@ -104,25 +115,17 @@ public class ControlleurAnnonce implements ServletContextAware{
 		                stream.write(bytes);
 		                stream.close();
 		                System.err.println( "You successfully uploaded " + name + "!");
+		                annonce.getLesChamps().replace(ch.getLibelle(), name);
+		                
 		            } catch (Exception e) {
 		            	System.err.println("You failed to upload " + name + " => " + e.getMessage());
 		            }
+		            nb++;
 		        } else {
 		        	System.err.println( "You failed to upload " + name + " because the file was empty.");
 		        }
 			}
 		}
-		
-//		for(Entry<String, String> entry : lesChamps.entrySet()) {
-//			System.err.println(entry.getKey());
-//			System.err.println(entry.getValue());	
-//		}
-		
-	//	util.setEmail("test@test.fr");
-		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
-		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur, TypeAnnonce.offre, formAnnonce.getLesChamps());
-		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
-		//model.addAttribute("annonce", annonce);
 		System.err.println(annonce.getId());
 		return "redirect:/annonce/consulter?ref=" + annonce.getId();
 	}

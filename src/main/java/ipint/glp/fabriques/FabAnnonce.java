@@ -92,6 +92,11 @@ static FabAnnonce fb;
 
 
 	}
+	public Annonce modifier(Annonce a)
+	{
+		connexion.getEm().merge(a);
+		return a;
+	}
 	public void supprimerAnnonce(){
 
 		connexion.getEm().getTransaction().begin();

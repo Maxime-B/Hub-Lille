@@ -78,7 +78,7 @@
 							</c:when>
 
 							<c:when test="${item.typeChamp=='IMAGE'}">
-								<input type="file" accept="image/*" name="${item.libelle}" />
+								<form:input type="file" path="${path}" accept="image/*"  />
 							</c:when>
 						</c:choose>
 
