@@ -4,10 +4,11 @@ xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-		<property name="host" value="smtp.gmail.com" />
+		<property name="host" value="smtps.univ-lille1.fr" />
 		<property name="port" value="587" />
-		<property name="username" value="projethublille1@gmail.com" />
-		<property name="password" value="miage2015" />
+		
+		<property name="username" value="" />
+		<property name="password" value="" />
 		
 		<property name="javaMailProperties">
 			<props>

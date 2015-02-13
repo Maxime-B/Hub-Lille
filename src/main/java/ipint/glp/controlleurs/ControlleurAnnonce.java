@@ -185,13 +185,13 @@ public class ControlleurAnnonce implements ServletContextAware{
 	}
 
 	@RequestMapping(value = "/annonce/contacter")
-	public String contactAnnonce(@RequestParam("ref")int ref, @ModelAttribute("formcontact") FormContact formcontact,
+	public String contactAnnonce(@RequestParam("ref")int ref, @ModelAttribute("formcontact") FormContact formcontact,HttpServletRequest request,
 			BindingResult bindingResultOfContact,Model model)
 			{
 				Annonce annonce = metierAnnonce.rechercher(ref);
+				Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
+				formcontact.setEmeteur(utilisateur.getEmail());
 				
-				formcontact.setEmeteur("latifou.sano@gmail.com");
-				formcontact.setDestinataire("latifou.sano@gmail.com");
 
 				model.addAttribute("a", annonce);
 				return "annonce/contacter";

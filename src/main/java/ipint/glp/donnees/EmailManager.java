@@ -19,6 +19,10 @@ public class EmailManager
 		this.mailSender = mailSender;
 	}
 	
+	public MailSender getMailSender() {
+		return mailSender;
+	}
+
 	public void sendMail(String from,String to, String subject, String text) {
 
 		SimpleMailMessage message = new SimpleMailMessage(simpleMailMessage);
