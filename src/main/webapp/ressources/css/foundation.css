@@ -1,3 +1,16 @@
+html > body > div.row {
+	background-color: white;
+	box-shadow: 1px 1px 8px #aaa;
+}
+html > body > div.row > main{
+border-left-style: solid;
+border-left: 1px double #ddd;
+padding: 2%;
+}
+footer #footer div{
+	background-color: #EFEEEE;
+}
+
 meta.foundation-version {
   font-family: "/5.5.0/"; }
 
@@ -55,7 +68,7 @@ body {
   font-size: 100%; }
 
 body {
-  background: #fff;
+  background: #EFEEEE;
   color: #222;
   padding: 0;
   margin: 0;
@@ -124,7 +137,7 @@ select {
   margin-right: auto;
   margin-top: 0;
   margin-bottom: 0;
-  max-width: 62.5rem; }
+  max-width: 85rem; }
   .row:before, .row:after {
     content: " ";
     display: table; }
@@ -6137,4 +6150,6 @@ th.hide-for-touch {
     display: table-cell !important; }
 
   th.show-for-print {
-    display: table-cell !important; } }
+    display: table-cell !important; }}
+    
+
