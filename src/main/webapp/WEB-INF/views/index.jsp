@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="accueil">
 	<tiles:putAttribute name="title">Hub Lille 1</tiles:putAttribute>
 	<tiles:putAttribute name="main">
@@ -42,7 +44,16 @@
 						<c:forEach items="${annonces}" var="a">
 
 							<li>
-							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+							<c:if test="${fn:length(a.images) gt 0}">
+				  		
+  							
+								 <img class="th"src="${pageContext.request.contextPath}/ressources/photos/${a.images[0] }">
+	
+				</c:if>
+				<c:if test="${fn:length(a.images) lt 1}">
+							  <img src="/hublille1/ressources/img/pas-dimage.png" width="200" height="450" style="border: solid 1px;"/>
+
+				</c:if>
 								<div class="orbit-caption">
 									<c:forEach items="${a.lesChamps}" var="entry">
 										<%--${entry.key}--%>${entry.value}

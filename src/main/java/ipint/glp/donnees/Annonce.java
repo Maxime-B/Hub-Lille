@@ -1,5 +1,6 @@
 package ipint.glp.donnees;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javax.persistence.CascadeType;
@@ -34,8 +35,16 @@ public class Annonce {
 	
 	private String titre;
 	private String description;
-	private String image1;
+	private ArrayList<String> images;
 	
+	public ArrayList<String> getImages() {
+		return images;
+	}
+
+	public void setImages(ArrayList<String> images) {
+		this.images = images;
+	}
+
 	public String getTitre() {
 		return titre;
 	}
@@ -111,13 +120,9 @@ public class Annonce {
 		this.utilisateur = utilisateur;
 	}
 
-	public String getImage1() {
-		return image1;
-	}
 
-	public void setImage1(String image1) {
-		this.image1 = image1;
-	}
+
+
 	
 
 }

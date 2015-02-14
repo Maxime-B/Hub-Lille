@@ -75,7 +75,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 	
 	@RequestMapping(value = "/annonce/creer", method = RequestMethod.POST)
 	public String creerAnnonce(@RequestParam("categorie")String categorie, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
-			BindingResult bindingResultOfAnnonce,Model model) {
+			BindingResult bindingResultOfAnnonce,@RequestParam("photos")MultipartFile[] lesphotos, Model model) {
 		model.addAttribute("estUnSucces", true);
 		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		if (bindingResultOfAnnonce.hasErrors()) {
@@ -95,19 +95,18 @@ public class ControlleurAnnonce implements ServletContextAware{
 		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
 		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur, TypeAnnonce.offre, formAnnonce.getLesChamps());
 		int nb = 1;
-		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
+		ArrayList<String> liens = new ArrayList<String>();
+		for(MultipartFile image : lesphotos)
 		{
-			if(ch.getTypeChamp() == TypeChamp.IMAGE)
-			{
+			
 				String name=annonce.getId()+"_"+nb+".jpg";
-				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-				MultipartFile image = multipartRequest.getFile(ch.getLibelle());
+			
 				if (!image.isEmpty()) {
 		            try {
 		                byte[] bytes = image.getBytes();
 		                //System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
 		                
-		        		String path = servletcontext.getRealPath("ressources/photos");
+		        		String path = servletcontext.getRealPath("/ressources/photos");
 		        		System.out.println(path);
 		        		File f = new File(path+File.separator+name);
 		                BufferedOutputStream stream =
@@ -115,7 +114,8 @@ public class ControlleurAnnonce implements ServletContextAware{
 		                stream.write(bytes);
 		                stream.close();
 		                System.err.println( "You successfully uploaded " + name + "!");
-		                annonce.getLesChamps().replace(ch.getLibelle(), name);
+		                System.err.println( path+File.separator+name);
+		                liens.add(name);
 		                
 		            } catch (Exception e) {
 		            	System.err.println("You failed to upload " + name + " => " + e.getMessage());
@@ -124,8 +124,10 @@ public class ControlleurAnnonce implements ServletContextAware{
 		        } else {
 		        	System.err.println( "You failed to upload " + name + " because the file was empty.");
 		        }
-			}
+			
 		}
+		annonce.setImages(liens);
+		metierAnnonce.modifier(annonce);
 		System.err.println(annonce.getId());
 		return "redirect:/annonce/consulter?ref=" + annonce.getId();
 	}

@@ -77,15 +77,15 @@
 									cssErrorClass="error" cssClass="spinner" />
 							</c:when>
 
-							<c:when test="${item.typeChamp=='IMAGE'}">
-								<form:input type="file" path="${path}" accept="image/*"  />
-							</c:when>
+							
 						</c:choose>
 
 						<form:errors path="${path}" cssClass="error" />
 					</div>
 					<br />
 				</c:forEach>
+				Photoo 1 <input type="file" name="photos"><br/>
+				Photoo 2 <input type="file" name="photos"><br/>
 				<div style="text-align: right">
 					<spring:message code="job.creer.submit" var="submit" />
 

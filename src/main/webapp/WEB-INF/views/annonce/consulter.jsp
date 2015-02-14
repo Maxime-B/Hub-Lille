@@ -2,6 +2,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="annonce">
 	<tiles:putAttribute name="title" value="${annonce.titre}" />
 
@@ -39,7 +40,20 @@
 				  </div>
 				  <div class="small-4 columns">
 				  <div class="row">
-				  <img src="/hublille1/ressources/img/pas-dimage.png" width="200" height="450" style="border: solid 1px;"/>
+				  <c:if test="${fn:length(annonce.images) gt 0}">
+				  		<ul class="clearing-thumbs" data-clearing>
+  							<c:forEach items='${annonce.images}' var="image">
+								 <li><a href="${pageContext.request.contextPath}/ressources/photos/${image }"><img class="th"src="${pageContext.request.contextPath}/ressources/photos/${image }"></a></li>
+						
+							</c:forEach>
+</ul>
+						
+				</c:if>
+				<c:if test="${fn:length(annonce.images) lt 1}">
+							  <img src="/hublille1/ressources/img/pas-dimage.png" width="200" height="450" style="border: solid 1px;"/>
+
+				</c:if>
+				 
 				  </div>
 				  <br/><br/>
 				  <div class="row">
