@@ -26,7 +26,7 @@ public class ControlleurChamp {
 	
 	@RequestMapping(value = "/admin/creationChamp", method = RequestMethod.POST)
 	public String creationChamp(@ModelAttribute("champ")Champ champ,Locale locale, Model model) {
-		metierChamp.creerChamp(champ.getLibelle(), champ.getLimite(), champ.getTypeChamp(), champ.isObligatoire());
+		metierChamp.creerChamp(champ.getLibelle(), champ.getTypeChamp(), champ.isObligatoire());
 		model.addAttribute("champs",metierChamp.listerChamps());
 		return "/admin/nouvelleCategorie";
 	}

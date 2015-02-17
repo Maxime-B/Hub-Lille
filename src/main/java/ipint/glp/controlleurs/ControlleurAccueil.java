@@ -66,19 +66,19 @@ public class ControlleurAccueil {
 		 * TypeChamp.TEXTE,true); Champ c2 = FabChamp.getInstance()
 		 * .creerChamp("description", 500, TypeChamp.TEXTEAREA,true);
 		 */
-		Champ c3 = FabChamp.getInstance().creerChamp("depart", 10,
+		Champ c3 = FabChamp.getInstance().creerChamp("depart",
 				TypeChamp.TEXTE, true);
-		Champ c4 = FabChamp.getInstance().creerChamp("arrivee", 10,
+		Champ c4 = FabChamp.getInstance().creerChamp("arrivee",
 				TypeChamp.TEXTE, true);
-		Champ c5 = FabChamp.getInstance().creerChamp("date", 10,
+		Champ c5 = FabChamp.getInstance().creerChamp("date",
 				TypeChamp.DATE, true);
-		Champ c6 = FabChamp.getInstance().creerChamp("prix", 10,
+		Champ c6 = FabChamp.getInstance().creerChamp("prix",
 				TypeChamp.NUMERIQUE, false);
-		Champ c7 = FabChamp.getInstance().creerChamp("photo1", 300,
+		Champ c7 = FabChamp.getInstance().creerChamp("photo1",
 				TypeChamp.IMAGE, false);
-		Champ c8 = FabChamp.getInstance().creerChamp("photo2", 300,
+		Champ c8 = FabChamp.getInstance().creerChamp("photo2",
 				TypeChamp.IMAGE, false);
-		Champ c9 = FabChamp.getInstance().creerChamp("photo3", 300,
+		Champ c9 = FabChamp.getInstance().creerChamp("photo3",
 				TypeChamp.IMAGE, false);
 		List<Champ> champs1 = new ArrayList<Champ>();
 		// champs1.add(c1);

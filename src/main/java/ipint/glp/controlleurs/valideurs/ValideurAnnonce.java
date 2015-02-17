@@ -63,11 +63,6 @@ public class ValideurAnnonce implements Validator {
 						"annonce.erreur.requis");
 			}
 
-			if (value != null && champ.getLimite() != null
-					&& value.length() > champ.getLimite()) {
-				e.rejectValue(path, "annonce.erreur.maxlength",
-						new Object[] { champ.getLimite() }, null);
-			}
 		}
 	}
 }

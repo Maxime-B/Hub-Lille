@@ -1,9 +1,11 @@
 package ipint.glp.metiers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
+import ipint.glp.donnees.TypeChamp;
 import ipint.glp.fabriques.FabCategorie;
 
 public class MetierCategorie {
@@ -22,6 +24,14 @@ public class MetierCategorie {
 	
 	public Categorie creerCategorie(String nom, List<Champ> champs){
 		return FabCategorie.getInstance().creerCategorie(nom, champs);
+	}
+	
+	public List<String> listeTypeChamp(){
+		List<String> tmp = new ArrayList<String>();
+		for(TypeChamp c : TypeChamp.values()){
+			tmp.add(c.toString());
+		}
+		return tmp;
 	}
 
 }

@@ -7,10 +7,9 @@
 	<tiles:putAttribute name="main">
 		<form action="creationCategorie">
 			Nom de la catégorie : <input type="text" name="nomCategorie" />
-			<table>
+			<table id="tableau">
 				<tr>
 					<th>Nom du champ</th>
-					<th>Limite</th>
 					<th>Type</th>
 					<th>Obligatoire</th>
 					<th>Choix</th>
@@ -18,7 +17,6 @@
 				<c:forEach items="${champs}" var="item">
 					<tr>
 						<td>${item.libelle}</td>
-						<td>${item.limite}</td>
 						<td>${item.typeChamp}</td>
 						<td>${item.obligatoire}</td>
 						<td><input type="checkbox" value="${item.libelle}"
@@ -26,7 +24,8 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<a href="nouveauChamp">Ajouter un nouveau champ</a>
+			<input type="button" value="ajouter un champ"  onClick="ajouterChamp()"/>
+			<!-- <a href="nouveauChamp">Ajouter un nouveau champ</a> -->
 			<div id="champsChoisi">
 				<ul id="sortable" class="no-bullet">
 				</ul>
@@ -38,6 +37,12 @@
 	
 	<tiles:putAttribute name="js">
 		<script src="<c:url value="/ressources/js/creerCategorie.js"/>"></script>
+		<script src="<c:url value="/ressources/js/ajouterChamp.js"/>"></script>
+				<script type='text/javascript' src='/hublille1/dwr/engine.js'></script> 
+		<script type='text/javascript' src='/hublille1/dwr/util.js'></script>
+		<script type='text/javascript' src='/hublille1/dwr/interface/JSMetierCategorie.js'></script>
+		<script type='text/javascript' src='/hublille1/dwr/interface/JSMetierChamp.js'></script>
+		
 		<script>
 			$(function() {
 				$("#sortable").sortable();

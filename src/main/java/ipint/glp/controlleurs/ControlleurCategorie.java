@@ -32,6 +32,7 @@ public class ControlleurCategorie {
 
 	@RequestMapping(value = "/admin/nouvelleCategorie", method = RequestMethod.GET)
 	public String nouvelleCategorie(Locale locale, Model model) {
+		model.addAttribute("typeChamps", TypeChamp.values());
 		model.addAttribute("champs",metierChamp.listerChamps());
 		return "admin/nouvelleCategorie";
 	}
@@ -40,11 +41,10 @@ public class ControlleurCategorie {
 	public String creationCategorie(Locale locale,Model model, @RequestParam("nomCategorie") String nomCategorie,String[] champs) {
 		List<Champ> lesChamps = new ArrayList<Champ>();
 		for(String libelle : champs){
-			System.out.println(libelle);
 			lesChamps.add(metierChamp.getChamp(libelle));
 		}
 		metierCategorie.creerCategorie(nomCategorie, lesChamps);
-		model.addAttribute("champs",metierChamp.listerChamps());
-		return "/admin/nouvelleCategorie";
+		model.addAttribute("categories",metierCategorie.listerCategories());
+		return "/admin/categorieAdmin";
 	}
 }

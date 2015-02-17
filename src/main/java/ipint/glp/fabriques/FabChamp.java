@@ -29,17 +29,16 @@ public class FabChamp {
 		return fc;
 	}
 	
-	public Champ creerChamp(String libelle, Integer limite, TypeChamp typeChamp,boolean obligatoire){
+	public Champ creerChamp(String libelle, TypeChamp typeChamp,boolean obligatoire){
 		this.listerChamps();
 		for (Entry<String, Champ> entry : lesChamps.entrySet()) {
 			Champ cc = entry.getValue();
 			if(libelle.equals(entry.getKey())){
-				return cc;
+				return null;
 			}
 		}
 		Champ c = new Champ();
 		c.setLibelle(libelle);
-		c.setLimite(limite);
 		c.setTypeChamp(typeChamp);
 		c.setObligatoire(obligatoire);
 		connexion.getEm().persist(c);
