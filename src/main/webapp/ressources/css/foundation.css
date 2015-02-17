@@ -1,12 +1,13 @@
-html > body > div.row {
+html > body > div#container > div.row  {
 	background-color: white;
 	box-shadow: 1px 1px 8px #aaa;
 }
 html > body > div.row > main{
-border-left-style: solid;
-border-left: 1px double #ddd;
-padding: 2%;
+	border-left-style: solid;
+	border-left: 1px double #ddd;
+	padding: 2%;
 }
+
 footer #footer div{
 	background-color: #EFEEEE;
 }
