@@ -188,17 +188,17 @@
 	<context:property-placeholder
 		system-properties-mode="OVERRIDE" properties-ref="environment" />
 
-	 <util:properties id="environment"> <b:prop key="service.protocol">http</b:prop> 
+	<!--  <util:properties id="environment"> <b:prop key="service.protocol">http</b:prop> 
 		<b:prop key="cas.protocol">https</b:prop> <b:prop key="service.host">b12p10.fil.univ-lille1.fr:8080</b:prop> 
 		<b:prop key="cas.server.host">sso-cas.univ-lille1.fr</b:prop> <b:prop key="cas.app.name"></b:prop> 
-		<b:prop key="service.app.name">hublille1</b:prop> </util:properties> 
+		<b:prop key="service.app.name">hublille1</b:prop> </util:properties> -->
 
-	<!--<util:properties id="environment">
+	<util:properties id="environment">
 		<b:prop key="service.protocol">http</b:prop>
 		<b:prop key="cas.protocol">http</b:prop>
 		<b:prop key="service.host">localhost:8080</b:prop>
 		<b:prop key="cas.server.host">localhost:2080</b:prop>
 		<b:prop key="cas.app.name">cas</b:prop>
 		<b:prop key="service.app.name">hublille1</b:prop>
-	</util:properties>-->
+	</util:properties>
 </b:beans>

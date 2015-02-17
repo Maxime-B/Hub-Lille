@@ -13,33 +13,37 @@ import ipint.glp.interfaces.Publication;
 @Entity
 public class Job implements Publication{
 
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int Id;
-	
-	
-	
-	public int getId() {
-		return Id;
-	}
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-	public void setId(int id) {
-		Id = id;
-	}
 
 	private String titre;
 	private String remuneration;
 	private String description;
-	
+	private String modalite;
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+
+
+
 	@ManyToOne(cascade= CascadeType.PERSIST)
 	private Utilisateur utilisateur;
 
-	public Job(String titre, String remuneration, String description,Utilisateur utilisateur){
+	public Job(String titre, String remuneration, String description,String modalite,Utilisateur utilisateur){
 		super();
 		this.titre = titre;
 		this.remuneration = remuneration;
 		this.description = description;
 		this.utilisateur = utilisateur;
+		this.modalite=modalite;
 	}
 
 	public Job(){
@@ -70,6 +74,13 @@ public class Job implements Publication{
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+	public String getModalite() {
+		return modalite;
+	}
+
+	public void setModalite(String modalite) {
+		this.modalite = modalite;
 	}
 
 }

@@ -74,7 +74,7 @@
 			
 		
 
-			<br /> <a href="/">Retour à la page d'accueil</a>
+			<br /> <a href="/annonce/signaler?id=${annonce.id}">signaler</a>
 		</section>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
