@@ -6,6 +6,8 @@ import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.Utilisateur;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -57,6 +59,11 @@ static FabAnnonce fb;
 		a.setType(typeAnnonce);
 		a.setUtilisateur(utilisateur);
 		a.setLesChamps(lesChamps);
+		a.setSignal(0);
+		Calendar cal = new GregorianCalendar();
+		a.setDatepublication(cal.getTime());
+		cal.add(Calendar.MONTH, 1);
+		a.setDatefinPublication(cal.getTime());
 		connexion.getEm().persist(a);
 		connexion.getEm().flush();
 		utilisateur.addAnnonce(a);

@@ -1,6 +1,7 @@
 package ipint.glp.donnees;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 import javax.persistence.CascadeType;
@@ -37,6 +38,9 @@ public class Annonce {
 	private String description;
 	private ArrayList<String> images;
 	private int signal;
+	private Date datepublication;
+	private Date datefinPublication;
+	
 	
 	
 	public ArrayList<String> getImages() {
@@ -120,6 +124,30 @@ public class Annonce {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
+	}
+
+	public int getSignal() {
+		return signal;
+	}
+
+	public void setSignal(int signal) {
+		this.signal = signal;
+	}
+
+	public Date getDatepublication() {
+		return datepublication;
+	}
+
+	public void setDatepublication(Date datepublication) {
+		this.datepublication = datepublication;
+	}
+
+	public Date getDatefinPublication() {
+		return datefinPublication;
+	}
+
+	public void setDatefinPublication(Date datefinPublication) {
+		this.datefinPublication = datefinPublication;
 	}
 
 
