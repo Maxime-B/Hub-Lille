@@ -64,7 +64,7 @@ static FabAnnonce fb;
 		Calendar cal = new GregorianCalendar();
 		a.setDatepublication(new Date(cal.getTimeInMillis()));
 		cal.add(Calendar.DAY_OF_MONTH, 30);
-		a.setDatefinPublication(new Date(cal.getTimeInMillis()));
+		a.setFinpublication(new Date(cal.getTimeInMillis()));
 		connexion.getEm().persist(a);
 		connexion.getEm().flush();
 		utilisateur.addAnnonce(a);

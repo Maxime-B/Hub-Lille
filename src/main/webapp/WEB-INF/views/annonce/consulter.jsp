@@ -13,7 +13,7 @@
 			<!-- message si redirection -->
 			<c:if test="${!empty param['estUnSucces']}">
 				<div class="alert-box success radius">L'annonce ${annonce.titre} est maintenant consultable. <br/>
-				Tout les message seront dressés à l'adresse suivante : ${annonce.utilisateur.email}</div>
+				Tous les messages seront adressés à l'adresse suivante : ${annonce.utilisateur.email}</div>
 			</c:if>
 			<div class="row">
 				<div class="row">

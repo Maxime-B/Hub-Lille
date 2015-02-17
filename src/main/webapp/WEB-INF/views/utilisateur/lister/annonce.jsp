@@ -12,17 +12,47 @@
 		<section class="section">
 			<h1>liste de mes annonces</h1>
 		
+			<c:if test="${!empty republierSucces}">
+				<div class="alert-box success radius">L'annonce ${annonce.titre} est  a été republier jusqu'au ${annonce.finpublication} <br/>
+				</div>
+				
+			</c:if>
 			<table>
 				<tr>
 					<th>titre</th>
-					<th>description</th>
+					
+					<th>Date de publication</th>
+					<th>Date de  fin de publication</th>
+					<th>Nombre de signalements</th>
+					<th></th>
+					<th></th>
+					<th></th>
 				</tr>
 				
 				<c:if test="${not empty annonces}">
 				 <c:forEach items="${annonces}" var="annonce" >
 					<tr>
-						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}">${annonce.titre}</a></td>
-						<td>${annonce.description}</td>
+						<td>${annonce.titre}</td>
+						
+						<td>${annonce.datepublication}</td>
+						<td>${annonce.finpublication}</td> 
+						<td>${annonce.signal}</td>
+						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}"><button>Consulter</button> </a></td>
+						<td>
+							<form method="post" action="">
+								<input type="hidden" name="ref" value="${annonce.id}"/>
+								<input type="hidden" name="typeAction" value="republier"/>
+								<button onclick="this.form.submit();">Republier</button>
+							</form>
+							
+							</td>
+						<td>
+							<form method="post" action="">
+								<input type="hidden" name="ref" value="${annonce.id}"/>
+								<input type="hidden" name="typeAction" value="supprimer"/>
+								<button onclick="this.form.submit();">Supprimer</button>
+							</form>
+						</td>
 					</tr>
 					</c:forEach>
 				</c:if>

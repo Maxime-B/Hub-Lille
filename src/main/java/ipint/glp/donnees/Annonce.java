@@ -13,6 +13,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 
 @Entity
@@ -39,7 +41,7 @@ public class Annonce {
 	private ArrayList<String> images;
 	private int signal;
 	private Date datepublication;
-	private Date datefinPublication;
+	private Date finpublication;
 	
 	
 	
@@ -142,13 +144,15 @@ public class Annonce {
 		this.datepublication = datepublication;
 	}
 
-	public Date getDatefinPublication() {
-		return datefinPublication;
+	public Date getFinpublication() {
+		return finpublication;
 	}
 
-	public void setDatefinPublication(Date datefinPublication) {
-		this.datefinPublication = datefinPublication;
+	public void setFinpublication(Date finpublication) {
+		this.finpublication = finpublication;
 	}
+
+
 
 
 
