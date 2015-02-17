@@ -17,18 +17,21 @@
 <tiles:insertAttribute name="globalJsTop" />
 <tiles:insertAttribute name="jsTop" />
 </head>
-<body >
-	<header id="header"> <tiles:insertAttribute name="header" />
-	</header>
-<div class="row">
-	<aside id="aside" class="small-3 columns "> <nav> <tiles:insertAttribute
-		name="nav" /></nav> </aside>
+<body>
+	<div id="container">
+		<header id="header"> <tiles:insertAttribute name="header" />
+		</header>
+		<div class="row">
+			<aside id="aside" class="small-3 columns "> <nav> <tiles:insertAttribute
+				name="nav" /></nav> </aside>
 
-	<main id="main" class="small-9 columns"> <tiles:insertAttribute name="main" /> </main>
-</div>
-	<footer id="footer"> <tiles:insertAttribute name="footer" />
-	</footer>
-	<tiles:insertAttribute name="globalJs" />
-	<tiles:insertAttribute name="js" />
+			<main id="main" class="small-9 columns"> <tiles:insertAttribute
+				name="main" /> </main>
+		</div>
+		<footer id="footer"> <tiles:insertAttribute name="footer" />
+		</footer>
+		<tiles:insertAttribute name="globalJs" />
+		<tiles:insertAttribute name="js" />
+	</div>
 </body>
 </html>

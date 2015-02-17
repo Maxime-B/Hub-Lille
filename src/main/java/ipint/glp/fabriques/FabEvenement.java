@@ -5,12 +5,13 @@ package ipint.glp.fabriques;
 
 import ipint.glp.donnees.Evenement;
 import ipint.glp.donnees.Evenement_;
-import ipint.glp.donnees.compositeKey.IdEvenement;
+import ipint.glp.donnees.Publication_;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
@@ -44,27 +45,30 @@ public class FabEvenement {
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaQuery<Evenement> cq = cb.createQuery(Evenement.class);
 		Root<Evenement> root = cq.from(Evenement.class);
-		System.out.println(Evenement_.dateDebut);
+
 		return em.createQuery(
 				cq.select(root)
 				.where(cb.greaterThan(root.get(Evenement_.dateDebut), cb.currentDate()))
 				.orderBy(cb.asc(root.get(Evenement_.dateDebut)), cb.asc(root.get(Evenement_.heureDebut)))
-				)
-				.setMaxResults(50)
-				.getResultList();
+			)
+			.setMaxResults(50)
+			.getResultList();
 	}
 	
-	public Evenement obtenir(IdEvenement id) {
+	public Evenement obtenir(Integer id) {
 		return em.find(Evenement.class, id);
 	}
 	
 	public void supprimer(Evenement o) {
 		em.remove(o);
+		o.getUtilisateur().getLesEvenements().remove(o);
 	}
 
 
 	public Evenement creer(Evenement o) {
 		em.persist(o);
+		em.flush();
+		o.getUtilisateur().getLesEvenements().add(o);
 		return o;
 	}
 
@@ -72,10 +76,25 @@ public class FabEvenement {
 		em.merge(o);
 		return o;
 	}
-	
-	public void supprimerTout() {
-		em.getTransaction().begin();
-		em.createQuery("Delete from Evenement").executeUpdate();
-		em.getTransaction().commit();
+
+	public Evenement obtenir(String titre, Date dateDebut) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Evenement> cq = cb.createQuery(Evenement.class);
+		Root<Evenement> root = cq.from(Evenement.class);
+		try {
+			return em.createQuery(
+					cq.select(root)
+					.where(
+							cb.and(
+								cb.equal(root.get(Publication_.titre), titre),
+								cb.equal(root.get(Evenement_.dateDebut), dateDebut)
+							)
+					)
+				)
+				.getSingleResult();
+		}
+		catch (NoResultException noResultException) {
+			return null;
+		}
 	}
 }

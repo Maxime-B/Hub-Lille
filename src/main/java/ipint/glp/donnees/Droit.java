@@ -2,7 +2,6 @@ package ipint.glp.donnees;
 
 
 public enum Droit {
-	DEFAUT,
 	ADMIN,
 	MODERATEUR,
 	VIE_ETUDIANTE,

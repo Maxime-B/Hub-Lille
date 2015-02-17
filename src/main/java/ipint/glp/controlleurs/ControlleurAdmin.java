@@ -4,6 +4,7 @@ import ipint.glp.controlleurs.forms.FormDroit;
 import ipint.glp.donnees.Droit;
 import ipint.glp.donnees.Utilisateur;
 import ipint.glp.metiers.MetierUtilisateur;
+import ipint.glp.metiers.exceptions.AuMoinsUnAdminException;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,20 +31,16 @@ public class ControlleurAdmin {
 
 	@RequestMapping(value = "/admin/droit", method = RequestMethod.POST)
 	public String gererDroit(Model model, @ModelAttribute("utilisateur") FormDroit formDroit) {
-		Utilisateur utilisateur = metierUtilisateur.getUtilisateur(formDroit.getLogin());
-		//TODO validateur
-//		Droit droitObject;
-//		try {
-//			droitObject = Droit.valueOf(droit);
-//		} catch (IllegalArgumentException illegalArgumentException) {
-//			return "/admin/droit/modifier";
-//		}
-		
-		utilisateur.setDroits(formDroit.getDroitsObject());
-		metierUtilisateur.modifier(utilisateur);
+		model.addAttribute("estUnSucces", true);
+		try {
+			metierUtilisateur.modifierDroit(formDroit.getLogin(), formDroit.getDroitsObject());
+		} catch (AuMoinsUnAdminException e) {
+			model.addAttribute("estUnEchec", "Le dernier Admin ne peut être supprimé");
+			model.addAttribute("estUnSucces", false);
+			logger.debug("Le dernier Admin " + formDroit.getLogin() + " ne peut être supprimé", formDroit);
+		}
 		model.addAttribute("utilisateurs", metierUtilisateur.listerParRole());
 		model.addAttribute("droits", Droit.values());
-		model.addAttribute("estUnSucces", true);
 		return "/admin/droit/modifier";
 	}
 }

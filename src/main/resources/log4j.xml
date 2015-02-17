@@ -48,13 +48,13 @@
 	</logger>
 
 	<!-- Root Logger -->
-	<!-- <root> -->
-	<!-- <priority value="warn" /> -->
-	<!-- <appender-ref ref="console" /> -->
-	<!-- </root> -->
-
+	<!-- <root>
+		<priority value="warn" />
+		<appender-ref ref="console" />
+	</root>
+ -->
 	<!-- debug -->
-	<appender name="CONSOLE_DEBUG" class="org.apache.log4j.ConsoleAppender">
+<!-- 	<appender name="CONSOLE_DEBUG" class="org.apache.log4j.ConsoleAppender">
 		<param name="Target" value="System.err" />
 		<param name="Threshold" value="DEBUG" />
 		<layout class="org.apache.log4j.PatternLayout">
@@ -64,16 +64,21 @@
 			<param name="LevelMin" value="DEBUG" />
 			<param name="LevelMax" value="DEBUG" />
 		</filter>
-	</appender>
+	</appender> -->
 
-	<category name="org.springframework.jdbc" additivity="true">
+<!-- 	<category name="org.springframework.jdbc" additivity="true">
 		<priority value="DEBUG" />
-		<appender-ref ref="CONSOLE_DEBUG" />
+		<appender-ref ref="console" />
 	</category>
-	
+
 	<category name="ipint.glp.controlleurs" additivity="true">
 		<priority value="DEBUG" />
-		<appender-ref ref="CONSOLE_DEBUG" />
+		<appender-ref ref="console" />
 	</category>
+
+	<category name="ipint.glp.metiers" additivity="true">
+		<priority value="DEBUG" />
+		<appender-ref ref="console" />
+	</category> -->
 
 </log4j:configuration>

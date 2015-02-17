@@ -4,10 +4,9 @@
 package ipint.glp.metiers;
 
 import ipint.glp.donnees.Evenement;
-import ipint.glp.donnees.compositeKey.IdEvenement;
 import ipint.glp.fabriques.FabEvenement;
 
-import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -44,16 +43,12 @@ public class MetierEvenement {
 		fabEvenement.supprimer(a);
 	}
 
-	public void supprimerTout() {
-		fabEvenement.supprimerTout();
-	}
-
 	/**
 	 * @param id
 	 * @return
 	 * @see ipint.glp.fabriques.FabEvenement#obtenir(java.lang.Object)
 	 */
-	public Evenement obtenir(IdEvenement id) {
+	public Evenement obtenir(Integer id) {
 		return fabEvenement.obtenir(id);
 	}
 
@@ -68,9 +63,10 @@ public class MetierEvenement {
 
 	@Transactional(rollbackFor = {Exception.class})
 	public Evenement creer(Evenement evenement) {
-//		if (utilisateur.getDroit().ordinal() < Droit.VIE_ETUDIANTE.ordinal()) {
-//			throw new DroitInsuffisantException(Droit.VIE_ETUDIANTE, utilisateur.getDroit());
-//		}
 		return fabEvenement.creer(evenement);
+	}
+
+	public Evenement obtenir(String titre, Date dateDebut) {
+		return fabEvenement.obtenir(titre, dateDebut);
 	}
 }

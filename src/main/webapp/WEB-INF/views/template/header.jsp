@@ -1,5 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ page import="org.jasig.cas.client.authentication.AttributePrincipal"%>
 <%@ page import="java.util.*"%>
 <%@ page
@@ -44,11 +46,15 @@
 								href="${pageContext.request.contextPath}/utilisateur/lister/job"><i
 									class="step fi-dollar-bill size-36"> </i> <spring:message
 										code="template.header.mesJobs" /></a></li>
+
+<sec:authorize url="/evenement/modifier">
 							<li><a
 								href="${pageContext.request.contextPath}/utilisateur/lister/evenement"><i
 									class="step fi-universal-access size-36"> </i> <spring:message
 										code="template.header.mesEvenements" /></a></li>
+</sec:authorize>
 						</ul></li>
+
 					<%--  fin liens de l'utilisateur  --%>
 				</c:if>
 
@@ -70,26 +76,26 @@
 			<%-- choix de la langue --%>
 			<c:set var="URLCourante"
 				value="${requestScope['javax.servlet.forward.servlet_path']}" />
+			<c:set var="parametres"
+				value="${fn:split(pageContext.request.queryString, '&')}" />
 
 			<c:url value="${URLCourante}" var="en_EN">
-				<c:if test="${pageContext.request.method=='GET'}">
-					<c:forEach items="${param}" var="entry">
-						<c:if test="${'locale'!=entry.key}">
-							<c:param name="${entry.key}" value="${entry.value}" />
-						</c:if>
-					</c:forEach>
-				</c:if>
+				<c:forEach items="${parametres}" var="parametre">
+					<c:set var="key_value" value="${fn:split(parametre, '=')}" />
+					<c:if test="${'locale' != key_value[0]}">
+						<c:param name="${key_value[0]}" value="${key_value[1]}" />
+					</c:if>
+				</c:forEach>
 				<c:param name="locale" value="en_EN" />
 			</c:url>
 
 			<c:url value="${URLCourante}" var="fr_FR">
-				<c:if test="${pageContext.request.method=='GET'}">
-					<c:forEach items="${param}" var="entry">
-						<c:if test="${'locale'!=entry.key}">
-							<c:param name="${entry.key}" value="${entry.value}" />
-						</c:if>
-					</c:forEach>
-				</c:if>
+				<c:forEach items="${parametres}" var="parametre">
+					<c:set var="key_value" value="${fn:split(parametre, '=')}" />
+					<c:if test="${'locale' != key_value[0]}">
+						<c:param name="${key_value[0]}" value="${key_value[1]}" />
+					</c:if>
+				</c:forEach>
 				<c:param name="locale" value="fr_FR" />
 			</c:url>
 

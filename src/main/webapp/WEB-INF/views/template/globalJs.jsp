@@ -5,6 +5,16 @@
 <!--[if lt IE 9]>
 <script
 	src="${pageContext.request.contextPath}/ressources/js/jquery-1.11.2.min.js"></script>
+<script>
+	(function giveWindowAttr(html, body) {
+		if (!window.innerWidth) Object.defineProperty(window, 'innerWidth', {
+			get: function () { return html.clientWidth; }
+		});
+		if (!window.innerHeight) Object.defineProperty(window, 'innerHeight', {
+			get: function () { return html.clientHeight; }
+		});
+	}(document.documentElement, document.body));
+</script>
 <![endif]-->
 
 <!-- Jquery optimisé pour les navigateurs modernes (v2) -->
@@ -31,6 +41,7 @@
 <spring:message code="template.langue" var="langue" />
 <script>
 	$(document).foundation();
+	
 	$(".spinner").spinner()
 	//traductions à télécharger : https://github.com/jquery/jquery-ui/tree/master/ui/i18n
 	$(".datepicker").datepicker($.datepicker.regional["${langue}"]);

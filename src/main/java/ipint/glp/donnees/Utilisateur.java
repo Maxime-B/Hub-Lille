@@ -32,10 +32,13 @@ public class Utilisateur {
 	@OneToMany(mappedBy="utilisateur", targetEntity=Annonce.class)
 	private List<Annonce> lesAnnonces = new ArrayList<Annonce>();
 	
+	@OneToMany(mappedBy="utilisateur", targetEntity=Evenement.class)
+	private List<Evenement> lesEvenements = new ArrayList<Evenement>();
 	
-	public Utilisateur(){
-		
-	}
+	@OneToMany(mappedBy="utilisateur", targetEntity=Job.class)
+	private List<Job> lesJobs = new ArrayList<Job>();
+	
+	public Utilisateur(){}
 	
 	public Utilisateur(String login, String prenom, String nom, String email) {
 		super();
@@ -44,7 +47,6 @@ public class Utilisateur {
 		this.prenom = prenom;
 		this.email = email;
 		this.droits = new HashSet<Droit>();
-		droits.add(Droit.DEFAUT);
 	}
 	
 	public Utilisateur(String login, String prenom, String nom, String email, Set<Droit> droits) {
@@ -139,4 +141,33 @@ public class Utilisateur {
 	public void setLesAnnonces(List<Annonce> lesAnnonces) {
 		this.lesAnnonces = lesAnnonces;
 	}
+
+	/**
+	 * @return the lesEvenements
+	 */
+	public List<Evenement> getLesEvenements() {
+		return lesEvenements;
+	}
+
+	/**
+	 * @param lesEvenements the lesEvenements to set
+	 */
+	public void setLesEvenements(List<Evenement> lesEvenements) {
+		this.lesEvenements = lesEvenements;
+	}
+
+	/**
+	 * @return the lesJobs
+	 */
+	public List<Job> getLesJobs() {
+		return lesJobs;
+	}
+
+	/**
+	 * @param lesJobs the lesJobs to set
+	 */
+	public void setLesJobs(List<Job> lesJobs) {
+		this.lesJobs = lesJobs;
+	}
+
 }

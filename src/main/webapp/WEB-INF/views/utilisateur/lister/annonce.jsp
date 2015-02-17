@@ -3,7 +3,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
-<tiles:insertDefinition name="annonce">
+<tiles:insertDefinition name="utilisateur">
 	<tiles:putAttribute name="title">
 		liste de mes annonces
 	</tiles:putAttribute>

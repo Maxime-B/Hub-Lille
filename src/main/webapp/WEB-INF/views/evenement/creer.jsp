@@ -10,17 +10,18 @@
 	<tiles:putAttribute name="main">
 		<section class="section">
 			<h1>
-				<spring:message code="evenement.creer.titre" />
+				<spring:message code="evenement.${page}.titre" />
 			</h1>
 
-			<form:form method="post" modelAttribute="evenement" >
+			<form:form action="${pageContext.request.contextPath}/evenement/${page}" method="post" modelAttribute="evenement" >
 				<div>
+					<form:input path="id" type="hidden"/>
 					<form:errors path="id" cssClass="error" />
 
 					<fmt:formatDate type="date" dateStyle="long" value="${evenementCree.dateDebut}" var="dateDebut"/>
 					<c:if test="${estUnSucces}">
 						<div class="alert-box success radius">
-							<spring:message code="evenement.creer.succes" arguments="${evenementCree.titre},${dateDebut}"/>
+							<spring:message code="evenement.${page}.succes" arguments="${evenementCree.titre},${dateDebut}"/>
 						</div>
 					</c:if>
 					<c:if test="${!estUnSucces}">

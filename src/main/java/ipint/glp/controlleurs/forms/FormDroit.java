@@ -3,6 +3,7 @@ package ipint.glp.controlleurs.forms;
 import ipint.glp.donnees.Droit;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -10,11 +11,12 @@ import java.util.Set;
 public class FormDroit {
 	private String login;
 	private List<String> droits;
+	private String filtre;
 	
 	public FormDroit() {
 		super();
 		this.droits = new ArrayList<String>();
-		droits.add("");
+		//droits.add("");
 	}
 	
 	/**
@@ -43,7 +45,9 @@ public class FormDroit {
 	public Set<Droit> getDroitsObject() {
 		HashSet<Droit> droitsObject = new HashSet<Droit>();
 		for(String droit : droits) {
-			droitsObject.add(Droit.valueOf(droit));
+			try {
+				droitsObject.add(Droit.valueOf(droit));
+			} catch (IllegalArgumentException illegalArgumentException) {}
 		}
 		return droitsObject;
 	}
@@ -53,6 +57,20 @@ public class FormDroit {
 	 */
 	public void setDroits(List<String> droits) {
 		this.droits = droits;
+	}
+
+	/**
+	 * @return the filtre
+	 */
+	public String getFiltre() {
+		return filtre;
+	}
+
+	/**
+	 * @param filtre the filtre to set
+	 */
+	public void setFiltre(String filtre) {
+		this.filtre = filtre;
 	}
 
 

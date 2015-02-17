@@ -8,7 +8,6 @@ import javax.persistence.metamodel.StaticMetamodel;
 
 @StaticMetamodel(Evenement.class)
 public class Evenement_ {
-	public static volatile SingularAttribute<Evenement, String> titre;
 	public static volatile SingularAttribute<Evenement, String> description;
 	public static volatile SingularAttribute<Evenement, String> lieu;
 	public static volatile SingularAttribute<Evenement, Date> dateDebut;

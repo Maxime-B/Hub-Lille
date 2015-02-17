@@ -34,4 +34,10 @@ public class ControlleurUtilisateur {
 		model.addAttribute("annonces", metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()).getLesAnnonces());
 		return "/utilisateur/lister/annonce";
 	}
+	
+	@RequestMapping(value = "/utilisateur/lister/evenement", method = RequestMethod.GET)
+	public String listerEvenement(Model model, HttpServletRequest request) {
+		model.addAttribute("evenements", metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()).getLesEvenements());
+		return "/utilisateur/lister/evenement";
+	}
 }
