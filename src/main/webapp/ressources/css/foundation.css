@@ -5,7 +5,11 @@ html > body > div#container > div.row  {
 html > body > div.row > main{
 	border-left-style: solid;
 	border-left: 1px double #ddd;
-	padding: 2%;
+	paddng: 2%;
+} 
+img.th{
+	max-width:100px;
+	max-height: 100px;
 }
 
 footer #footer div{
