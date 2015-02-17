@@ -87,8 +87,8 @@ static FabAnnonce fb;
 	}
 	public void supprimerAnnonce(Annonce a){
 
-		String query ="Delete from Annonce where Annonce.id =a.id";
-		connexion.getEm().createQuery(query).executeUpdate();
+		//String query ="Delete from Annonce where Annonce.id =a.id";
+		connexion.getEm().remove(a);
 		this.listerAnnonces();
 
 

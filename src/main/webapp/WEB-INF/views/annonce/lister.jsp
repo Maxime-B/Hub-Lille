@@ -2,6 +2,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="form"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="annonce">
 	<tiles:putAttribute name="title">Les annonces</tiles:putAttribute>
 	<tiles:putAttribute name="main">
@@ -31,7 +32,7 @@
 				<!--  <div style="width: 450px; height: 250px; border: 1px solid black;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px;">-->
 
 				<div
-					style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #000000; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;">
+					style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;margin: 0 2% 5% 0;">
 					<form method="get" action="">
 						<!--<form method="get" action= "annonce/listerCategorie">-->
 						<div style="text-align: right">
@@ -58,28 +59,36 @@
 					<c:if test="${not empty annonces}">
 						<c:forEach items="${annonces}" var="a">
 							<table
-								style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #000000; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;">
+								style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;width:100%;">
 								<tr>
-									<td rowspan="2"><img
-										src="${pageContext.request.contextPath}/ressources/img/pas-dimage.png"
-										width="200" height="450" style="border: solid 1px;" /></td>
+									<td rowspan="2">
+									
+											<c:if test="${fn:length(a.images) gt 0}">
+				  		
+  							
+								 <img class="th"src="${pageContext.request.contextPath}/ressources/photos/${a.images[0] }">
+	
+				</c:if>
+				<c:if test="${fn:length(a.images) lt 1}">
+							  <img class="th" src="/hublille1/ressources/img/pas-dimage.png"/>
 
-									<td><u><span
-											style="font-family: Comic Sans MS; font-weight: bold; color: #000000;">
-												${a.titre} </span></u></td>
+				</c:if>
+									</td>
+
+									<td><h5>
+												${a.titre} </h5><span>${a.description}</span></td>
+												
 									<td align=right><B><FONT color="#008CBA">${a.lesChamps['prix']}&#x20AC</FONT></B></td>
 
 								</tr>
 								<tr>
 									<td width=50% bgcolor="#FFFFFF"></td>
 									<td bgcolor="#FFFFFF">
-										<form method="get" action="annonce/consulter">
+										<a href="annonce/consulter?ref=${a.id }" />
 
-											<input type="hidden" name="ref" value="${a.id}"> <input
-												type="submit" value="details" style="padding: 8px 40px"
-												class="radius button" />
+											 <button class="radius button" >Details</button>
 
-										</form>
+										</a>
 									</td>
 								</tr>
 							</table>
