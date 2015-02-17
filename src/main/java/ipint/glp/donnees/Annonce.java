@@ -36,6 +36,8 @@ public class Annonce {
 	private String titre;
 	private String description;
 	private ArrayList<String> images;
+	private int signal;
+	
 	
 	public ArrayList<String> getImages() {
 		return images;
