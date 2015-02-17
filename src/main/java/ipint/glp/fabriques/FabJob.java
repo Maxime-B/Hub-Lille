@@ -1,6 +1,7 @@
 	package ipint.glp.fabriques;
 
-	import java.util.HashMap;
+	import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -37,14 +38,15 @@ public class FabJob {
 		}
 		
 
-		public Job creerJob(String titre, String remuneration, String description,Utilisateur utilisateur){
+		public Job creerJob(String titre, String remuneration, String description,String modalite,Utilisateur utilisateur){
 		//	this.listerAnnonces();
 			Job j = new Job();
-			j.setTitre(titre);;
+			j.setTitre(titre);
 			//categorie.addAnnonce(a);
 			j.setRemuneration(remuneration);
 			j.setUtilisateur(utilisateur);
 			j.setDescription(description);
+			j.setModalite(modalite);
 			connexion.getEm().persist(j);
 			//utilisateur.addAnnonce(a);
 			lesJobs.put(j.getId(),j);
@@ -64,6 +66,15 @@ public class FabJob {
 			
 		}
 		
+		public Job rechercherParId(int reference) {
+			// TODO Auto-generated method stub
+			String query ="select j from Job j where j.id ="+reference;
+			ArrayList<Job> l = (ArrayList<Job>) connexion.getEm().createQuery(query).getResultList();
+			if (l.isEmpty()) {
+				return null;
+			}
+			return l.get(0);
+		}
 		public void supprimerJob(Job j){
 
 			String query ="Delete from Job where Job.id =j.id";

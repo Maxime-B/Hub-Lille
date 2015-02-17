@@ -26,8 +26,8 @@ public class MetierJob {
 	
 	
 	
-	public Job creerJob(String titre, String remuneration, String description,Utilisateur utilisateur){
-		Job job = FabJob.getInstance().creerJob(titre,description , remuneration, utilisateur );
+	public Job creerJob(String titre, String remuneration, String description,String modalite,Utilisateur utilisateur){
+		Job job = FabJob.getInstance().creerJob(titre,description , remuneration,modalite, utilisateur );
 		System.out.println("publication réussie ");
 		for (Job an : FabJob.getInstance().listerJob()) {
 			System.out.println(an.getId() + " " + an.getDescription()
@@ -48,7 +48,10 @@ public class MetierJob {
 	public void supprimerJob() {
 		FabJob.getInstance().supprimerJob();
 	}
-
+	public Job rechercher(int reference) {
+		// TODO Auto-generated method stub
+		return FabJob.getInstance().rechercherParId(reference);
+	}
 	
 	public Job creerJob(Job j){
 		return FabJob.getInstance().creer(j);
