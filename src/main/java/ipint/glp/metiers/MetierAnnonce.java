@@ -30,7 +30,9 @@ public class MetierAnnonce {
 		return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.offre, lesChamps);
 	}
 	
-	
+	public Annonce signalerAnnonce(Annonce a){
+		return FabAnnonce.getInstance().signalerAnnonce(a);
+	}
 	public List<Annonce> listerAnnoncesParCategorie(String categorie){
 		return FabAnnonce.getInstance().listerAnnoncesParCategorie(FabCategorie.getInstance().getCategorie(categorie));
 	}

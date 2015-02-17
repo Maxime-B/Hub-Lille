@@ -93,6 +93,12 @@ static FabAnnonce fb;
 
 
 	}
+	public Annonce signalerAnnonce(Annonce a){
+		a.setSignal(a.getSignal()+1);
+		connexion.getEm().persist(a);
+		connexion.getEm().flush();
+		return a;
+	}
 
 	public List<Annonce> listerAnnoncesParCategorie(Categorie categorie){
 

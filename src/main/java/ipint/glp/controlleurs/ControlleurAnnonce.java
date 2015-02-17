@@ -223,6 +223,15 @@ public class ControlleurAnnonce implements ServletContextAware{
 				return "annonce/contacter";
 			}
 			
+	@RequestMapping(value = "/annonce/signaler", method = RequestMethod.GET)
+	public String signalerAnnonce(Model model, @RequestParam("ref") int ref) {
+		Annonce annonce = metierAnnonce.rechercher(ref);
+		metierAnnonce.signalerAnnonce(annonce);
+		model.addAttribute("annonce", annonce);
+		model.addAttribute("ref",ref);
+		System.out.println(annonce.getSignal());
+		return "annonce/signaler";
+	}
 
 	@Override
 	public void setServletContext(ServletContext sc) {

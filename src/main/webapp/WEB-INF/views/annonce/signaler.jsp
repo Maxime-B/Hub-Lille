@@ -9,6 +9,7 @@
 	<tiles:putAttribute name="main">
 		<section class="section">
 			<h1>${annonce.titre}</h1>
+			<h2>l'annonce est bien signalé</h2>
 
 			<!-- message si redirection -->
 			<c:if test="${!empty param['estUnSucces']}">
@@ -74,7 +75,7 @@
 			
 		
 
-			<br /> <a href="signaler?ref=${annonce.id}">signaler</a>
+			
 		</section>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
