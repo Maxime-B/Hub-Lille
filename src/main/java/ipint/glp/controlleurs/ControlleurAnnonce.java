@@ -73,61 +73,146 @@ public class ControlleurAnnonce implements ServletContextAware{
 		return new ModelAndView("annonce/creer", "annonce", formAnnonce);
 	}
 	
-	@RequestMapping(value = "/annonce/creer", method = RequestMethod.POST)
+
+	@RequestMapping("/annonce/creerOffre")
+	public ModelAndView creerAnnonceOffre(@RequestParam("categorieChoisie")String categorieChoisie, Model model) {
+		Categorie categorie = metierCategorie.getCategorie(categorieChoisie);
+		if (categorie == null) {
+			return new ModelAndView("annonce/categorie/choix");
+		}
+		FormAnnonce formAnnonce = new FormAnnonce();
+		formAnnonce.setCategorieObject(categorie);
+		formAnnonce.setType(TypeAnnonce.offre);
+		System.out.println(formAnnonce.getType());
+		return new ModelAndView("annonce/creerOffre", "annonce", formAnnonce);
+	}
+
+
+	@RequestMapping("/annonce/creerDemande")
+	public ModelAndView creerAnnonceDemande(@RequestParam("categorieChoisie")String categorieChoisie, Model model) {
+		Categorie categorie = metierCategorie.getCategorie(categorieChoisie);
+		if (categorie == null) {
+			return new ModelAndView("annonce/categorie/choix");
+		}
+		FormAnnonce formAnnonce = new FormAnnonce();
+		formAnnonce.setCategorieObject(categorie);
+		formAnnonce.setType(TypeAnnonce.demande);
+		System.out.println(formAnnonce.getType());
+		return new ModelAndView("annonce/creerDemande", "annonce", formAnnonce);
+	}
+
+
+
+	@RequestMapping(value = "/annonce/creerOffre", method = RequestMethod.POST)
 	public String creerAnnonce(@RequestParam("categorie")String categorie, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
-			BindingResult bindingResultOfAnnonce,@RequestParam("photos")MultipartFile[] lesphotos, Model model) {
+			BindingResult bindingResultOfAnnonce,Model model) {
 		model.addAttribute("estUnSucces", true);
 		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		if (bindingResultOfAnnonce.hasErrors()) {
 			model.addAttribute("estUnSucces", false);
 			return "annonce/creer";
 		}
-		
-//		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
-		
-		
-//		for(Entry<String, String> entry : lesChamps.entrySet()) {
-//			System.err.println(entry.getKey());
-//			System.err.println(entry.getValue());	
-//		}
-		
-	//	util.setEmail("test@test.fr");
+
+		//		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
+		//System.out.printl("")		
+		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
+		{
+			if(ch.getTypeChamp() == TypeChamp.IMAGE)
+			{
+				String name="latifu.jpg";
+				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+				MultipartFile image = multipartRequest.getFile(ch.getLibelle());
+				if (!image.isEmpty()) {
+					try {
+						byte[] bytes = image.getBytes();
+						//System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
+
+						String path = servletcontext.getRealPath("ressources/photos");
+						System.out.println(path);
+						File f = new File(path+File.separator+name);
+						BufferedOutputStream stream =
+								new BufferedOutputStream(new FileOutputStream(f));
+						stream.write(bytes);
+						stream.close();
+						System.err.println( "You successfully uploaded " + name + "!");
+					} catch (Exception e) {
+						System.err.println("You failed to upload " + name + " => " + e.getMessage());
+					}
+				} else {
+					System.err.println( "You failed to upload " + name + " because the file was empty.");
+				}
+			}
+		}
+
+		//		for(Entry<String, String> entry : lesChamps.entrySet()) {
+		//			System.err.println(entry.getKey());
+		//			System.err.println(entry.getValue());	
+		//		}
+
+		//	util.setEmail("test@test.fr");
+		System.out.println("------------------------------------------------");
+		//System.out.println(formAnnonce.getType());
 		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
 		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur, TypeAnnonce.offre, formAnnonce.getLesChamps());
-		int nb = 1;
-		ArrayList<String> liens = new ArrayList<String>();
-		for(MultipartFile image : lesphotos)
-		{
-			
-				String name=annonce.getId()+"_"+nb+".jpg";
-			
-				if (!image.isEmpty()) {
-		            try {
-		                byte[] bytes = image.getBytes();
-		                //System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
-		                
-		        		String path = servletcontext.getRealPath("/ressources/photos");
-		        		System.out.println(path);
-		        		File f = new File(path+File.separator+name);
-		                BufferedOutputStream stream =
-		                        new BufferedOutputStream(new FileOutputStream(f));
-		                stream.write(bytes);
-		                stream.close();
-		                System.err.println( "You successfully uploaded " + name + "!");
-		                System.err.println( path+File.separator+name);
-		                liens.add(name);
-		                
-		            } catch (Exception e) {
-		            	System.err.println("You failed to upload " + name + " => " + e.getMessage());
-		            }
-		            nb++;
-		        } else {
-		        	System.err.println( "You failed to upload " + name + " because the file was empty.");
-		        }
-			
+		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		//model.addAttribute("annonce", annonce);
+		System.err.println(annonce.getId());
+		return "redirect:/annonce/consulter?ref=" + annonce.getId();
+	}
+
+	@RequestMapping(value = "/annonce/creerDemande", method = RequestMethod.POST)
+	public String creerAnnonceOffre(@RequestParam("categorie")String categorie, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
+			BindingResult bindingResultOfAnnonce,Model model) {
+		model.addAttribute("estUnSucces", true);
+		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
+		if (bindingResultOfAnnonce.hasErrors()) {
+			model.addAttribute("estUnSucces", false);
+			return "annonce/creerAnnonce";
 		}
-		annonce.setImages(liens);
-		metierAnnonce.modifier(annonce);
+
+		//		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
+		//System.out.printl("")		
+		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
+		{
+			if(ch.getTypeChamp() == TypeChamp.IMAGE)
+			{
+				String name="latifu.jpg";
+				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+				MultipartFile image = multipartRequest.getFile(ch.getLibelle());
+				if (!image.isEmpty()) {
+					try {
+						byte[] bytes = image.getBytes();
+						//System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
+
+						String path = servletcontext.getRealPath("ressources/photos");
+						System.out.println(path);
+						File f = new File(path+File.separator+name);
+						BufferedOutputStream stream =
+								new BufferedOutputStream(new FileOutputStream(f));
+						stream.write(bytes);
+						stream.close();
+						System.err.println( "You successfully uploaded " + name + "!");
+					} catch (Exception e) {
+						System.err.println("You failed to upload " + name + " => " + e.getMessage());
+					}
+				} else {
+					System.err.println( "You failed to upload " + name + " because the file was empty.");
+				}
+			}
+		}
+
+		//		for(Entry<String, String> entry : lesChamps.entrySet()) {
+		//			System.err.println(entry.getKey());
+		//			System.err.println(entry.getValue());	
+		//		}
+
+		//	util.setEmail("test@test.fr");
+		System.out.println("------------------------------------------------");
+		//System.out.println(formAnnonce.getType());
+		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
+		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur,TypeAnnonce.demande, formAnnonce.getLesChamps());
+		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
+		//model.addAttribute("annonce", annonce);
 		System.err.println(annonce.getId());
 		return "redirect:/annonce/consulter?ref=" + annonce.getId();
 	}
@@ -152,39 +237,65 @@ public class ControlleurAnnonce implements ServletContextAware{
 		return "annonce/lister";
 	}*/
 	@RequestMapping(value = "/annonce", method = RequestMethod.GET)
-	public String listerAnnonces(Locale locale,Model model,String categorie, String motCle ){
-		
+	public String listerAnnonces(Locale locale,Model model,@RequestParam(defaultValue="") String categorie, @RequestParam(defaultValue="") String motCle, @RequestParam(defaultValue="") TypeAnnonce type){
+
 		List<Annonce>lesAnnonces = new ArrayList<Annonce>();
-		if ( motCle == null && categorie == null)
+		System.out.println(categorie);
+		System.out.println(motCle);
+		System.out.println(type);
+		if ( ((motCle == null || (motCle.equals("")) && (categorie == null || categorie.equals("")) && type == null))) {
 			lesAnnonces= metierAnnonce.listerAnnonces();
-		
-		else 
-			if( motCle == null && categorie !=null)
-				lesAnnonces=metierAnnonce.listerAnnoncesParCategorie(categorie);
-			else 
-				if(motCle != null && categorie == "")
-					lesAnnonces=metierAnnonce.chercherAnnonceParMotCle(motCle);
-			//lesAnnonces= metierAnnonce.chercherAnnonceParMotCle(motCle);
-				else
-					lesAnnonces= metierAnnonce.chercherAnnonceParMotCleCate(motCle,categorie);
-		
+		} else if ( ((motCle == null || (motCle.equals("")) && (categorie == null || categorie.equals("")) && type != null))) {
+			lesAnnonces= metierAnnonce.listerAnnoncesParType(type);
+		} else if ( ((motCle == null || (motCle.equals("")) && (categorie != null && (!categorie.equals(""))) && type == null))) {
+			lesAnnonces=metierAnnonce.listerAnnoncesParCategorie(categorie);
+		} else if ( ((motCle == null || (motCle.equals("")) && (categorie != null && (!categorie.equals(""))) && type != null))) {
+			lesAnnonces= metierAnnonce.chercherAnnonceParTypeCate(categorie, type);
+		} else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie == null || categorie.equals("")) && type == null))) {
+			lesAnnonces= metierAnnonce.chercherAnnonceParMotCle(motCle);
+		} else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie == null || categorie.equals("")) && type != null))) {
+			lesAnnonces= metierAnnonce.chercherAnnonceParTypeMotCle(type, motCle);
+		} else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie != null && (!categorie.equals(""))) && type == null))) {
+			lesAnnonces=metierAnnonce.chercherAnnonceParMotCleCate(motCle, categorie);
+		} else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie != null && (!categorie.equals(""))) && type != null))) {
+			lesAnnonces= metierAnnonce.chercherAnnoncesParTypeMotCleCate(type, categorie, motCle);
+		}
+
 		model.addAttribute("categories", metierCategorie.listerCategories());	
-		model.addAttribute("annonces",lesAnnonces );
+		model.addAttribute("annonces",lesAnnonces);
+		model.addAttribute("types", TypeAnnonce.values()); 
 		model.addAttribute("categorie",categorie);
 		model.addAttribute("motCle",motCle);
 		//model.addAttribute("annonces", metierAnnonce.listerAnnonces());
 		return "annonce/lister";
 	}
-	@RequestMapping(value = "/annonce/categorie/choisir", method = RequestMethod.GET)
+	/*	@RequestMapping(value = "/annonce/categorie/choisir", method = RequestMethod.GET)
 	public String choixCategorie(Model model) {
 		model.addAttribute("categories", metierCategorie.listerCategories());
+		model.addAttribute("types", TypeAnnonce.values());
 		return "annonce/categorie/choisir";
+	}*/
+
+	@RequestMapping(value = "/annonce/categorie/choisirDemande", method = RequestMethod.GET)
+	public String choixCategorieDemande(Model model) {
+		model.addAttribute("categories", metierCategorie.listerCategories());
+		//	model.addAttribute("types", TypeAnnonce.values());
+		return "annonce/categorie/choisirDemande";
 	}
+
+	@RequestMapping(value = "/annonce/categorie/choisirOffre", method = RequestMethod.GET)
+	public String choixCategorieOffre(Model model) {
+		model.addAttribute("categories", metierCategorie.listerCategories());
+		//	model.addAttribute("types", TypeAnnonce.values());
+		return "annonce/categorie/choisirOffre";
+	}
+
 	
 	@RequestMapping(value = "/annonce/consulter", method = RequestMethod.GET)
 	public String consulterAnnonce(Model model, @RequestParam("ref") int ref) {
 		Annonce annonce = metierAnnonce.rechercher(ref);
 		model.addAttribute("annonce", annonce);
+		model.addAttribute("types", TypeAnnonce.values()); 
 		model.addAttribute("ref",ref);
 		return "annonce/consulter";
 	}

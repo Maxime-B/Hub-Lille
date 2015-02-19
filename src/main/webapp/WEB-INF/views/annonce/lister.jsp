@@ -48,6 +48,13 @@
 												<option value="${item.nom}" selected>${item.nom}</option>
 											</c:forEach>
 									</select></td>
+									<td><select name="type"
+												style="width: 200px; height: 35px">
+													<option></option>
+													<c:forEach items='${types}' var="t">
+													<option  value="${t} ">${t} </option>
+													</c:forEach>
+											</select></td>
 									<td><input type="submit" value="chercher"
 										class="radius button" style="padding: 10px 50px" /></td>
 								</tr>

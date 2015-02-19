@@ -22,6 +22,8 @@ public class FabAnnonce {
 static FabAnnonce fb;
 	private HashMap<Integer,Annonce> lesAnnonces;
 	private Connexion connexion;
+	private HashMap<String, TypeAnnonce> lesTypes = new HashMap<String,TypeAnnonce>();
+
 	
 	private FabAnnonce(){
 		lesAnnonces = new HashMap<Integer,Annonce>();
@@ -111,6 +113,10 @@ static FabAnnonce fb;
 		connexion.getEm().merge(a);
 		return a;
 	}
+	
+	public TypeAnnonce getTypeAnnonce(String type){
+		return lesTypes.get(type);
+	}
 	public void supprimerAnnonce(){
 
 		connexion.getEm().getTransaction().begin();
@@ -162,13 +168,78 @@ static FabAnnonce fb;
 			//lesAnnonces.put(a.getId(), a);
 			System.out.println("**********************");
 			System.out.println(a.getTitre().indexOf(motCle));
-			if ((a.getTitre().indexOf(motCle)>=0) || (a.getDescription().indexOf(motCle)>=0))
-			//if ((a.getTitre()==motCle) || (a.getDescription()==motCle))
+			if ((a.getTitre().indexOf(motCle.toLowerCase())>=0) || (a.getDescription().indexOf(motCle.toLowerCase())>=0))
+				//if ((a.getTitre()==motCle) || (a.getDescription()==motCle))
 				annsFinal.add(a);
 		}
 		System.out.println(annsFinal.size());
 		return annsFinal;
 		
+	}
+	public List<Annonce> chercherAnnoncesParType(TypeAnnonce type){
+		Query query = connexion.getEm().createQuery("Select ann from Annonce ann where ann.type = :type");
+		query.setParameter("type", type);
+		List<Annonce> annonces = query.getResultList();
+		lesAnnonces.clear();
+		for(Annonce a : annonces){
+			lesAnnonces.put(a.getId(), a);
+		}
+		return annonces;
+	}
+	
+
+	public List<Annonce> chercherAnnoncesParTypeCate(TypeAnnonce type, Categorie categorie){
+		List<Annonce> anns = categorie.getLesAnnonces();
+		System.out.println(anns.size());
+		List<Annonce> annsFinal = new ArrayList();
+		lesAnnonces.clear();
+		for(Annonce a : anns){
+			//lesAnnonces.put(a.getId(), a);
+			System.out.println("**********************");
+			if(a.getType() == type && a.getCategorie() == categorie)
+				//if ((a.getTitre()==motCle) || (a.getDescription()==motCle))
+				annsFinal.add(a);
+		}
+		System.out.println(annsFinal.size());
+		return annsFinal;
+	}
+	public List<Annonce> chercherAnnoncesParTypeMotCle(TypeAnnonce type, String motCle){
+		Query query = connexion.getEm().createQuery("Select ann from Annonce ann where ann.type = :type");
+		query.setParameter("type", type);
+		List<Annonce> anns = query.getResultList();
+		lesAnnonces.clear();
+			System.out.println(anns.size());
+			List<Annonce> annsFinal = new ArrayList();
+			lesAnnonces.clear();
+			for(Annonce a : anns){
+				//lesAnnonces.put(a.getId(), a);
+				System.out.println("**********************");
+				System.out.println(a.getTitre().indexOf(motCle));
+				if (a.getType() == type && (a.getTitre().indexOf(motCle.toLowerCase())>=0) || (a.getDescription().indexOf(motCle.toLowerCase())>=0))
+					annsFinal.add(a);
+			}
+			System.out.println(annsFinal.size());
+			return annsFinal;
+	}
+
+	public List<Annonce> chercherAnnoncesParTypeMotCleCate(TypeAnnonce type, Categorie categorie, String motCle){
+		Query query = connexion.getEm().createQuery("Select ann from Annonce ann where ann.type = :type and ann.categorie= :categorie");
+		query.setParameter("type", type);
+		query.setParameter("categorie", categorie);
+		List<Annonce> anns = query.getResultList();
+		lesAnnonces.clear();
+		System.out.println(anns.size());
+		List<Annonce> annsFinal = new ArrayList();
+		lesAnnonces.clear();
+		for(Annonce a : anns){
+			//lesAnnonces.put(a.getId(), a);
+			System.out.println("**********************");
+			System.out.println(a.getTitre().indexOf(motCle));
+			if ((a.getType() == type) && ((a.getCategorie() == categorie) && (a.getTitre().indexOf(motCle.toLowerCase())>=0)) || (a.getDescription().indexOf(motCle.toLowerCase())>=0))
+				annsFinal.add(a);
+		}
+		System.out.println(annsFinal.size());
+		return annsFinal;
 	}
 	
 

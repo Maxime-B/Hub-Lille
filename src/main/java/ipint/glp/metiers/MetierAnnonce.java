@@ -27,8 +27,11 @@ public class MetierAnnonce {
 		return annonce;
 	}*/
 	public Annonce creerAnnonce(Categorie categorie,String titre, String description,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
-		return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.offre, lesChamps);
-	}
+		if(typeAnnonce == TypeAnnonce.offre)
+			return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.offre, lesChamps);
+		else 
+			return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.demande, lesChamps);
+		}
 	
 	public Annonce signalerAnnonce(Annonce a){
 		return FabAnnonce.getInstance().signalerAnnonce(a);
@@ -46,11 +49,28 @@ public class MetierAnnonce {
 		return FabAnnonce.getInstance().listerAnnonces();
 	}
 	
+	public List<Annonce> listerAnnoncesParType(TypeAnnonce type){
+		return FabAnnonce.getInstance().chercherAnnoncesParType(type);
+	}
+	
+	public List<Annonce> chercherAnnonceParTypeCate(String categorie, TypeAnnonce type){
+		return FabAnnonce.getInstance().chercherAnnoncesParTypeCate(type, FabCategorie.getInstance().getCategorie(categorie));
+	}
+	
+	public List<Annonce> chercherAnnonceParTypeMotCle(TypeAnnonce type,String motCle){
+		return FabAnnonce.getInstance().chercherAnnoncesParTypeMotCle(type, motCle);
+	}
+	
+	public List<Annonce> chercherAnnoncesParTypeMotCleCate(TypeAnnonce type, String categorie, String motCle){
+	return FabAnnonce.getInstance().chercherAnnoncesParTypeMotCleCate(type, FabCategorie.getInstance().getCategorie(categorie), motCle);
+	}
+	
 	
 	public Annonce modifier(Annonce a)
 	{
 		return FabAnnonce.getInstance().modifier(a);
 	}
+	
 	public void supprimerAnnonce(Annonce a) {
 		FabAnnonce.getInstance().supprimerAnnonce(a);
 	}
