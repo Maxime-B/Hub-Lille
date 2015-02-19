@@ -34,7 +34,6 @@
 			Initialisation de la BD</a></li>
 </ul>
 
-<hr>
 <h6>Administration<h6>
 <ul class="four side-nav">
 	<li><a href="${pageContext.request.contextPath}/admin/droit">Gérer les roles</a>
@@ -48,3 +47,7 @@
 	</ul>
 	</li>
 </ul>
+
+<h6>Modération<h6>
+<ul class="four side-nav">
+	<li><a href="${pageContext.request.contextPath}/moderateur">Modérer les annonces</a></li></ul>

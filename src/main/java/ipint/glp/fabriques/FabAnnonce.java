@@ -1,6 +1,7 @@
 package ipint.glp.fabriques;
 
 import ipint.glp.donnees.Annonce;
+import ipint.glp.donnees.Annonce_;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.Utilisateur;
@@ -12,7 +13,11 @@ import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.persistence.EntityManager;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 
 import connexion.Connexion;
 
@@ -85,6 +90,21 @@ static FabAnnonce fb;
 		return annonces;
 		
 	}
+	
+	public List<Annonce> listerAnnoncesParSignalement() {
+		EntityManager em = connexion.getEm();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Annonce> cq = cb.createQuery(Annonce.class);
+		Root<Annonce> root = cq.from(Annonce.class);
+
+		return em.createQuery(
+				cq.select(root)
+				.where(cb.greaterThan(root.get(Annonce_.signal), 5))
+				.orderBy(cb.asc(root.get(Annonce_.signal)))
+			)
+			.getResultList();
+	}
+	
 	public void supprimerAnnonce(Annonce a){
 
 		//String query ="Delete from Annonce where Annonce.id =a.id";

@@ -26,7 +26,10 @@
 						<div class="small-4 columns">
 							<a
 								href="${pageContext.request.contextPath}/evenement/modifier/${evenement.id}"
-								class="button small expand small-3 columns">Modifier</a>
+								class="button small">Modifier</a>
+							<a
+								href="${pageContext.request.contextPath}/evenement/supprimer/${evenement.id}"
+								class="button small">Supprimer</a>
 						</div>
 					</div>
 				</c:forEach>

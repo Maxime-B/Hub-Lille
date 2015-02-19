@@ -60,10 +60,19 @@ public class MetierAnnonce {
 	}
 
 	public Annonce rechercher(int reference) {
-		// TODO Auto-generated method stub
 		return FabAnnonce.getInstance().rechercherParId(reference);
 	}
 	
+	public List<Annonce> listerParSignalement() {
+		return FabAnnonce.getInstance().listerAnnoncesParSignalement();
+	}
 	
+	public MetierUtilisateur getMetierUtilisateur() {
+		return metierUtilisateur;
+	}
+
+	public void setMetierUtilisateur(MetierUtilisateur metierUtilisateur) {
+		this.metierUtilisateur = metierUtilisateur;
+	}
 
 }
