@@ -20,6 +20,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import javax.websocket.server.PathParam;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -131,7 +132,7 @@ public class ControlleurEvenement {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/evenement/modifier", method = RequestMethod.POST)
+	@RequestMapping(value="/evenement/modifier", method = RequestMethod.POST)
 	public ModelAndView modifier(HttpServletRequest request,
 			HttpServletResponse response, Model model,
 			@Valid @ModelAttribute("evenement") Evenement evenement,
@@ -178,5 +179,12 @@ public class ControlleurEvenement {
 		modelAndView.addObject("page", "modifier");
 		modelAndView.addObject("evenementCree", evenement);
 		return modelAndView;
+	}
+	
+	@RequestMapping(value="/evenement/supprimer/{id}", method = RequestMethod.GET)
+	public ModelAndView supprimerAnnonce(Model model, @PathVariable Integer id) {
+		System.out.println(id);
+		metierEvenement.supprimer(metierEvenement.obtenir(id));
+		return new ModelAndView("utilisateur/lister/evenement");
 	}
 }
