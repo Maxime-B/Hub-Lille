@@ -11,8 +11,8 @@
 		<div class="row">
 			<div class="large-12 columns">
 				<br />
-				<h3><spring:message code="job.creer.titre" /></h3>
-				<br />
+				<h2><spring:message code="job.creer.titre" /></h2>
+			
 				<form:form method="post" action="creer" modelAttribute="job">
 				
 				<c:if test='${estUnSucces}'>
@@ -27,7 +27,7 @@
 				
 				
 					<form:label path="titre" cssErrorClass="error" for="input-titre">
-					<spring:message code="job.creer.label.titre" />
+					<B><spring:message code="job.creer.label.titre" /></B>
 					<small><spring:message code="evenement.creer.requis" /></small>
 					</form:label>
 					
@@ -38,7 +38,8 @@
 					
 					<!--<label>Description:</label> <input type="text" name="description" />  -->
 					
-					<form:label  path="description" cssErrorClass="error" for="input-description"><spring:message code="job.creer.label.description" />
+					<form:label  path="description" cssErrorClass="error" for="input-description">
+					<B><spring:message code="job.creer.label.description" /></B>
 					<small><spring:message code="evenement.creer.requis" /></small>
 					</form:label>
 					<form:textarea cssErrorClass="error" path="description"
@@ -47,21 +48,34 @@
 					<form:errors path="description" cssClass="error" />
 					
 					
-					<form:label  path="modalite" cssErrorClass="error" for="input-description"><spring:message code="job.creer.label.postuler" />
+					<form:label  path="modalite" cssErrorClass="error" for="input-description">
+					<B><spring:message code="job.creer.label.postuler" /></B>
 					<small><spring:message code="evenement.creer.requis" /></small>
 					</form:label>
 					<form:textarea cssErrorClass="error" path="modalite"
 						id="input-description" rows="5" maxlength="400"/>
 						<form:errors path="modalite" cssClass="error" />
 
-					<label>remuneration</label>
+					<label><B><spring:message code="job.creer.label.remuneration" /></B></label>
 					<input type="text" name="remuneration" placeholder="50 char max"/>
 					<!--  	 <input type="submit" value="Publier"/>
 		-->
-		
+				<table style="border: solid 1px #FFFFFF">
+				<tr>
+					<td></td>
+				</tr>
+			</table>
+			<table
+					style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #FFFFFF; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; width: 100%;">
+					<tr>
+
+			
+				<td style="text-align: right">
 				<spring:message code="job.creer.submit" var="submit" />
 				<input type="submit" value="${submit}" class="radius button" />
-					
+					</td>
+					</tr>
+					</table>
 				</form:form>
 			</div>
 		</div>

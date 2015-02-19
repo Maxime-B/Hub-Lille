@@ -36,6 +36,7 @@
 					<form method="get" action="">
 						<!--<form method="get" action= "annonce/listerCategorie">-->
 						<div style="text-align: right">
+							
 							<table>
 								<tr>
 									<td><input type="text" name="motCle"

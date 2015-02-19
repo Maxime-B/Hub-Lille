@@ -105,7 +105,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 
 	@RequestMapping(value = "/annonce/creerOffre", method = RequestMethod.POST)
 	public String creerAnnonce(@RequestParam("categorie")String categorie, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
-			BindingResult bindingResultOfAnnonce,Model model) {
+			BindingResult bindingResultOfAnnonce,@RequestParam("photos")MultipartFile[] lesphotos,Model model) {
 		model.addAttribute("estUnSucces", true);
 		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		if (bindingResultOfAnnonce.hasErrors()) {
@@ -115,34 +115,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 
 		//		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
 		//System.out.printl("")		
-		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
-		{
-			if(ch.getTypeChamp() == TypeChamp.IMAGE)
-			{
-				String name="latifu.jpg";
-				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-				MultipartFile image = multipartRequest.getFile(ch.getLibelle());
-				if (!image.isEmpty()) {
-					try {
-						byte[] bytes = image.getBytes();
-						//System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
-
-						String path = servletcontext.getRealPath("ressources/photos");
-						System.out.println(path);
-						File f = new File(path+File.separator+name);
-						BufferedOutputStream stream =
-								new BufferedOutputStream(new FileOutputStream(f));
-						stream.write(bytes);
-						stream.close();
-						System.err.println( "You successfully uploaded " + name + "!");
-					} catch (Exception e) {
-						System.err.println("You failed to upload " + name + " => " + e.getMessage());
-					}
-				} else {
-					System.err.println( "You failed to upload " + name + " because the file was empty.");
-				}
-			}
-		}
+		
 
 		//		for(Entry<String, String> entry : lesChamps.entrySet()) {
 		//			System.err.println(entry.getKey());
@@ -156,13 +129,52 @@ public class ControlleurAnnonce implements ServletContextAware{
 		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur, TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
 		//model.addAttribute("annonce", annonce);
+		int nb = 1;
+		ArrayList<String> liens = new ArrayList<String>();
+		for(MultipartFile image : lesphotos)
+		{
+			
+				String name=annonce.getId()+"_"+nb+".jpg";
+			
+				if (!image.isEmpty()) {
+		            try {
+		                byte[] bytes = image.getBytes();
+		                //System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
+		                
+		        		String path = servletcontext.getRealPath("/ressources/photos");
+		        		System.out.println(path);
+		        		File f = new File(path+File.separator+name);
+		                BufferedOutputStream stream =
+		                        new BufferedOutputStream(new FileOutputStream(f));
+		                stream.write(bytes);
+		                stream.close();
+		                System.err.println( "You successfully uploaded " + name + "!");
+		                System.err.println( path+File.separator+name);
+		                liens.add(name);
+		                
+		            } catch (Exception e) {
+		            	System.err.println("You failed to upload " + name + " => " + e.getMessage());
+		            }
+		            nb++;
+		        } else {
+		        	System.err.println( "You failed to upload " + name + " because the file was empty.");
+		        }
+			
+		}
+		annonce.setImages(liens);
+		metierAnnonce.modifier(annonce);
+		System.err.println(annonce.getId());
+		
+		
+		
+	
 		System.err.println(annonce.getId());
 		return "redirect:/annonce/consulter?ref=" + annonce.getId();
 	}
 
 	@RequestMapping(value = "/annonce/creerDemande", method = RequestMethod.POST)
 	public String creerAnnonceOffre(@RequestParam("categorie")String categorie, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
-			BindingResult bindingResultOfAnnonce,Model model) {
+			BindingResult bindingResultOfAnnonce,@RequestParam("photos")MultipartFile[] lesphotos,Model model) {
 		model.addAttribute("estUnSucces", true);
 		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		if (bindingResultOfAnnonce.hasErrors()) {
@@ -172,34 +184,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 
 		//		HashMap<String,String> lesChamps = new HashMap<String, String>(parameters);
 		//System.out.printl("")		
-		for(Champ ch : formAnnonce.getCategorieObject().getChamps())
-		{
-			if(ch.getTypeChamp() == TypeChamp.IMAGE)
-			{
-				String name="latifu.jpg";
-				MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-				MultipartFile image = multipartRequest.getFile(ch.getLibelle());
-				if (!image.isEmpty()) {
-					try {
-						byte[] bytes = image.getBytes();
-						//System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
 
-						String path = servletcontext.getRealPath("ressources/photos");
-						System.out.println(path);
-						File f = new File(path+File.separator+name);
-						BufferedOutputStream stream =
-								new BufferedOutputStream(new FileOutputStream(f));
-						stream.write(bytes);
-						stream.close();
-						System.err.println( "You successfully uploaded " + name + "!");
-					} catch (Exception e) {
-						System.err.println("You failed to upload " + name + " => " + e.getMessage());
-					}
-				} else {
-					System.err.println( "You failed to upload " + name + " because the file was empty.");
-				}
-			}
-		}
 
 		//		for(Entry<String, String> entry : lesChamps.entrySet()) {
 		//			System.err.println(entry.getKey());
@@ -211,8 +196,44 @@ public class ControlleurAnnonce implements ServletContextAware{
 		//System.out.println(formAnnonce.getType());
 		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
 		Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie),formAnnonce.getTitre(), formAnnonce.getDescription(), utilisateur,TypeAnnonce.demande, formAnnonce.getLesChamps());
-		//Annonce annonce = metierAnnonce.creerAnnonce(metierCategorie.getCategorie(categorie), (CasAuthenticationToken) request.getUserPrincipal(), TypeAnnonce.offre, formAnnonce.getLesChamps());
-		//model.addAttribute("annonce", annonce);
+		int nb = 1;
+		ArrayList<String> liens = new ArrayList<String>();
+		for(MultipartFile image : lesphotos)
+		{
+			
+				String name=annonce.getId()+"_"+nb+".jpg";
+			
+				if (!image.isEmpty()) {
+		            try {
+		                byte[] bytes = image.getBytes();
+		                //System.out.println(getServlet().getServletConfig().getServletContext().getRealPath("/"));
+		                
+		        		String path = servletcontext.getRealPath("/ressources/photos");
+		        		System.out.println(path);
+		        		File f = new File(path+File.separator+name);
+		                BufferedOutputStream stream =
+		                        new BufferedOutputStream(new FileOutputStream(f));
+		                stream.write(bytes);
+		                stream.close();
+		                System.err.println( "You successfully uploaded " + name + "!");
+		                System.err.println( path+File.separator+name);
+		                liens.add(name);
+		                
+		            } catch (Exception e) {
+		            	System.err.println("You failed to upload " + name + " => " + e.getMessage());
+		            }
+		            nb++;
+		        } else {
+		        	System.err.println( "You failed to upload " + name + " because the file was empty.");
+		        }
+			
+		}
+		annonce.setImages(liens);
+		metierAnnonce.modifier(annonce);
+		System.err.println(annonce.getId());
+		
+		
+		
 		System.err.println(annonce.getId());
 		return "redirect:/annonce/consulter?ref=" + annonce.getId();
 	}

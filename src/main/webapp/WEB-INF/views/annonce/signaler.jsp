@@ -9,13 +9,12 @@
 	<tiles:putAttribute name="main">
 		<section class="section">
 			<h1>${annonce.titre}</h1>
-			<h2>l'annonce est bien signalé</h2>
+	
 
 			<!-- message si redirection -->
-			<c:if test="${!empty param['estUnSucces']}">
-				<div class="alert-box success radius">L'annonce ${annonce.titre} est maintenant consultable. <br/>
-				Tout les message seront dressés à l'adresse suivante : ${annonce.utilisateur.email}</div>
-			</c:if>
+			<div class="alert-box success radius">L'annonce ${annonce.titre}  est bien signalé</div>
+			<div
+				style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin: 2% 3% 2% 0%;">
 			<div class="row">
 				<div class="row">
 				  <div class="small-8 columns">
@@ -51,24 +50,25 @@
 						
 				</c:if>
 				<c:if test="${fn:length(annonce.images) lt 1}">
-							  <img src="/hublille1/ressources/img/pas-dimage.png" width="200" height="450" style="border: solid 1px;"/>
+							 <center> <img src="/hublille1/ressources/img/pas-dimage.png" width="200" height="450" style="border: solid 1px #EAEAEA;"/></center>
 
 				</c:if>
 				 
 				  </div>
 				  <br/><br/>
-				  <div class="row">
-				  Prix : ${annonce.lesChamps['prix']}
-				  </div>
+				  <center><div class="row">
+				 ${annonce.lesChamps['prix']}
+				  </div></center>
 				  <br/><br/>
 				 
 				  	<form action="contacter" method="get">
 					<input type="hidden" name="ref" value="${annonce.id}"/>
-					<input type="submit" name="Contacter" value="Contacter"class="radius button"  style="padding: 10px 50px" >
+					<center><input type="submit" name="Contacter" value="Contacter"class="radius button"  style="padding: 10px 50px" /></center>
 					</form>
 				  </div>
 				</div>
 				
+			</div>
 			</div>
 			
 		

@@ -32,7 +32,7 @@
 					</div>
 				</c:if>
 				<c:if test='${!estUnSucces}'>
-					<span> </span>
+					<span> </span>
 				</c:if>
 
 				<form:input type="hidden" path="categorie"
@@ -45,7 +45,7 @@
 
 				<form:label path="description" cssErrorClass="error"><spring:message code="job.creer.label.description" /></form:label>
 				<form:textarea path="description" rows="5" cols="30"
-					placeholder="200 caractère max" cssErrorClass="error"></form:textarea>
+					placeholder="200 caract�re max" cssErrorClass="error"></form:textarea>
 				<form:errors path="description" cssClass="error" />
 				
 				<c:forEach items='${annonce.categorieObject.champs}' var="item">
@@ -86,6 +86,14 @@
 					</div>
 					<br />
 				</c:forEach>
+				<div>
+					<div id="photo">
+						
+					</div>
+					<div class="row">
+						<button type='button' class="radius button" onclick="ajouterPhoto();">Ajouter une photo</button>
+					</div>
+				</div>
 				<div style="text-align: right">
 					<spring:message code="job.creer.submit" var="submit" />
 
@@ -93,5 +101,9 @@
 				</div>
 			</form:form>
 		</section>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="js">
+		<script src="<c:url value="/ressources/js/creerAnnonce.js"/>"></script>
+		
 	</tiles:putAttribute>
 </tiles:insertDefinition>

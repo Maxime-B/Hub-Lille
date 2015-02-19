@@ -86,6 +86,16 @@
 					</div>
 					<br />
 				</c:forEach>
+				<div>
+					<div id="photo">
+						
+					</div>
+					<div class="row">
+						<button type='button' class="radius button" onclick="ajouterPhoto();">Ajouter une photo</button>
+					</div>
+				</div>
+				
+				
 				<div style="text-align: right">
 					<spring:message code="job.creer.submit" var="submit" />
 
@@ -93,5 +103,9 @@
 				</div>
 			</form:form>
 		</section>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="js">
+		<script src="<c:url value="/ressources/js/creerAnnonce.js"/>"></script>
+		
 	</tiles:putAttribute>
 </tiles:insertDefinition>

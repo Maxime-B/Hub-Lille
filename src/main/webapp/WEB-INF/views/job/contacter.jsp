@@ -4,20 +4,18 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<tiles:insertDefinition name="annonce">
+<tiles:insertDefinition name="job">
 	<tiles:putAttribute name="title">
-		<spring:message code="annonce.creer.titre" />
+		<spring:message code="job.postuler.titre" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
-
-			<br />
+			</br>
 			<div style="text-align: left">
 				<h2>
-					<spring:message code="annonce.contacter.titre" />
+					<spring:message code="job.contacter.titre" />
 					"${a.titre }"
 				</h2>
-
 
 			</div>
 			<table style="border: solid 1px #FFFFFF">
@@ -30,7 +28,7 @@
 				enctype="multipart/form-data" modelAttribute="formcontact">
 				<c:if test='${estUnSucces}'>
 					<div class="alert-box success radius">
-						<spring:message code="annonce.contacter.succes" />
+						<spring:message code="job.contacter.succes" />
 					</div>
 				</c:if>
 				<c:if test='${!estUnSucces}'>
@@ -51,23 +49,19 @@
 				<form:textarea path="message" rows="5" cols="30"
 					cssErrorClass="error"></form:textarea>
 				<form:errors path="message" cssClass="error" />
-
 				<table style="border: solid 1px #FFFFFF">
-				<tr>
-					<td></td>
-				</tr>
-			</table>
+					<tr>
+						<td></td>
+					</tr>
+				</table>
 
-				<spring:message code="job.creer.submit" var="submit" />
-
-				
 				<table
 					style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #FFFFFF; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; width: 100%;">
 					<tr>
 
 
 						<td style="text-align: right"><input type="submit"
-							value="${submit}" class="radius button" /></td>
+							value="<spring:message code="job.postuler.titre"/>" class="radius button" /></td>
 					</tr>
 				</table>
 				</div>
@@ -75,4 +69,3 @@
 		</section>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
-l>
