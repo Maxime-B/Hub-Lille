@@ -74,12 +74,7 @@ public class ControlleurAccueil {
 				TypeChamp.DATE, true);
 		Champ c6 = FabChamp.getInstance().creerChamp("prix",
 				TypeChamp.NUMERIQUE, false);
-		Champ c7 = FabChamp.getInstance().creerChamp("photo1",
-				TypeChamp.IMAGE, false);
-		Champ c8 = FabChamp.getInstance().creerChamp("photo2",
-				TypeChamp.IMAGE, false);
-		Champ c9 = FabChamp.getInstance().creerChamp("photo3",
-				TypeChamp.IMAGE, false);
+		
 		List<Champ> champs1 = new ArrayList<Champ>();
 		// champs1.add(c1);
 		// champs1.add(c2);
@@ -87,13 +82,13 @@ public class ControlleurAccueil {
 		champs1.add(c4);
 		champs1.add(c5);
 		champs1.add(c6);
-		champs1.add(c7);
+		
 
 		List<Champ> champs2 = new ArrayList<Champ>();
 		// champs2.add(c1);
 		// champs2.add(c2);
 		champs2.add(c6);
-		champs2.add(c7);
+		
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
 				"Covoiturage", champs1);
 
