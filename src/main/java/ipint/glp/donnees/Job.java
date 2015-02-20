@@ -16,6 +16,7 @@ public class Job implements Publication{
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
+	
 
 
 	private String titre;
@@ -48,6 +49,7 @@ public class Job implements Publication{
 
 	public Job(){
 		super();
+		
 	}
 	public String getTitre() {
 		return titre;

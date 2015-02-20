@@ -7,7 +7,6 @@
 		<spring:message code="annonce.choix.titre" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
-	<h5>Créer annonce</h5>
 		<div class="row">
 			<div class="large-12 columns">
 				<br /> <b><spring:message code="annonce.choix.categorie" /></b> <br />

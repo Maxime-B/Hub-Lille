@@ -3,15 +3,11 @@
 <ul class="four side-nav">
 	<li><a href="${pageContext.request.contextPath}/annonce">Annonces</a>
 		<ul style="list-style-type: none;">
-				<li><a
-				href="${pageContext.request.contextPath}/annonce/categorie/choisir">Creer
-					une annonce</a></li>
+
 			<li><a
-				href="${pageContext.request.contextPath}/annonce/categorie/choisirOffre">Je
-					propose</a></li>
+				href="${pageContext.request.contextPath}/annonce/categorie/choisirOffre">Proposer </a></li>
 			<li><a
-				href="${pageContext.request.contextPath}/annonce/categorie/choisirDemande">Je
-					cherche</a></li>
+				href="${pageContext.request.contextPath}/annonce/categorie/choisirDemande">Chercher</a></li>
 
 			<li><a href="${pageContext.request.contextPath}/annonce">Lister
 					les annonces</a></li>

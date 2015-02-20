@@ -8,6 +8,7 @@ import javax.persistence.Query;
 
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
+import ipint.glp.donnees.Evenement;
 import ipint.glp.donnees.Job;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.Utilisateur;
@@ -48,6 +49,7 @@ public class FabJob {
 			j.setDescription(description);
 			j.setModalite(modalite);
 			connexion.getEm().persist(j);
+			utilisateur.getLesJobs().add(j);
 			//utilisateur.addAnnonce(a);
 			lesJobs.put(j.getId(),j);
 			return j;
@@ -83,6 +85,10 @@ public class FabJob {
 
 
 		}
+		public void supprimer(Job o) {
+			connexion.getEm().remove(o);
+			o.getUtilisateur().getLesJobs().remove(o);
+		}
 		
 		public List<Job> chercherJobParMotCle(String mot){
 			Query query = connexion.getEm().createQuery("Select jb from Job jb where LOWER(jb.titre) like LOWER(:mot) or LOWER(jb.description) like LOWER(:mot)");
@@ -98,23 +104,11 @@ public class FabJob {
 		
 		public Job creer(Job o) {
 			connexion.getEm().persist(o);
+			connexion.getEm().flush();
+			o.getUtilisateur().getLesJobs().add(o);
 			return o;
 		}
-		/*public void supprimerAnnonce(Annonce a){
-
-			String query ="Delete from Annonce where Annonce.id =a.id";
-			connexion.getEm().createQuery(query).executeUpdate();
-			this.listerAnnonces();
-
-
-		}
-
-		public List<Annonce> listerAnnoncesParCategorie(Categorie categorie){
-
-			return categorie.getLesAnnonces();
-
-
-		}*/
+		
 		public void supprimerJob(){
 
 			connexion.getEm().getTransaction().begin();

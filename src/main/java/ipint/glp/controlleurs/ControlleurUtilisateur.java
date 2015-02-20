@@ -76,4 +76,9 @@ public class ControlleurUtilisateur {
 		model.addAttribute("evenements", metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()).getLesEvenements());
 		return "/utilisateur/lister/evenement";
 	}
+	@RequestMapping(value = "/utilisateur/lister/job", method = RequestMethod.GET)
+	public String listerJO (Model model, HttpServletRequest request) {
+		model.addAttribute("jobs", metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()).getLesJobs());
+		return "/utilisateur/lister/job";
+	}
 }

@@ -12,16 +12,10 @@
 		<section class="section">
 
 			<div style="text-align: left">
-				<h3>
+				<h2>
 					<spring:message code="annonce.creer.titre" />
-				</h3>
-				<h6>
-					<spring:message code="annonce.creer.sousTitre" />
-				</h6>
-				<h6>
-					<u><a href="annonce/comment"><spring:message
-								code="annonce.creer.comment" /></a></u>
-				</h6>
+				</h2>
+				
 			</div>
 
 			<form:form action="creerOffre" method="post" enctype="multipart/form-data"
@@ -39,11 +33,11 @@
 					value="${annonce.categorieObject.nom}" />
 				<form:errors path="categorie" cssClass="error" />
 
-				<form:label path="titre" cssErrorClass="error"><spring:message code="job.creer.label.titre" /></form:label>
+				<form:label path="titre" cssErrorClass="error"><B><spring:message code="job.creer.label.titre" /></B></form:label>
 				<form:input type="text" path="titre" placeholder="50 char max" cssErrorClass="error"/>
 				<form:errors path="titre" cssClass="error" />
 
-				<form:label path="description" cssErrorClass="error"><spring:message code="job.creer.label.description" /></form:label>
+				<form:label path="description" cssErrorClass="error"><B><spring:message code="job.creer.label.description" /></B></form:label>
 				<form:textarea path="description" rows="5" cols="30"
 					placeholder="200 caractère max" cssErrorClass="error"></form:textarea>
 				<form:errors path="description" cssClass="error" />
@@ -52,7 +46,7 @@
 					<c:set var="path" value="${fn:toLowerCase(item.typeChamp)}['${item.libelle}']" />
 					<div>
 						<form:label path="${path}" cssErrorClass="error">
-							${item.libelle}
+							<B>${item.libelle}</B>
 							<c:if test='${item.obligatoire}'>
 								<small><spring:message code="annonce.creer.requis" /></small>
 							</c:if>

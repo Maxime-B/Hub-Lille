@@ -16,6 +16,21 @@ footer #footer div{
 	background-color: #EFEEEE;
 }
 
+.description{
+	color:#777;
+	font-style: italic;
+	font-size: 1em;
+	margin: 0;
+	text-transform: lowercase;
+}
+.titre{
+	font-weight: bold;
+	text-transform: lowercase;
+}
+.upper:first-letter{
+	text-transform: uppercase;
+}
+
 meta.foundation-version {
   font-family: "/5.5.0/"; }
 
