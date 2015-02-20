@@ -12,7 +12,7 @@
 	
 
 			<!-- message si redirection -->
-			<div class="alert-box success radius">L'annonce ${annonce.titre}  est bien signalé</div>
+			<div class="alert-box success radius">L'annonce ${annonce.titre}  est bien signalée</div>
 			<div
 				style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin: 2% 3% 2% 0%;">
 			<div class="row">

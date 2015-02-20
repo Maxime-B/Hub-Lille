@@ -15,13 +15,7 @@
 				<h3>
 					<spring:message code="annonce.creer.titre" />
 				</h3>
-				<h6>
-					<spring:message code="annonce.creer.sousTitre" />
-				</h6>
-				<h6>
-					<u><a href="annonce/comment"><spring:message
-								code="annonce.creer.comment" /></a></u>
-				</h6>
+				
 			</div>
 
 			<form:form action="creer" method="post" enctype="multipart/form-data"

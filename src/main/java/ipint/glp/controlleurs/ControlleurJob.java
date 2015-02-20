@@ -55,6 +55,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -96,7 +97,7 @@ public class ControlleurJob implements ServletContextAware {
 
 	   
 	   @RequestMapping(value = "/job/creer", method = RequestMethod.POST)
-	   public String addJob( Model model,@ModelAttribute("job")Job job,BindingResult bindingResultOfJob) {
+	   public String addJob( Model model, HttpServletRequest request,@ModelAttribute("job")Job job,BindingResult bindingResultOfJob) {
 		  
 		   validateurjob.validate(job,bindingResultOfJob );
 		   if (bindingResultOfJob.hasErrors()) {
@@ -113,8 +114,9 @@ public class ControlleurJob implements ServletContextAware {
 	      model.addAttribute("modalite", job.getModalite());
 	      System.out.println(job.getDescription());
 	  //   metierJob.creerJob(job.getTitre(),job.getDescription(), job.getRemuneration(), new Utilisateur());
+	     job.setUtilisateur(metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()));
 	      metierJob.creerJob(job);
-	      return "job/jobs";
+	      return "redirect:/job/consulter?ref=" + job.getId();
 		   }
 	
 	
@@ -188,6 +190,13 @@ public class ControlleurJob implements ServletContextAware {
 			model.addAttribute("a", job);
 					return "job/contacter";
 				}
+		
+		@RequestMapping(value="/job/supprimer/{id}", method = RequestMethod.GET)
+		public ModelAndView supprimerAnnonce(Model model, @PathVariable Integer id) {
+			System.out.println(id);
+			metierJob.supprimer(metierJob.rechercher(id));
+			return new ModelAndView("redirect:/utilisateur/lister/job");
+		}
 
 	
 }

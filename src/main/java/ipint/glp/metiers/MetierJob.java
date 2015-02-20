@@ -41,8 +41,8 @@ public class MetierJob {
 		return FabJob.getInstance().listerJob();
 	}
 
-	public void supprimerJob(Job a) {
-		FabJob.getInstance().supprimerJob(a);
+	public void supprimer(Job a) {
+		FabJob.getInstance().supprimer(a);
 	}
 
 	public void supprimerJob() {
