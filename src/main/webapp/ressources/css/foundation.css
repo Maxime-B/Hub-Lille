@@ -2,10 +2,10 @@ html > body > div#container > div.row  {
 	background-color: white;
 	box-shadow: 1px 1px 8px #aaa;
 }
-html > body > div.row > main{
+html > body > div > div.row > main{
 	border-left-style: solid;
-	border-left: 1px double #ddd;
-	paddng: 2%;
+	border-left: 2px double #ddd;
+	padding: 4%;
 } 
 img.th{
 	max-width:100px;
