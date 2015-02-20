@@ -83,8 +83,8 @@
 				</c:if>
 									</td>
 
-									<td><h5>
-												${a.titre} </h5><span>${a.description}</span></td>
+									<td><p class="titre upper">
+												${a.titre} </p><p class="description upper">${a.description}</p></td>
 												
 									<td align=right><B><FONT color="#008CBA">${a.lesChamps['prix']}&#x20AC</FONT></B></td>
 
