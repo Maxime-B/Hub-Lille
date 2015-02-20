@@ -69,12 +69,12 @@
 							<table
 								style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;width:100%;">
 								<tr>
-									<td rowspan="2">
+									<td  width=25% rowspan="2" style="text-align: center;">
 									
 											<c:if test="${fn:length(a.images) gt 0}">
 				  		
   							
-								 <img class="th"src="${pageContext.request.contextPath}/ressources/photos/${a.images[0] }">
+								 <img alt="/hublille1/ressources/img/pas-dimage.png" class="th"src="${pageContext.request.contextPath}/ressources/photos/${a.images[0] }">
 	
 				</c:if>
 				<c:if test="${fn:length(a.images) lt 1}">
@@ -91,7 +91,7 @@
 								</tr>
 								<tr>
 									<td width=50% bgcolor="#FFFFFF"></td>
-									<td bgcolor="#FFFFFF">
+									<td  width=25% bgcolor="#FFFFFF">
 										<a href="annonce/consulter?ref=${a.id }" />
 
 											 <button class="radius button" >Details</button>

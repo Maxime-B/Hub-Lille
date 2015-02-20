@@ -23,7 +23,7 @@
 				</div>
 			</div>
 		</div>
-
+		
 		<div class="row">
 
 			<!-- Main Content Section -->
