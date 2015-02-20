@@ -27,7 +27,7 @@ public class Annonce {
 	@ManyToOne(cascade= CascadeType.PERSIST)
 	private Utilisateur utilisateur;
 	
-	@ManyToOne(cascade= CascadeType.PERSIST)
+	@ManyToOne(cascade= CascadeType.REMOVE)
 	private Categorie categorie;
 
 	@CollectionTable(name="libelle", joinColumns=@javax.persistence.JoinColumn(name="valeur"))

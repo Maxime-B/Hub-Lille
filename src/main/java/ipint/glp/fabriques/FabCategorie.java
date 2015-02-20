@@ -55,4 +55,10 @@ public class FabCategorie {
 	public Categorie getCategorie(String nomCategorie){
 		return lesCategories.get(nomCategorie);
 	}
+	
+	public void supprimerCategorie(String nomCategorie){
+		
+		connexion.getEm().remove(this.getCategorie(nomCategorie));
+		lesCategories.remove(nomCategorie);
+	}
 }

@@ -6,11 +6,17 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 <table>
-<tr><th>Nom de la catégorie</th></tr>
+<tr><th>Nom de la catégorie</th><th>Supression</th></tr>
 <c:forEach items="${categories}" var="item">
-<tr><td>${item.nom}</td></tr>
+<tr id="${item.nom}"><td>${item.nom}</td><td><button id="supprCate" onClick="supprimerCategorie('${item.nom}')">Supprimer</button></td></tr>
 </c:forEach>
 </table>
 <a href="nouvelleCategorie">Ajouter une nouvelle catégorie</a>
 	</tiles:putAttribute>
+	<tiles:putAttribute name="js">
+		<script src="<c:url value="/ressources/js/supprimerCategorie.js"/>"></script>
+		<script type='text/javascript' src='/hublille1/dwr/engine.js'></script> 
+		<script type='text/javascript' src='/hublille1/dwr/util.js'></script>
+		<script type='text/javascript' src='/hublille1/dwr/interface/JSMetierCategorie.js'></script>
+		</tiles:putAttribute>
 </tiles:insertDefinition>

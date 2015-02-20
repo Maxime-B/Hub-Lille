@@ -16,7 +16,7 @@ public class Categorie {
 
 	private List<Champ> champs = new ArrayList<Champ>();
 	
-	@OneToMany(cascade= CascadeType.PERSIST)
+	@OneToMany(cascade= CascadeType.REMOVE)
 	private List<Annonce> lesAnnonces = new ArrayList<Annonce>();
 	
 	public Categorie(){

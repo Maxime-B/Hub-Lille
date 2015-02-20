@@ -33,5 +33,13 @@ public class MetierCategorie {
 		}
 		return tmp;
 	}
+	
+	public void supprimerCategorie(String nomCategorie){
+		FabCategorie.getInstance().supprimerCategorie(nomCategorie);
+	}
+	
+	public boolean existeAnnonce(String nomCategorie){
+		return !FabCategorie.getInstance().getCategorie(nomCategorie).getLesAnnonces().isEmpty();
+	}
 
 }
