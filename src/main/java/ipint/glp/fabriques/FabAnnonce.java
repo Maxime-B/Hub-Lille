@@ -110,8 +110,11 @@ static FabAnnonce fb;
 	public void supprimerAnnonce(Annonce a){
 
 		//String query ="Delete from Annonce where Annonce.id =a.id";
+		System.out.println(a.getId());
+		a.getUtilisateur().getLesAnnonces().remove(a);
 		connexion.getEm().remove(a);
-		this.listerAnnonces();
+		
+		
 
 
 	}

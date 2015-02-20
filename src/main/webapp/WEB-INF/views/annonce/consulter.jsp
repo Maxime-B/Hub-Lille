@@ -76,7 +76,7 @@
 							<br />
 							<br />
 							<CENTER>
-								<div class="row">${annonce.lesChamps['prix']}</div>
+								
 								<CENTER>
 									<br />
 									<br />

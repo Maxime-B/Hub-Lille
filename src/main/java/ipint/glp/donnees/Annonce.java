@@ -24,10 +24,10 @@ public class Annonce {
 	private int id;
 	
 	
-	@ManyToOne(cascade= CascadeType.PERSIST)
+	@ManyToOne
 	private Utilisateur utilisateur;
 	
-	@ManyToOne(cascade= CascadeType.PERSIST)
+	@ManyToOne
 	private Categorie categorie;
 
 	@CollectionTable(name="libelle", joinColumns=@javax.persistence.JoinColumn(name="valeur"))

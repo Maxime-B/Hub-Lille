@@ -17,26 +17,27 @@
 				</div>
 				
 			</c:if>
-			<table>
+			
+				
+				<c:if test="${not empty annonces}">
+				<table>
 				<tr>
 					<th>titre</th>
 					
 					<th>Date de publication</th>
 					<th>Date de  fin de publication</th>
-					<th>Nombre de signalements</th>
+					
 					<th></th>
 					<th></th>
 					<th></th>
 				</tr>
-				
-				<c:if test="${not empty annonces}">
 				 <c:forEach items="${annonces}" var="annonce" >
 					<tr>
 						<td>${annonce.titre}</td>
 						
 						<td>${annonce.datepublication}</td>
 						<td>${annonce.finpublication}</td> 
-						<td>${annonce.signal}</td>
+						
 						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}"><button>Consulter</button> </a></td>
 						<td>
 							<form method="post" action="">
@@ -55,13 +56,14 @@
 						</td>
 					</tr>
 					</c:forEach>
+					</table>
 				</c:if>
 				<c:if test="${empty annonces}">
 					<tr>
 						<td colspan="2">aucune annonce créée</td>
 					</tr>
 				</c:if>
-			</table>
+			
 		</section>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
