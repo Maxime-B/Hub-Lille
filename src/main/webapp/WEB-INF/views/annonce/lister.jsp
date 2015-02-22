@@ -65,7 +65,16 @@
 					</form>
 					${motCle} ${categorie} <br /> <br /> &nbsp
 					<c:if test="${not empty annonces}">
+						<table width="100%" id="datatable">
+						<thead>
+						<tr>
+						<th></th>
+						</tr>
+						</thead>
+						<tbody>
 						<c:forEach items="${annonces}" var="a">
+						<tr>
+						<td>
 							<table
 								style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px;width:100%;">
 								<tr>
@@ -100,7 +109,11 @@
 									</td>
 								</tr>
 							</table>
+							</td>
+							</tr>
 						</c:forEach>
+						</tbody>
+						</table>
 						<!--  <p>
 							
 							<div align=center>
@@ -135,12 +148,26 @@
 					</c:if>
 					<c:if test="${empty annonces}">
 						<tr>
-							<td colspan="2">aucune annonce créée</td>
+							<td colspan="2">aucune annonce trouv�e</td>
 						</tr>
 					</c:if>
 
 				</div>
 			</div>
 		</div>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="js">
+		<script src="<c:url value="/ressources/js/jquery.dataTables.min.js"/>"></script>
+		
+		<script src="<c:url value="/ressources/js/dataTables.foundation.min.js"/>"></script>
+		<script type="text/javascript">
+		$( document ).ready(function() {
+		$("#datatable").DataTable({
+		"searching": false,
+		"pagingType": "simple_numbers"
+		});
+});
+		</script>
+		
 	</tiles:putAttribute>
 </tiles:insertDefinition>

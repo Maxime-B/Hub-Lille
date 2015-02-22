@@ -45,11 +45,14 @@
 							</div>
 							<c:forEach items='${annonce.lesChamps}' var="item">
 								<div class="row">
-									<b>${item.key}<b>
+									<b>${item.key}</b>
 											<p>${item.value}
-											<p>
+											</p>
 								</div>
 							</c:forEach>
+							<div class="row">
+									Publieé le ${annonce.datepublication} (valable jusqu'au ${annonce.finpublication})
+								</div>
 						</div>
 						<div class="small-4 columns">
 							<div class="row">
