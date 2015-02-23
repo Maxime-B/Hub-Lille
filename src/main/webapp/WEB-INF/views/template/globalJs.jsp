@@ -1,4 +1,5 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!-- jquery -->
 
 <!-- Jquery avec support des vieux navigateurs -->
@@ -28,7 +29,9 @@
 <!--<![endif]-->
 
 <!-- fin jquery -->
-
+<script src="<c:url value="/ressources/js/jquery.dataTables.min.js"/>"></script>
+		
+		<script src="<c:url value="/ressources/js/dataTables.foundation.min.js"/>"></script>
 <script
 	src="${pageContext.request.contextPath}/ressources/js/foundation.min.js"></script>
 

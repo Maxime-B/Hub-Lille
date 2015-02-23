@@ -148,7 +148,7 @@
 					</c:if>
 					<c:if test="${empty annonces}">
 						<tr>
-							<td colspan="2">aucune annonce trouvée</td>
+							<td colspan="2">aucune annonce trouvï¿½e</td>
 						</tr>
 					</c:if>
 
@@ -157,17 +157,8 @@
 		</div>
 	</tiles:putAttribute>
 	<tiles:putAttribute name="js">
-		<script src="<c:url value="/ressources/js/jquery.dataTables.min.js"/>"></script>
 		
-		<script src="<c:url value="/ressources/js/dataTables.foundation.min.js"/>"></script>
-		<script type="text/javascript">
-		$( document ).ready(function() {
-		$("#datatable").DataTable({
-		"searching": false,
-		"pagingType": "simple_numbers"
-		});
-});
-		</script>
+	<script src="<c:url value="/ressources/js/datatablesLister.js"/>"></script>
 		
 	</tiles:putAttribute>
 </tiles:insertDefinition>
