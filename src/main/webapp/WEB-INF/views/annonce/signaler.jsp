@@ -8,11 +8,20 @@
 
 	<tiles:putAttribute name="main">
 		<section class="section">
+		<c:if test='${estSignale}'>
+					<div class="alert-box success radius">
+						Cette annonce est bien signalee
+					</div>
+				</c:if>
+				<c:if test='${!estSignale}'>
+					<div class="alert-box alert round">
+					Vous avez deja signale cette annonce
+					</div>
+				</c:if>
 			<h1>${annonce.titre}</h1>
 	
 
-			<!-- message si redirection -->
-			<div class="alert-box success radius">L'annonce ${annonce.titre}  est bien signalée</div>
+			
 			<div
 				style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin: 2% 3% 2% 0%;">
 			<div class="row">

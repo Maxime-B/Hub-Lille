@@ -356,12 +356,24 @@ public class ControlleurAnnonce implements ServletContextAware{
 			}
 			
 	@RequestMapping(value = "/annonce/signaler", method = RequestMethod.GET)
-	public String signalerAnnonce(Model model, @RequestParam("ref") int ref) {
+	public String signalerAnnonce(Model model, @RequestParam("ref") int ref,HttpServletRequest request) {
+		Utilisateur u = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
 		Annonce annonce = metierAnnonce.rechercher(ref);
-		metierAnnonce.signalerAnnonce(annonce);
+		boolean estSignale=false;
 		model.addAttribute("annonce", annonce);
 		model.addAttribute("ref",ref);
-		System.out.println(annonce.getSignal());
+		
+		if(metierAnnonce.signalerAnnonce(u,annonce)){
+			System.out.println(annonce.getSignal());
+			
+			estSignale=true;
+		}
+		
+
+		else {
+			estSignale=false;
+		}
+		model.addAttribute("estSignale",estSignale);
 		return "annonce/signaler";
 	}
 

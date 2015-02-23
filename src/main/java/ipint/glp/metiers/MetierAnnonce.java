@@ -33,8 +33,18 @@ public class MetierAnnonce {
 			return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.demande, lesChamps);
 		}
 	
-	public Annonce signalerAnnonce(Annonce a){
-		return FabAnnonce.getInstance().signalerAnnonce(a);
+
+	public boolean signalerAnnonce(Utilisateur u,  Annonce a){
+		
+		if(u.getLesAnnoncesSignales().contains(a)){
+			
+			return false;
+		}
+		else{
+			u.getLesAnnoncesSignales().add(a);
+		FabAnnonce.getInstance().signalerAnnonce(a);
+		return true;
+		}
 	}
 	public List<Annonce> listerAnnoncesParCategorie(String categorie){
 		return FabAnnonce.getInstance().listerAnnoncesParCategorie(FabCategorie.getInstance().getCategorie(categorie));

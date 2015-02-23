@@ -32,6 +32,18 @@ public class Utilisateur {
 	@OneToMany(mappedBy="utilisateur", targetEntity=Annonce.class)
 	private List<Annonce> lesAnnonces = new ArrayList<Annonce>();
 	
+	@OneToMany(mappedBy="utilisateur", targetEntity=Annonce.class)
+	private List<Annonce> lesAnnoncesSignales = new ArrayList<Annonce>();
+	
+	
+	public List<Annonce> getLesAnnoncesSignales() {
+		return lesAnnoncesSignales;
+	}
+
+	public void setLesAnnoncesSignales(List<Annonce> lesAnnoncesSignales) {
+		this.lesAnnoncesSignales = lesAnnoncesSignales;
+	}
+
 	@OneToMany(mappedBy="utilisateur", targetEntity=Evenement.class)
 	private List<Evenement> lesEvenements = new ArrayList<Evenement>();
 	
