@@ -2,7 +2,7 @@ function ajouterChamp() {
 	if (document.getElementById('formChamp') == null) {
 		$('#tableau')
 				.append(
-						'<tr id="formChamp"><td><input id="nomChamp" type="text"/></td><td><select id="select"></select></td><td><input id="obligatoire" type="checkbox"/></td><td><input type="button" value="Validez" onClick="validChamp()"/></td></tr>');
+						'<tr id="formChamp"><td><input id="nomChamp" type="text"/></td><td><select id="select"></select></td><td><input id="obligatoire" type="checkbox"/></td><td><input type="button" value="Valider" onClick="validChamp()"/></td></tr>');
 		JSMetierCategorie.listeTypeChamp(function(data) {
 			dwr.util.addOptions("select", data);
 		});

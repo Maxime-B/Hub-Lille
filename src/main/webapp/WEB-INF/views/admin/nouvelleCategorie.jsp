@@ -25,7 +25,10 @@
 				</c:forEach>
 			</table>
 			<input type="button" value="ajouter un champ"  onClick="ajouterChamp()"/>
+			<br>
+			<br>
 			<!-- <a href="nouveauChamp">Ajouter un nouveau champ</a> -->
+			Ordre d'affichage des champs de la catégorie :
 			<div id="champsChoisi">
 				<ul id="sortable" class="no-bullet">
 				</ul>

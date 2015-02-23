@@ -48,7 +48,6 @@ public class ValideurAnnonceTest {
 		Mockito.when(formAnnonce.getCategorie()).thenReturn("test");
 		
 		champ = Mockito.mock(Champ.class);
-		Mockito.when(champ.getLimite()).thenReturn(null);
 		Mockito.when(champ.isObligatoire()).thenReturn(false);
 		
 		errors = new BeanPropertyBindingResult(formAnnonce, "FormAnnonce");
@@ -118,7 +117,6 @@ public class ValideurAnnonceTest {
 	public void tailleOk() {
 		Champ champ = Mockito.mock(Champ.class);
 		Mockito.when(champ.getLibelle()).thenReturn("taille");
-		Mockito.when(champ.getLimite()).thenReturn(6);
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(champ);
 		Mockito.when(categorie.getChamps()).thenReturn(champs);
@@ -135,7 +133,6 @@ public class ValideurAnnonceTest {
 	public void tailleKo() {
 		Champ champ = Mockito.mock(Champ.class);
 		Mockito.when(champ.getLibelle()).thenReturn("taille");
-		Mockito.when(champ.getLimite()).thenReturn(6);
 		List<Champ> champs = new ArrayList<Champ>();
 		champs.add(champ);
 		Mockito.when(categorie.getChamps()).thenReturn(champs);
