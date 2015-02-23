@@ -6,8 +6,8 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<form action="creationCategorie">
-			Nom de la catégorie : <input type="text" name="nomCategorie" />
-			<table id="tableau">
+			Nom de la catégorie : <input maxlength="26" type="text" name="nomCategorie" />
+			<table style="width: 100%" id="tableau">
 				<tr>
 					<th>Nom du champ</th>
 					<th>Type</th>
@@ -24,16 +24,15 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<input type="button" value="ajouter un champ"  onClick="ajouterChamp()"/>
+			<input class="radius button" type="button" value="Ajouter un champ"  onClick="ajouterChamp()"/>
 			<br>
 			<br>
-			<!-- <a href="nouveauChamp">Ajouter un nouveau champ</a> -->
 			Ordre d'affichage des champs de la cat�gorie :
 			<div id="champsChoisi">
 				<ul id="sortable" class="no-bullet">
 				</ul>
 			</div>
-			<br> <input type="submit" value="Valider" />
+			<br> <input class="radius button" type="submit" value="Valider" />
 		</form>
 
 	</tiles:putAttribute>
