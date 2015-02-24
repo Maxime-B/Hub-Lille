@@ -16,6 +16,13 @@ footer #footer div{
 	background-color: #EFEEEE;
 }
 
+.troncate {
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .description{
 	color:#777;
 	font-style: italic;
