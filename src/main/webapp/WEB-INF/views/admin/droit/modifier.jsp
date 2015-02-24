@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
@@ -9,103 +10,125 @@
 
 	<tiles:putAttribute name="main">
 		<h1>Gérer les roles</h1>
-		
-		<div id="aide" title="Aide">
-			<!-- class="alert-box info radius" -->
-			<p>SUPER_ADMIN a tous les pouvoirs.</p>
-			<p>SUPER_MODERATEUR a tous les pouvoirs sauf celui de changer les
-				roles des utilisateurs</p>
+
+		<c:set var="hide" value=" hide" />
+		<c:if test="${AuMoinsUnAdminException}">
+			<c:set var="hide" value="" />
+		</c:if>
+		<div id="messages">
+			<div id="messages-perso" class="model hide">
+				<div id="AuMoinsUnAdminException"
+					class="alert-box alert radius${hide}">Le dernier Admin ne peut
+					être supprimé</div>
+				<div id="perso-ajouter" class="hide alert-box success radius">tu a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
+				<div id="perso-supprimer" class="hide alert-box success radius">tu a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
+				<div id="perso-modifier" class="hide alert-box success radius">tu a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
+				<c:if test="${estUnSucces}">
+					<div class="alert-box success radius">${utilisateur.login} a
+						maintenant les droits : [${fn:join(utilisateur.droits, ', ')}]</div>
+				</c:if>
+			</div>
+			
+			<div id="messages-autrui" class="model hide">
+				<div id="autrui-logins" class="hide alert-box radius"><span class="logins"></span> sont connectés</div>
+				<div id="autrui-login" class="hide alert-box radius"><span class="expediteur"></span> vient de se connecter</div>
+				<div id="autrui-logout" class="hide alert-box radius"><span class="expediteur"></span> vient de se déconnecter</div>
+				<div id="autrui-ajouter" class="hide alert-box radius"><span class="expediteur"></span> a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
+				<div id="autrui-supprimer" class="hide alert-box radius"><span class="expediteur"></span> a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
+				<div id="autrui-modifier" class="hide alert-box radius"><span class="expediteur"></span> a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
+			</div>
+			
 		</div>
-
-		<c:if test="${estUnSucces}">
-			<p class="alert-box success radius">${utilisateur.login} a
-				maintenant les droits : ${utilisateur.droits}</p>
-		</c:if>
-		<c:if test="${!empty estUnEchec}">
-			<p class="alert-box alert radius">${estUnEchec}</p>
-		</c:if>
-		<c:if test="${!estUnSucces && empty estUnEchec}">
-			<p> </p>
-		</c:if>
-
 		<div class="row">
 			<section class="section small-5 columns">
-				<div class="hide">
-					<select id="droitsPossibles" name="droits">
-						<c:forEach items="${droits}" var="droitPossible">
-							<option value="${droitPossible}">${droitPossible}</option>
-						</c:forEach>
-					</select>
-				</div>
-
 				<form:form method="post" modelAttribute="utilisateur">
 					<fieldset id="fieldset-changer-role">
-						<legend>Modifier le rôle d'un utilisateur</legend>
+						<legend>Utilisateur</legend>
 						<div id="container-changer-role">
-						
-						<div id="login-changer-role" class="row">
-							<div class="small-2 columns"><a href="#" class="button info" id="bouton-aide">Aide</a></div>
-						
-							<div class="small-2 columns"><form:label cssClass="right inline" path="login">login:</form:label></div>
-							
-							<div class="small-8 columns"><form:input path="login" required="required" placeholder="login" /></div>
-						</div>
+							<div id="login-changer-role" class="row">
+								<div class="small-3 columns">
+									<form:label cssClass="right inline" path="login">login :</form:label>
+								</div>
 
-						<fieldset id="fieldset-gerer-droits" class='row'>
-							<legend>Gérer ses droits</legend>
-							<div id="container-gerer-droits">
-							<div id="gerer-droits">
-								<c:forEach items="${utilisateur.droits}" var="droitValeur"
-									varStatus="status">
-									<form:select path="droits[${status.index}]">
-										<c:forEach items="${droits}" var="droitPossible">
-											<form:option value="${droitPossible}">${droitPossible}</form:option>
+								<div class="small-9 columns">
+									<form:input path="login" required="required"
+										placeholder="login" />
+								</div>
+							</div>
+
+							<div id="fieldset-gerer-droits" class='row'>
+								<div id="container-gerer-droits">
+									<div class="small-12 columns" id="gerer-droits">
+										<c:set var="changement" value="false" />
+										<c:forEach items="${droits}" var="droit" varStatus="status">
+											<c:set var="title" value="" />
+											<c:if test="${fn:length(definitionsDesDroits[droit]) > 1}">
+												<c:if test="${!changement}">
+													<br />
+												</c:if>
+												<c:set var="title"
+													value="équivaut à ${definitionsDesDroits[droit]}" />
+												<c:set var="changement" value="true" />
+											</c:if>
+											<div class="droit row" title="${title}">
+												<div class="small-3 columns">
+													<div class="droitsPossibles switch radius">
+														<form:checkbox path="droits" value="${droit}"
+															label="${droit}" />
+													</div>
+												</div>
+												<div class="label-droit small-9 columns"></div>
+											</div>
 										</c:forEach>
-									</form:select>
-								</c:forEach>
-							</div>
-							
-							<div class="row">
-								<div id="boutons-gerer-droits" class="small-4 columns">
-									<a id="ajouter-droit"
-									class="radius button success small expand" title="Ajouter un droit">Ajouter</a>
-								</div>
-								<div class="small-8 columns">
-									<input id="submitDroit" type="submit" value="Valider"
-								class="radius button small expand" />
+									</div>
+
+									<div class="small-12 columns">
+										<input id="bouton-modifier" type="submit"
+											value="Changer son rôle" class="radius button small expand" />
+									</div>
 								</div>
 							</div>
-							</div>
-						</fieldset>
 						</div>
 					</fieldset>
 				</form:form>
 			</section>
 
 			<section class="section small-7 columns">
-					<form>
-						<div class="row">
-							<div id="utilisateurs" class="small-12 columns">
-								<fieldset id="fieldset-chercher-utilisateur">
-									<legend>Rechercher</legend>
-									<div id="container-chercher-utilisateur">
+				<form class="no-enter-submit">
+					<div class="row">
+						<div id="utilisateurs" class="small-12 columns">
+							<fieldset id="fieldset-chercher-utilisateur">
+								<legend>Rechercher</legend>
+								<div id="container-chercher-utilisateur">
 									<spring:bind path="utilisateur.filtre">
 										<input id="filtre" placeholder="filtre"
 											name="${status.expression}" value="${status.value}"
 											form="utilisateur" type="text" class="search" />
 									</spring:bind>
-									
-									<c:if test="${empty utilisateurs}">
-										<div>aucun utilisateur n'a de rôle</div>
-									</c:if>
-									
+
+									<div></div>
+
+									<div class="hide">
+										<ul class="no-bullet">
+											<li id="model-recherche">
+												<div class="row">
+													<span class="buttons small-3 columns"> <a
+														class="bouton-editer button success" href="#">éditer</a> <a
+														class="bouton-supprimer button alert" href="#">supprimer</a>
+													</span> <span class="login small-4 columns"></span><span
+														class="droits small-5 columns"></span>
+												</div>
+											</li>
+										</ul>
+									</div>
+
 									<div id="liste-recherche">
 										<ul class="list no-bullet">
 											<c:forEach items="${utilisateurs}" var="utilisateur">
 												<li>
 													<div class="row">
 														<span class="buttons small-3 columns"> <a
-															 class="bouton-editer button success" href="#">éditer</a>
+															class="bouton-editer button success" href="#">éditer</a>
 															<a class="bouton-supprimer button alert" href="#">supprimer</a>
 														</span> <span class="login small-4 columns">${utilisateur.login}</span><span
 															class="droits small-5 columns">${utilisateur.droits}</span>
@@ -113,162 +136,276 @@
 												</li>
 											</c:forEach>
 										</ul>
+										<div id="liste-vide" data-alert
+											class="alert-box warning radius">aucun utilisateur n'a
+											de rôle</div>
 									</div>
-									</div>
-								</fieldset>
-							</div>
+								</div>
+								<ul class="pagination no-bullet">
+										</ul>
+							</fieldset>
 						</div>
-					</form>
+					</div>
+				</form>
 			</section>
 		</div>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="js">
 		<script
-			src="${pageContext.request.contextPath}/ressources/js/list.min.js"></script>
-
+			src="${pageContext.request.contextPath}/ressources/js/list.js"></script>
+		<script
+			src="${pageContext.request.contextPath}/ressources/js/list.pagination.min.js"></script>
+		<script type='text/javascript'
+			src='${pageContext.request.contextPath}/dwr/engine.js'></script>
+		<script type='text/javascript'
+			src='${pageContext.request.contextPath}/dwr/interface/JSMetierUtilisateur.js'></script>
+		<script type='text/javascript'
+			src='${pageContext.request.contextPath}/dwr/util.js'></script>
 		<script>
-		$(function() {
-		    var $input = $("#droitsPossibles").remove().attr('id', null),
-		        renumeroterDroits = function() {
-		            var tabindex = 1000
-		            $("[name^='droits']").each(function(i, v) {
-		                $(v).attr("name", "droits[" + i + "]");
-		                $(v).attr('tabindex', ++tabindex)
-		            })
-		            $("#ajouter-droit").attr('tabindex', ++tabindex)
-		            $("#submitDroit").attr('tabindex', ++tabindex)
-		            $("#bouton-supprimer-droit").each(function() {
-		                $(this).attr('tabindex', ++tabindex)
-		            })
-		        },
-		        updateInput = function(input) {
-		            $containerInput = $('<div class="small-8 columns"></div>')
-		                .append(input)
-		            var $droit = $('<div class="droit"></div>')
-		                .addClass('row collapse prefix-round')
-		                .append(
-		                    $(
-		                        '<div><a href="#" class="supprimer-droit prefix button alert">supprimer</a></div>')
-		                    .addClass("small-4 columns")
-		                    .click(
-		                        function supprimerDroit() {
-		                            $(this)
-		                                .parent(
-		                                    ".droit")
-		                                .remove()
-		                            renumeroterDroits()
-		                            equalizerFieldset()
-		                            return false
-		                        }))
-		            $droit.append($containerInput.clone())
-		            return $droit
-		        },
-		        getNewInput = function() {
-		            return updateInput($input.clone())
-		        },
-		        remplacerInputsDejaPresents = function() {
-		            $("[name^='droits']").each(function() {
-		                $(this).replaceWith(updateInput($(this).clone()))
-		                renumeroterDroits()
-		            })
-		        },
-		        inputDefautInit = function() {
-		            $input.children().attr('selected', null).first().attr(
-		                'selected', 'selected')
-		        },
-		        loginInit = function() {
-		            $("#login").attr('tabindex', 1000).delay(100).focus()
-		        },
-		        ajouterDroit = function() {
-		            var $ajouterDroit = $("#ajouter-droit"),
-		                $input = getNewInput(),
-		                $droit = $("[name^='droits']:first", $input)
-		            $("#gerer-droits").append($input)
-		            renumeroterDroits()
-		            $droit.focus()
-		            equalizerFieldset()
-		            return $droit
-		        },
-		        editer = function(login, Stringdroits) {
-		            $(".droit").remove()
-		            $("#login").val(login)
-		            var droits = Stringdroits.slice(1, Stringdroits.length - 1)
-		                .split(", ")
-		            $.each(droits, function(i, droit) {
-		                var $select = ajouterDroit(),
-		                    $option = $select
-		                    .children('[value="' + droit + '"]').attr(
-		                        "selected", "selected")
-		            })
-		        },
-		        supprimer = function(login) {
-		            $("#login").val(login)
-		            $(".droit").remove()
-		            $("#login").closest("form").submit()
-		        },success
-		        filtrer = function() {
-		            var options = {
-		                valueNames: ['login', 'droits']
-		            };
-		            var userList = new List('utilisateurs', options);
-		            userList.search($("#filtre").val())
-		            equalizerFieldset()
+		var userList = null
 
-		            $containerInput = $('<div class="small-10 columns"></div>')
+		$(function() {
+		    updateInput = function(input) {
+		        $(input).find(".label-droit").append(
+		            $(input).find("label").clone().addClass("inline"))
+		    }, remplacerInputsDejaPresents = function() {
+		        $(".droit").each(function() {
+		            updateInput(this)
+		        })
+		    }, loginInit = function() {
+		        $("#login").delay(100).focus()
+		    }, editer = function(login, StringDroits) {
+		        $("#login").val(login)
+		        var droits = StringDroits.slice(1, StringDroits.length - 1)
+		            .split(", ")
+		        $("[name~='droits']").prop("checked", false)
+		        $.each(droits, function(i, droit) {
+		            $("[value='" + droit + "']").prop("checked", true)
+		        })
+	        // metier coté serveur
+		    }, supprimer = function(login, callback) {
+		        JSMetierUtilisateur.supprimerDroits(login, callback);
+		    }, modifier = function(login, droits, callback) {
+		        JSMetierUtilisateur.modifierRole(
+		            dwr.util.getValue("login"), $(
+		                '#gerer-droits [name="droits"]:checked')
+		            .map(function(i, el) {
+		                return $(el).val();
+		            }).get(), callback);
+		    }
+		    filtrerInit = function() {
+		            var options = {
+		                    valueNames: ['login', 'droits'],
+		                    item: "model-recherche",
+		                    //page : 3,
+		                    plugins: [ListPagination({})]
+		                },
+		                userList = new List('utilisateurs', options);
+
+		            if ($("#liste-recherche li:first").length > 0) {
+		                userList.search($("#filtre").val())
+		            }
+		            $('.no-enter-submit').keypress(function(event) {
+		                if (event.keyCode == '13') {
+		                    event.preventDefault();
+		                }
+		            })
+		            $(window).trigger("resize")
+
+		            $containerInput = $(
+		                    '<div class="small-10 columns"></div>')
 		                .append($("#filtre").clone())
-		            var $newInput = $('<div id="container-filtre" class="filtre"></div>')
+		            var $newInput = $(
+		                    '<div id="container-filtre" class="filtre"></div>')
 		                .addClass('row collapse prefix-round')
 		                .append(
 		                    $(
 		                        '<div><a href="#" class="supprimer-filtre prefix button alert">reset</a></div>')
-		                    .addClass("small-2 columns").click(
-		                        function supprimerFiltre() {
-		                            $("#filtre").val("")
-		                            userList.search()
-		                            equalizerFieldset()
+		                    .addClass("small-2 columns")
+		                    .find("a")
+		                    .click(
+		                        function supprimerFiltre(
+		                            e) {
+		                            $("#filtre")
+		                                .val("")
+		                            userList
+		                                .search()
+		                            $(window)
+		                                .trigger(
+		                                    "resize")
 		                            return false
-		                        }))
+		                        }).end())
+
 		            $newInput.append($containerInput.clone())
 		            $("#filtre").replaceWith($newInput)
+		            var timer = null
+		            $("#filtre").keyup(function() {
+		                window.clearTimeout(timer)
+		                if ($("#filtre").val().length > 2) {
+		                    timer = window.setTimeout(function() {
+		                        userList.search($("#filtre").val())
+		                    }, 200)
+		                } else {
+		                    timer = window.setTimeout(function() {
+		                        userList.search($("#filtre").val())
+		                    }, 1000)
+		                }
+		            })
+		            return userList;
 		        },
-		        boutonsInit = function() {
-		            $("#ajouter-droit")
-		            	.click(ajouterDroit)
-		            	.keypress(ajouterDroit)
-		            $("#bouton-aide").click(function() {
-		                $("#aide").dialog("open")
-		            })
-		            $(".bouton-editer").click(function() {
-		                var login = $(this).closest("li").find(".login").text(),
-		                    droits = $(this).closest("li").find(".droits").text()
-		                editer(login, droits)
-		                return false
-		            })
-		            $(".bouton-supprimer").click(function() {
-		                var login = $(this).closest("li").find(".login").text()
-		                supprimer(login)
-		                return false
-		            })
+		        updateButton = function(selecteur) {
+		            selecteur = $(selecteur).not(".ui-widget")
 		            var buttons = {
-		                //"#ajouter-droit": "ui-icon-plus",
-		                "#bouton-aide": "ui-icon-info",
-		                ".bouton-editer": "ui-icon-pencil",
-		                ".bouton-supprimer": "ui-icon-closethick",
+		                "bouton-editer": "ui-icon-pencil",
+		                "bouton-supprimer": "ui-icon-closethick",
 		            }
-		            for (var buttonSelecteur in buttons) {
-		                var buttonIcon = buttons[buttonSelecteur]
-		                $(buttonSelecteur).button({
+		            selecteur.each(function(i, el) {
+		                var buttonIcon = null
+		                for (var buttonSelecteur in buttons) {
+		                    if ($(el).hasClass(buttonSelecteur)) {
+		                        buttonIcon = buttons[buttonSelecteur]
+		                        break;
+		                    }
+		                }
+		                $(el).button({
 		                    icons: {
 		                        primary: buttonIcon
 		                    },
 		                    text: false
 		                }).click(function(event) {
-		                    event.preventDefault();
+		                    return null
 		                })
-		            }
-		            //$(".buttons", "#utilisateurs").addClass("button-group radius")
-
+		            })
+		        },
+		        boutonsInit = function() {
+		            var boutonsJQuerySelector = ".bouton-editer, .bouton-supprimer"
+		            $("#gerer-droits").on("add", function(event, li) {
+		                updateButton($(boutonsJQuerySelector, li))
+		            })
+		            $("#fieldset-chercher-utilisateur .pagination").on("click", function() {
+		                updateButton($(boutonsJQuerySelector,
+		                    "#liste-recherche"))
+		            })
+		            $("#filtre").keyup(function() {
+		                updateButton($(boutonsJQuerySelector,
+		                    "#liste-recherche"))
+		            })
+		            $("#bouton-modifier")
+		                .click(
+		                    function() {
+		                        var login = $("#login").val(),
+		                            droits = $(
+		                                '#gerer-droits [name="droits"]:checked')
+		                            .map(function(i, el) {
+		                                return $(el).val();
+		                            }).get(),
+		                            droitsString = "[" + droits.join(", ") + "]",
+		                            users = userList
+		                            .get("login", login)
+		                        modifier(
+		                            login,
+		                            droits,
+		                            function() {
+		                                var item = {
+		                                    login: login,
+		                                    droits: droitsString
+		                                }
+		                                if (droits.length == 0) {
+		                                    send(JSON.stringify({
+		                                        type: "remove",
+		                                        item : item
+		                                    }))
+		                                    supprimerIhm(login)
+		                                    
+		                                    afficherMessage($("#perso-supprimer")
+									            	.find(".login").text(login).end()
+									            	.find(".droits").text(droitsString).end())
+		                                } else if (users.length == 0) {
+		                                    send(JSON.stringify({
+		                                        type: "add",
+		                                        item: item
+		                                    }))
+		                                    ajouterIhm(login, item)
+		                                    afficherMessage($("#perso-ajouter")
+									            	.find(".login").text(login).end()
+									            	.find(".droits").text(droitsString).end())
+		                                } else {
+		                                    send(JSON.stringify({
+		                                        type: "modify",
+		                                        item: item
+		                                    }))
+		                                    afficherMessage($("#perso-modifier")
+									            	.find(".login").text(login).end()
+									            	.find(".droits").text(droitsString).end())
+		                                    modifierIhm(users[0], item)
+		                                }
+		                                $(window).trigger(
+		                                    "resize")
+		                            })
+	                            $("#login").delay(200).focus()
+		                        return false
+		                    })
+		            $("#liste-recherche")
+		                .on(
+		                    "click",
+		                    ".bouton-editer",
+		                    null,
+		                    function() {
+		                        var login = $(this).closest(
+		                                "li").find(".login")
+		                            .text(),
+		                            droits = $(
+		                                this).closest("li")
+		                            .find(".droits").text()
+		                        editer(login, droits)
+		                        return false
+		                    })
+		                .on(
+		                    "click",
+		                    ".bouton-supprimer",
+		                    null,
+		                    function() {
+		                        var $li = $(this).closest("li"),
+		                            login = $li.find(".login").text()
+	                            ,	droitsString = $li.find(".droits").text()
+	                            ,   item = {login:login,droits:droitsString}
+		                        ,	callback = function() {
+	                                supprimerIhm(login)
+	                                send(JSON.stringify({
+	                                    type : "remove",
+	                                    item : item
+	                                }))
+	                                
+	                                afficherMessage($("#perso-supprimer")
+							            	.find(".login").text(login).end()
+							            	.find(".droits").text(droitsString).end())
+	                                $("#login").val(
+	                                    login)
+	                                $(
+	                                        "[name~='droits']")
+	                                    .prop(
+	                                        "checked",
+	                                        false)
+	                            }
+		                        dwr.engine
+		                            .setErrorHandler(function(
+		                                msg, exc) {
+		                                if (exc.javaClassName = "ipint.glp.metiers.exceptions.AuMoinsUnAdminException") {
+		                                    afficherMessage("#AuMoinsUnAdminException")
+		                                }
+		                            });
+		                        supprimer(
+		                            login,
+		                            callback
+		                            )
+		                        return false
+		                    })
+		            updateButton($(boutonsJQuerySelector,
+		                "#liste-recherche"))
+		        },
+		        libererHauteur = function(selecteur) {
+		            $(selecteur).height("inherit")
 		        },
 		        equalizer = function(selecteur) {
 		            $(selecteur).height("inherit")
@@ -278,52 +415,187 @@
 		            })
 		            $(selecteur).height(max)
 		        },
-		        limiterHauteur = function(selecteur, SurfaceNonUtilisee) {
-		        	var SurfaceNonUtilisee = SurfaceNonUtilisee ? SurfaceNonUtilisee : 0
-		        	$(selecteur).css({
-	            		//taille pour tenir dans une fenêtre = taille initial + surface disponible dans la fenêtre + surface non utilisée
-	                    "max-height": $(selecteur).height() + (innerHeight - $('#container').height()) + (SurfaceNonUtilisee + ($("#container").height() - $("#main").height() - $("#header").height() - $("#footer").height())),
-	                    "overflow-y": "auto"
-	                })
-	                .children().css({
-	                    "margin-right": "10px"
-	                }) //scroll-bar
-		        },
-		        equalizerFieldset = function() {
-		            equalizer("#fieldset-changer-role, #fieldset-chercher-utilisateur")
-		        },
-		        main = function() {
-		            remplacerInputsDejaPresents()
-		            inputDefautInit()
-		            loginInit()
-
-		            boutonsInit()
-		            equalizerFieldset()
-		            limiterHauteur("#liste-recherche", $("#fieldset-chercher-utilisateur").innerHeight() - $("#container-chercher-utilisateur").height())
-		            equalizerFieldset()
-		            limiterHauteur("#gerer-droits", $("#fieldset-changer-role").innerHeight() - $("#container-changer-role").height())
-		            if ($("#fieldset-chercher-utilisateur li:first").length > 0) {
-		            	filtrer()
+		        limiterHauteur = function(selecteur) {
+		            var sauvegarde = $(selecteur).css('max-height')
+		            $(selecteur).css('max-height', "inherit")
+		            var heightNonVisible = ($('#container').height() - innerHeight)
+		            if (heightNonVisible <= 0) {
+		                return
 		            }
-	                $("#aide").dialog({
-	                    autoOpen: false,
-	                    width: "40em"
-	                });
+		            $(selecteur).css({
+		                "max-height": $(selecteur).height() - heightNonVisible - 2,
+		                "overflow-y": "auto"
+		            }).children().css({
+		                "margin-right": "8px" //scroll-bar, margin de row
+		            })
+		            heightNonVisible = ($('#container').height() - innerHeight)
+		            if (heightNonVisible > 0) { //rollback si scroll bar toujours visible
+		                $(selecteur).css('max-height', sauvegarde)
+		            }
+		        },
+		        resizeList = function() {
+		            libererHauteur("#fieldset-changer-role, #fieldset-chercher-utilisateur")
+		            limiterHauteur("#liste-recherche")
+		            equalizer("#fieldset-changer-role, #fieldset-chercher-utilisateur")
+		        }, main = function() {
+		            //mise en forme + comportement
+		            userList = filtrerInit()
+		            remplacerInputsDejaPresents()
+		            loginInit()
+		            boutonsInit()
+		                //dimensions
+		            $("#container, body").css({
+		                    margin: 0,
+		                    padding: 0
+		                }) //normalizer
+		            $(window).resize(resizeList)
+		            $(window).trigger("resize")
 		        }
-
 		    main()
+		    var send = function(message, callback) {
+		        waitForConnection(function() {
+		            socket.send(message);
+		            if (typeof callback !== 'undefined') {
+		                callback();
+		            }
+		        }, 1000);
+		    };
+
+		    var waitForConnection = function(callback, interval) {
+		        if (socket.readyState === 1) {
+		            callback();
+		        } else {
+		            setTimeout(function() {
+		                waitForConnection(callback);
+		            }, interval);
+		        }
+		    };
+		    var afficherMessage = function(selecteur) {
+		        $(selecteur)
+		        	.clone()
+		            .removeClass("hide")
+		            .fadeIn()
+		            .prependTo($("#messages"))
+		    }
+		    var login = function(message) {
+		            var messageDiv = $("#autrui-login").find(".expediteur").text(message.expediteur).end()
+		            afficherMessage(messageDiv)
+		        },
+		        logins = function(message) {
+		            var messageDiv = $("#autrui-logins").find(".logins").text(message.logins).end()
+		            afficherMessage(messageDiv)
+		        },
+		        logout = function(message) {
+		            var messageDiv = $("#autrui-logout").find(".expediteur").text(message.expediteur).end()
+		            afficherMessage(messageDiv)
+		        },
+		        add = function(message) {
+		            ajouterIhm(message.item.login, message.item)
+		            var messageDiv = $("#autrui-ajouter")
+		            	.find(".expediteur").text(message.expediteur).end()
+		            	.find(".login").text(message.item.login).end()
+		            	.find(".droits").text(message.item.droits).end()
+		            afficherMessage(messageDiv)
+		        },
+		        remove = function(message) {
+		            supprimerIhm(message.item.login)
+		            var messageDiv = $("#autrui-supprimer")
+			            .find(".expediteur").text(message.expediteur).end()
+		            	.find(".login").text(message.item.login).end()
+		            	.find(".droits").text(message.item.droits).end()		            
+		         	afficherMessage(messageDiv)
+		        },
+		        modify = function(message) {
+		            modifierIhm(message.item.login, message.item)
+		            var messageDiv = $("#autrui-modifier")
+		            	.find(".expediteur").text(message.expediteur).end()
+		            	.find(".login").text(message.item.login).end()
+		            	.find(".droits").text(message.item.droits).end()
+		            afficherMessage(messageDiv)
+		        }
+		        // ihm
+		        ,
+		        supprimerIhm = function(login) {
+		            userList.remove("login", login)
+		        },
+		        modifierIhm = function(user, item) {
+		            if (typeof user === "string") {
+		                user = userList.get("login", item.login)[0]
+		            }
+		            user.values(item);
+		        },
+		        ajouterIhm = function(login, item) {
+		            userList.add(item)
+		            var user = userList.get("login",login)
+		            $("#gerer-droits").trigger("add",user.elm)
+		            $(window).trigger("resize")
+		        }
+		        // fin ihm
+		        
+	        var socket = new WebSocket("ws://" + location.host + "/hublille1/droit");
+	        $(window).on('beforeunload unload', function () {
+		        socket.close()
+       	    });
+		    
+		    socket.onopen = function(e) {
+		        console.log(e)
+		    }
+		    socket.onclose = function(e) {
+		        console.log(e)
+		    }
+		    socket.onerror = function(e) {
+		        console.log(e.stack)
+		    }
+		    socket.onmessage = function(e) {
+		        var message = $.parseJSON(e.data)
+		        switch (message.type) {
+			        case "logins" :
+		                logins(message);
+		                break;
+		            case "login" :
+		                login(message);
+		                break;
+		            case "logout" :
+		                logout(message);
+		                break;
+		            case "add" :
+		                add(message);
+		                break;
+		            case "remove" :
+		                remove(message);
+		                break;
+		            case "modify" :
+		                modify(message);
+		                break;
+		            default:
+		                console.log("type d'un message invalide : " + message.type)
+		        }
+		    }
 		})
 		</script>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="css">
 		<style>
-#utilisteurs li {
-	margin-bottom: 1.5em
+#liste-recherche li {
+	margin-bottom: 0.4em !important
 }
 
-.top-bar, .row {
-max-width: 80rem !important;
+#messages {
+	height: 50px;
+	overflow:hidden;
+}
+#messages:hover {
+	height: 250px;
+	overflow:auto;
+}
+
+#liste-vide {
+	display: none
+}
+
+ul:empty+#liste-vide {
+	display: block
 }
 </style>
 	</tiles:putAttribute>

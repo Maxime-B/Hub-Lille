@@ -16,6 +16,25 @@
     <convert converter="bean" match="ipint.glp.donnees.Categorie"/>
     <convert converter="enum" match="ipint.glp.donnees.TypeChamp"/>
     <convert converter="bean" match="ipint.glp.donnees.Champ"/>
+    <!-- clément -->
+    <create creator="new" javascript="JSMetierUtilisateur">
+      <param name="class" value="ipint.glp.metiers.MetierUtilisateur"/>
+    </create>
+    <convert converter="collection" match="java.util.Collection"/>
+    <convert converter="map" match="java.util.Map">
+ 		 <param name="nullKey" value="null"/>
+	</convert>
+	<convert converter="enum" match="ipint.glp.donnees.Droit"/>
+	<!--Data conversion error
+    <convert converter="bean" match="ipint.glp.donnees.Utilisateur"/>
+    <convert converter="bean" match="ipint.glp.donnees.Annonce"/>
+    <convert converter="bean" match="ipint.glp.donnees.*"/> -->
+    <convert match="java.lang.Exception" converter="exception">
+ 		<param name='include' value='message,lineNumber'/><!-- TODO supprimer en prod-->
+	</convert>
+	<convert match="java.lang.StackTraceElement" converter="bean"/><!-- TODO supprimer en prod-->
+    <convert converter="exception" match="ipint.glp.metiers.exceptions.*"/>
+    <!-- fin clément -->
   </allow>
   
 </dwr>

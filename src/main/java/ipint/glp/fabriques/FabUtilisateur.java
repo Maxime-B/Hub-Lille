@@ -4,7 +4,6 @@ import ipint.glp.donnees.Droit;
 import ipint.glp.donnees.Utilisateur;
 import ipint.glp.donnees.Utilisateur_;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -66,7 +65,6 @@ public class FabUtilisateur {
 					.where(cb.isNotEmpty(root.get(Utilisateur_.droits)))
 					.orderBy(cb.asc(root.get(Utilisateur_.login)))
 					.distinct(true))
-		// .setMaxResults(50)
 				.getResultList();
 	}
 

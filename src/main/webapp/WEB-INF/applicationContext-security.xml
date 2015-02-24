@@ -18,12 +18,13 @@
 		<intercept-url pattern="/cas/casfailed" access="permitAll" />
 
 		<intercept-url pattern="/utilisateur/**" access="isAuthenticated()" />
-		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
-		<intercept-url pattern="/annonce/**" access="isAuthenticated()"/>
+		<!-- <intercept-url pattern="/admin/**" access="hasRole('ADMIN')" 
+			/> -->
 		<intercept-url pattern="/moderateur/**" access="hasRole('MODERATEUR')" />
 		<intercept-url pattern="/vie-etudiante/**" access="hasRole('VIE_ETUDIANTE')" />
-		<intercept-url pattern="/evenement/**" access="hasRole('ASSOCIATION')" />
-		<intercept-url pattern="/evenement/modifier/**" access="hasAnyRole('ASSOCIATION,MODERATEUR')" />
+		
+		<intercept-url pattern="/evenement/supprimer/**" access="hasAnyRole('ASSOCIATION,MODERATEUR')" />
+		<intercept-url pattern="/evenement/modifier/**" access="hasRole('ASSOCIATION')" />
 		<intercept-url pattern="/evenement/creer/**" access="hasRole('ASSOCIATION')" />
 
 		<custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER" />
@@ -184,21 +185,5 @@
 	</b:bean>
 	<!-- fin 1.4. Hierarchical Roles -->
 
-	<!-- Configuration for the environment can be overriden by system properties -->
-	<context:property-placeholder
-		system-properties-mode="OVERRIDE" properties-ref="environment" />
-
-	  <util:properties id="environment"> <b:prop key="service.protocol">http</b:prop> 
-		<b:prop key="cas.protocol">https</b:prop> <b:prop key="service.host">b12p6.fil.univ-lille1.fr:8080</b:prop> 
-		<b:prop key="cas.server.host">sso-cas.univ-lille1.fr</b:prop> <b:prop key="cas.app.name"></b:prop> 
-		<b:prop key="service.app.name">hublille1</b:prop> </util:properties> 
-
- 	<!--<util:properties id="environment">
-		<b:prop key="service.protocol">http</b:prop>
-		<b:prop key="cas.protocol">http</b:prop>
-		<b:prop key="service.host">localhost:8080</b:prop>
-		<b:prop key="cas.server.host">localhost:2080</b:prop>
-		<b:prop key="cas.app.name">cas</b:prop>
-		<b:prop key="service.app.name">hublille1</b:prop>
-	</util:properties>-->
+<!-- configuration des urls du cas-client et du cas-server dans car-url.xml -->
 </b:beans>

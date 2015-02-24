@@ -28,7 +28,7 @@
 					<%--  liens de l'utilisateur  --%>
 					<!-- Dropdown -->
 					<li class="has-dropdown not-click"><a href="#"><i
-							class="step fi-male size-36"> </i>${pageContext.request.remoteUser}</a>
+							class="step fi-male size-36"> </i><span id="remoteUser">${pageContext.request.remoteUser}</span></a>
 						<ul class="dropdown">
 							<li class="title back js-generated"><h5>
 									<a href="javascript:void(0)">Back</a>

@@ -31,4 +31,11 @@ public class Connexion {
 		connexion.getEm().getTransaction().commit();
 		em.close();
 	}
+	public void flush() {
+		em.flush();
+	}
+	public void commit() {
+		em.getTransaction().commit();
+		connexion.getEm().getTransaction().begin();
+	}
 }

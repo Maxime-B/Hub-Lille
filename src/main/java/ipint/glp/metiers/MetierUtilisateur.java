@@ -14,12 +14,14 @@ import org.jasig.cas.client.validation.Assertion;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.cas.authentication.CasAuthenticationToken;
+import org.springframework.stereotype.Service;
 
+@Service
 public class MetierUtilisateur {
 	private static final Logger logger = LoggerFactory
 			.getLogger(MetierUtilisateur.class);
 	FabUtilisateur fabUtilisateur = FabUtilisateur.getInstance();
-
+	
 	private Utilisateur creerUtilisateur(String login, String prenom,
 			String nom, String email) {
 		HashSet<Droit> droits = new HashSet<Droit>();
@@ -105,16 +107,13 @@ public class MetierUtilisateur {
 	/**
 	 * @param o
 	 * @return
-	 * @throws AuMoinsUnAdminException
-	 *             si l'utilisateur est le dernier admin de l'application et
-	 *             qu'on lui fait perdre son droit d'administration
 	 * @see ipint.glp.fabriques.FabUtilisateur#modifier(ipint.glp.donnees.Utilisateur)
 	 */
 	public Utilisateur modifier(Utilisateur o) {
 		return fabUtilisateur.modifier(o);
 	}
 
-	public Utilisateur modifierDroit(String login, Set<Droit> droits)
+	public void modifierRole(String login, Set<Droit> droits)
 			throws AuMoinsUnAdminException {
 		Utilisateur utilisateur = getUtilisateur(login);
 		boolean etaitAdmin = utilisateur.getDroits().contains(Droit.ADMIN)
@@ -125,6 +124,10 @@ public class MetierUtilisateur {
 			throw new AuMoinsUnAdminException();
 		}
 		utilisateur.setDroits(droits);
-		return fabUtilisateur.modifier(utilisateur);
+		fabUtilisateur.modifier(utilisateur);
+	}
+	
+	public void supprimerDroits(String login) throws AuMoinsUnAdminException {
+		modifierRole(login, new HashSet<Droit>());
 	}
 }

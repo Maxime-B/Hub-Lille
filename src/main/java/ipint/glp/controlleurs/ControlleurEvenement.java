@@ -9,8 +9,6 @@ import ipint.glp.metiers.MetierEvenement;
 import ipint.glp.metiers.MetierUtilisateur;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Locale;
@@ -20,7 +18,6 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -183,7 +180,6 @@ public class ControlleurEvenement {
 	
 	@RequestMapping(value="/evenement/supprimer/{id}", method = RequestMethod.GET)
 	public ModelAndView supprimerAnnonce(Model model, @PathVariable Integer id) {
-		System.out.println(id);
 		metierEvenement.supprimer(metierEvenement.obtenir(id));
 		return new ModelAndView("utilisateur/lister/evenement");
 	}

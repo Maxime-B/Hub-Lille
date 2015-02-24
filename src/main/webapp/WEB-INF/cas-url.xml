@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns:b="http://www.springframework.org/schema/beans"
+	xmlns="http://www.springframework.org/schema/security" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+	<!-- Configuration for the environment can be overriden by system properties -->
+	<context:property-placeholder
+		system-properties-mode="OVERRIDE" properties-ref="environment" />
+
+	<!-- <util:properties id="environment">
+		<b:prop key="service.protocol">http</b:prop>
+		<b:prop key="cas.protocol">https</b:prop>
+		<b:prop key="service.host">b12p9.fil.univ-lille1.fr:8080</b:prop>
+		<b:prop key="cas.server.host">sso-cas.univ-lille1.fr</b:prop>
+		<b:prop key="cas.app.name"></b:prop>
+		<b:prop key="service.app.name">hublille1</b:prop>
+	</util:properties> -->
+
+	<util:properties id="environment">
+		<b:prop key="service.protocol">http</b:prop>
+		<b:prop key="cas.protocol">http</b:prop>
+		<b:prop key="service.host">localhost:8080</b:prop>
+		<b:prop key="cas.server.host">localhost:2080</b:prop>
+		<b:prop key="cas.app.name">cas</b:prop>
+		<b:prop key="service.app.name">hublille1</b:prop>
+	</util:properties>
+
+</b:beans>
+        
