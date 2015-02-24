@@ -27,11 +27,14 @@ public class MetierAnnonce {
 		return annonce;
 	}*/
 	public Annonce creerAnnonce(Categorie categorie,String titre, String description,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
-		if(typeAnnonce == TypeAnnonce.offre)
+		System.out.println("----"+typeAnnonce);
+		return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, typeAnnonce, lesChamps);
+
+		/*if(typeAnnonce == TypeAnnonce.offre)
 			return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.offre, lesChamps);
 		else 
 			return FabAnnonce.getInstance().creerAnnonce(categorie,titre,description, utilisateur, TypeAnnonce.demande, lesChamps);
-		}
+		*/}
 	
 
 	public boolean signalerAnnonce(Utilisateur u,  Annonce a){

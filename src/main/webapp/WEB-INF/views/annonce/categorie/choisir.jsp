@@ -20,6 +20,11 @@
 							<option value="${item.nom}">${item.nom}</option>
 						</c:forEach>
 					</select>
+					<select name="typeChoisit">
+						<c:forEach items="${types}" var="type">
+							<option value="${type}">${type}</option>
+						</c:forEach>
+					</select>
 					<div style="text-align:right">
 					 <input type="submit"  style="height:40px" value="suivant " class="radius button">
 					 </div>

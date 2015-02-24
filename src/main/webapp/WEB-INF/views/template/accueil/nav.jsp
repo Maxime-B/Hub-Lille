@@ -5,7 +5,7 @@
 		<ul style="list-style-type: none;">
 
 			<li><a
-				href="${pageContext.request.contextPath}/annonce/categorie/choisirOffre">Proposer </a></li>
+				href="${pageContext.request.contextPath}/annonce/categorie/choisir">Creer Annonce </a></li>
 			<li><a
 				href="${pageContext.request.contextPath}/annonce/categorie/choisirDemande">Chercher</a></li>
 

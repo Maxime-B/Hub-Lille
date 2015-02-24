@@ -32,7 +32,10 @@
 				<form:input type="hidden" path="categorie"
 					value="${annonce.categorieObject.nom}" />
 				<form:errors path="categorie" cssClass="error" />
-
+				
+				<form:input type="hidden" path="type"
+					value="${annonce.type}" />
+				
 				<form:label path="titre" cssErrorClass="error"><spring:message code="job.creer.label.titre" /></form:label>
 				<form:input type="text" path="titre" placeholder="50 char max" cssErrorClass="error"/>
 				<form:errors path="titre" cssClass="error" />
