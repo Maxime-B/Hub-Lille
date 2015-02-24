@@ -60,12 +60,17 @@ public class WsDroit extends TextWebSocketHandler {
 			CloseStatus status) throws Exception {
 		super.afterConnectionClosed(sessionClose, status);
 		try {
+			//ajout de l'expediteur et du type du message
 			JSONObject jSONObject = new JSONObject();
 			jSONObject.put("type", "logout");
 			if (sessionClose.getPrincipal() != null) {
 				jSONObject.put("expediteur", sessionClose.getPrincipal().getName());
 			}
+			
+			//suppression de la session
 			sessions.remove(sessionClose);
+			
+			//envois du message à toutes les sessions sauf celle de l'expéditeur
 			for(WebSocketSession session : (ArrayList<WebSocketSession>)sessions.clone()) {
 				if (session.isOpen()) {
 					session.sendMessage(new TextMessage(jSONObject.toString()));
@@ -88,10 +93,17 @@ public class WsDroit extends TextWebSocketHandler {
 			TextMessage message) throws Exception {
 		super.handleTextMessage(wss, message);
 		try {
+			//ajout de l'expediteur du message
+			JSONObject jSONObject = new JSONObject(message.getPayload());
+			if (wss.getPrincipal() != null) {
+				jSONObject.put("expediteur", wss.getPrincipal().getName());
+			}
+			
+			//envois du message à toutes les sessions sauf celle de l'expéditeur
 			for(WebSocketSession session : (ArrayList<WebSocketSession>)sessions.clone()) {
 				if (!session.equals(wss)) {
 					if (session.isOpen()) {
-						session.sendMessage(message);
+						session.sendMessage(new TextMessage(jSONObject.toString()));
 					} else {
 						sessions.remove(session);
 					}

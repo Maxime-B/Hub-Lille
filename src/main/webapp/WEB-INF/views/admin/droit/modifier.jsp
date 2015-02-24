@@ -15,29 +15,33 @@
 		<c:if test="${AuMoinsUnAdminException}">
 			<c:set var="hide" value="" />
 		</c:if>
-		<div id="messages">
-			<div id="messages-perso" class="model hide">
-				<div id="AuMoinsUnAdminException"
-					class="alert-box alert radius${hide}">Le dernier Admin ne peut
-					être supprimé</div>
-				<div id="perso-ajouter" class="hide alert-box success radius">tu a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
-				<div id="perso-supprimer" class="hide alert-box success radius">tu a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
-				<div id="perso-modifier" class="hide alert-box success radius">tu a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
-				<c:if test="${estUnSucces}">
-					<div class="alert-box success radius">${utilisateur.login} a
-						maintenant les droits : [${fn:join(utilisateur.droits, ', ')}]</div>
-				</c:if>
+		<div id="container-messages">
+			<div id="messages">
+				<div id="messages-perso" class="model hide">
+					<div id="AuMoinsUnAdminException"
+						class="alert-box alert radius${hide}">Le dernier Admin ne peut
+						être supprimé</div>
+					<div id="perso-ajouter" class="hide alert-box success radius">tu a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
+					<div id="perso-supprimer" class="hide alert-box success radius">tu a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
+					<div id="perso-modifier" class="hide alert-box success radius">tu a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span>, son ancien rôle était : <span class="anciens-droits"></span></div>
+					<c:if test="${estUnSucces}">
+						<div class="alert-box success radius">${utilisateur.login} a
+							maintenant les droits : [${fn:join(utilisateur.droits, ', ')}]</div>
+					</c:if>
+				</div>
+				
+				<div id="messages-autrui" class="model hide">
+					<div id="autrui-logins" class="hide alert-box radius"><span class="logins"></span> sont connectés</div>
+					<div id="autrui-login" class="hide alert-box radius"><span class="expediteur"></span> vient de se connecter</div>
+					<div id="autrui-logout" class="hide alert-box radius"><span class="expediteur"></span> vient de se déconnecter</div>
+					<div id="autrui-ajouter" class="hide alert-box radius"><span class="expediteur"></span> a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
+					<div id="autrui-supprimer" class="hide alert-box radius"><span class="expediteur"></span> a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
+					<div id="autrui-modifier" class="hide alert-box radius"><span class="expediteur"></span> a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span>, son ancien rôle était : <span class="anciens-droits"></span></div>
+				</div>
 			</div>
-			
-			<div id="messages-autrui" class="model hide">
-				<div id="autrui-logins" class="hide alert-box radius"><span class="logins"></span> sont connectés</div>
-				<div id="autrui-login" class="hide alert-box radius"><span class="expediteur"></span> vient de se connecter</div>
-				<div id="autrui-logout" class="hide alert-box radius"><span class="expediteur"></span> vient de se déconnecter</div>
-				<div id="autrui-ajouter" class="hide alert-box radius"><span class="expediteur"></span> a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
-				<div id="autrui-supprimer" class="hide alert-box radius"><span class="expediteur"></span> a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
-				<div id="autrui-modifier" class="hide alert-box radius"><span class="expediteur"></span> a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
+			<div id="messages-bouttons">
+				<a id="messages-reduire"></a>
 			</div>
-			
 		</div>
 		<div class="row">
 			<section class="section small-5 columns">
@@ -280,6 +284,37 @@
 		        },
 		        boutonsInit = function() {
 		            var boutonsJQuerySelector = ".bouton-editer, .bouton-supprimer"
+		            var $messages = $("#messages-reduire")
+		            ,	optionRestaurer = {
+			     		      icons : {
+			     		         primary : "ui-icon ui-icon-carat-1-s"
+			     		       }, label: "réduire", text : false 
+     		     	}
+		            ,   optionReduire = {
+	     		      icons: {
+		     		         primary: "ui-icon ui-icon-carat-1-w"
+		     		       },
+		     		      label: "restaurer", text : false 
+	     		     }
+		            , restaurer = function (){
+		            	$("#messages").css({
+				        	height: "250px",
+				        	"overflow-y" : "scroll"
+		     		   })
+		     		   $messages.button("option", optionRestaurer)
+	     			  $messages.one("click", reduire)
+		            }, reduire = function(){
+		            	$("#messages").scrollTop(0)
+	     				$("#messages").css({
+			        		height: "60px",
+		        			"overflow-y" : "scroll"
+		     		   })
+		     		   $messages.button("option", optionReduire)
+		     		  	$messages.one("click",restaurer)
+	     		 	 }
+		            $messages.button(optionReduire)
+		            reduire()
+		            $messages.one("click", restaurer)
 		            $("#gerer-droits").on("add", function(event, li) {
 		                updateButton($(boutonsJQuerySelector, li))
 		            })
@@ -294,15 +329,14 @@
 		            $("#bouton-modifier")
 		                .click(
 		                    function() {
-		                        var login = $("#login").val(),
-		                            droits = $(
+		                        var login = $("#login").val()
+		                        ,   droits = $(
 		                                '#gerer-droits [name="droits"]:checked')
 		                            .map(function(i, el) {
 		                                return $(el).val();
 		                            }).get(),
-		                            droitsString = "[" + droits.join(", ") + "]",
-		                            users = userList
-		                            .get("login", login)
+		                            droitsString = "[" + droits.join(", ") + "]"
+	                            ,	users = userList.get("login", login)
 		                        modifier(
 		                            login,
 		                            droits,
@@ -331,13 +365,16 @@
 									            	.find(".login").text(login).end()
 									            	.find(".droits").text(droitsString).end())
 		                                } else {
+		                                	var	anciensDroits = users[0].values().droits
 		                                    send(JSON.stringify({
 		                                        type: "modify",
-		                                        item: item
+		                                        item: item,
+		                                        anciensDroits : anciensDroits
 		                                    }))
 		                                    afficherMessage($("#perso-modifier")
 									            	.find(".login").text(login).end()
-									            	.find(".droits").text(droitsString).end())
+									            	.find(".droits").text(droitsString).end()
+									            	.find(".anciens-droits").text(anciensDroits).end())
 		                                    modifierIhm(users[0], item)
 		                                }
 		                                $(window).trigger(
@@ -506,11 +543,13 @@
 		         	afficherMessage(messageDiv)
 		        },
 		        modify = function(message) {
+		        	console.log(message)
 		            modifierIhm(message.item.login, message.item)
 		            var messageDiv = $("#autrui-modifier")
 		            	.find(".expediteur").text(message.expediteur).end()
 		            	.find(".login").text(message.item.login).end()
 		            	.find(".droits").text(message.item.droits).end()
+		            	.find(".anciens-droits").text(message.anciensDroits).end()
 		            afficherMessage(messageDiv)
 		        }
 		        // ihm
@@ -577,17 +616,16 @@
 
 	<tiles:putAttribute name="css">
 		<style>
+#container-messages {
+	position : relative
+}
+#messages-reduire {
+	position : absolute;
+	top : 8px;
+	right : -45px;
+}
 #liste-recherche li {
 	margin-bottom: 0.4em !important
-}
-
-#messages {
-	height: 50px;
-	overflow:hidden;
-}
-#messages:hover {
-	height: 250px;
-	overflow:auto;
 }
 
 #liste-vide {
