@@ -285,7 +285,112 @@ public class ControlleurAnnonce implements ServletContextAware{
 		model.addAttribute("estSignale",estSignale);
 		return "annonce/signaler";
 	}
+	@RequestMapping(value = "/annonce/modifier", method = RequestMethod.GET)
+	public String modifierAnnonce(Model model, @RequestParam("ref") int ref) {
+		Annonce annonce = metierAnnonce.rechercher(ref);
+		
+		model.addAttribute("types", TypeAnnonce.values()); 
+		model.addAttribute("ref",ref);
+		FormAnnonce formannonce  = new FormAnnonce();
+		formannonce.setId(annonce.getId());
+		formannonce.setCategorie(annonce.getCategorie().getNom());
+		formannonce.setCategorieObject(annonce.getCategorie());
+		formannonce.setTitre(annonce.getTitre());
+		formannonce.setDescription(annonce.getDescription());
+		
+		for(Champ c : annonce.getCategorie().getChamps())
+		{
+			String nom = c.getLibelle();
+			TypeChamp type = c.getTypeChamp();
+			
+			if(type == TypeChamp.NUMERIQUE)
+				formannonce.getNumerique().put(nom, Double.parseDouble(annonce.getLesChamps().get(nom)));
+			
+			if(type == TypeChamp.TEXTE)
+				formannonce.getTexte().put(nom,annonce.getLesChamps().get(nom));
+			
+			if(type == TypeChamp.TEXTEAREA)
+				formannonce.getTextarea().put(nom,annonce.getLesChamps().get(nom));
+			
+			
+				
+		}
+		model.addAttribute("annonce", formannonce);
+		return "annonce/modifier";
+	}
+	
+	@RequestMapping(value = "/annonce/modifier", method = RequestMethod.POST)
+	public String modifAnnonce(Model model, @RequestParam("ref") int ref, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
+			BindingResult bindingResultOfAnnonce,@RequestParam("photos")MultipartFile[] lesphotos) {
+		model.addAttribute("estUnSucces", true);
+		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
+		if (bindingResultOfAnnonce.hasErrors()) {
+			model.addAttribute("estModifie", false);
+			return "annonce/creer";
+		}
+		System.out.println("------------------------------------------------");
+		Utilisateur utilisateur = metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal());
+		System.out.println("------------------------------------------------");
+		Annonce annonce = metierAnnonce.rechercher(ref);
+		annonce.setTitre(formAnnonce.getTitre());
+		annonce.setDescription(formAnnonce.getDescription());
+		for(Champ c : annonce.getCategorie().getChamps())
+		{
+			String nom = c.getLibelle();
+			TypeChamp type = c.getTypeChamp();
+			
+			if(type == TypeChamp.NUMERIQUE)
+				annonce.getLesChamps().put(c.getLibelle(), formAnnonce.getNumerique().get(c.getLibelle()).toString());
+			
+			if(type == TypeChamp.TEXTE)
+				annonce.getLesChamps().put(c.getLibelle(), formAnnonce.getTexte().get(c.getLibelle()));
+				formAnnonce.getTexte().put(nom,annonce.getLesChamps().get(nom));
+			
+			if(type == TypeChamp.TEXTEAREA)
+				annonce.getLesChamps().put(c.getLibelle(), formAnnonce.getTextarea().get(c.getLibelle()));
+				formAnnonce.getTextarea().put(nom,annonce.getLesChamps().get(nom));
+			
+			
+				
+		}
 
+		/*int nb = 1;
+		ArrayList<String> liens = new ArrayList<String>();
+		for(MultipartFile image : lesphotos)
+		{
+
+			String name=annonce.getId()+"_"+nb+".jpg";
+
+			if (!image.isEmpty()) {
+				try {
+					byte[] bytes = image.getBytes();
+					String path = servletcontext.getRealPath("/ressources/photos");
+					System.out.println(path);
+					File f = new File(path+File.separator+name);
+					BufferedOutputStream stream =
+							new BufferedOutputStream(new FileOutputStream(f));
+					stream.write(bytes);
+					stream.close();
+					System.err.println( "You successfully uploaded " + name + "!");
+					System.err.println( path+File.separator+name);
+					liens.add(name);
+
+				} catch (Exception e) {
+					System.err.println("You failed to upload " + name + " => " + e.getMessage());
+				}
+				nb++;
+			} else {
+				System.err.println( "You failed to upload " + name + " because the file was empty.");
+			}
+
+		}
+		annonce.setImages(liens);*/
+		metierAnnonce.modifier(annonce);
+		System.err.println(annonce.getId());
+		System.err.println(annonce.getId());
+		return "redirect:/annonce/consulter?ref=" + annonce.getId();
+	}
+	
 	@Override
 	public void setServletContext(ServletContext sc) {
 		this.servletcontext = sc;

@@ -31,6 +31,7 @@
 					<th></th>
 					<th></th>
 					<th></th>
+					<th></th>
 				</tr>
 				</thead>
 				<tbody>
@@ -42,6 +43,7 @@
 						<td>${annonce.finpublication}</td> 
 						
 						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}"><button>Consulter</button> </a></td>
+						<td><a href="${pageContext.request.contextPath}/annonce/modifier?ref=${annonce.id}"><button>Modifier</button> </a></td>
 						<td>
 							<button type="button" data-reveal-id="publier_${annonce.id}">Republier</button>
 							<div id="publier_${annonce.id}" class="reveal-modal" data-reveal>

@@ -23,6 +23,11 @@
 					${annonce.utilisateur.email}
 				</div>
 			</c:if>
+			<c:if test="${!empty param['estModifie']}">
+				<div class="alert-box success radius">
+					L'annonce ${annonce.titre} à bien été modifié
+				</div>
+			</c:if>
 			<div
 				style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin: 2% 3% 2% 0%;">
 				<div class="row">
@@ -51,7 +56,7 @@
 								</div>
 							</c:forEach>
 							<div class="row">
-									Publie� le ${annonce.datepublication} (valable jusqu'au ${annonce.finpublication})
+									Publiée le ${annonce.datepublication} (valable jusqu'au ${annonce.finpublication})
 								</div>
 						</div>
 						<div class="small-4 columns">
