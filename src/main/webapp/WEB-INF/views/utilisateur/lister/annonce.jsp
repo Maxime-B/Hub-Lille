@@ -20,7 +20,8 @@
 			
 				
 				<c:if test="${not empty annonces}">
-				<table>
+				<table id="datatable">
+				<thead>
 				<tr>
 					<th>titre</th>
 					
@@ -31,8 +32,10 @@
 					<th></th>
 					<th></th>
 				</tr>
+				</thead>
+				<tbody>
 				 <c:forEach items="${annonces}" var="annonce" >
-					<tr>
+					<tr class="ligne">
 						<td>${annonce.titre}</td>
 						
 						<td>${annonce.datepublication}</td>
@@ -40,22 +43,33 @@
 						
 						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}"><button>Consulter</button> </a></td>
 						<td>
+							<button type="button" data-reveal-id="publier_${annonce.id}">Republier</button>
+							<div id="publier_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
+							<h3>Voulez vous republier l'annonce "${annonce.titre}"</h3>
 								<input type="hidden" name="ref" value="${annonce.id}"/>
 								<input type="hidden" name="typeAction" value="republier"/>
-								<button onclick="this.form.submit();">Republier</button>
+								<button onclick="this.form.submit();">Oui</button>
+								<button class="republier" id="rep_annuler_${annonce.id}" type="button">Non</button>
 							</form>
+							</div>
 							
-							</td>
+						</td>
 						<td>
+							<button type="button" data-reveal-id="supprimer_${annonce.id}">Supprimer</button>
+							<div id="supprimer_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
+								<h3>Voulez vous supprimer l'annonce "${annonce.titre}"</h3>
 								<input type="hidden" name="ref" value="${annonce.id}"/>
 								<input type="hidden" name="typeAction" value="supprimer"/>
-								<button onclick="this.form.submit();">Supprimer</button>
+								<button onclick="this.form.submit();">Oui</button>
+								<button class="supprimer"id="rep_annuler_${annonce.id}"type="button" data-reveal>Non</button>
 							</form>
+							</div>
 						</td>
 					</tr>
 					</c:forEach>
+					</tbody>
 					</table>
 				</c:if>
 				<c:if test="${empty annonces}">
@@ -65,5 +79,22 @@
 				</c:if>
 			
 		</section>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="js">
+	<script type="text/javascript">
+	$( document ).ready(function() {
+	    var length = $(".ligne").length;
+	    for(i = 1 ; i < length+1;i++)
+	    	{
+	    	$(document).on('click tap touchstart', '.reveal-modal-bg, .supprimer,.republier', function() {
+	    	    return $('[data-reveal]').foundation('reveal', 'close');
+	    	});
+	    	}
+	});
+	
+	
+	</script>
+	
+<script src="<c:url value="/ressources/js/datatablesLister.js"/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
