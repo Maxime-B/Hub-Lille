@@ -58,8 +58,8 @@ public class MetierAnnonce {
 	public List<Annonce> chercherAnnonceParMotCleCate(String motCle,String categorie){
 		return FabAnnonce.getInstance().chercherAnnonceParMotCleCate(motCle,FabCategorie.getInstance().getCategorie(categorie));
 	}
-	public List<Annonce> listerAnnonces(){
-		return FabAnnonce.getInstance().listerAnnonces();
+	public List<Annonce> listerAnnonces(TypeAnnonce typeAnnonce){
+		return FabAnnonce.getInstance().listerAnnonces(typeAnnonce);
 	}
 	
 	public List<Annonce> listerAnnoncesParType(TypeAnnonce type){

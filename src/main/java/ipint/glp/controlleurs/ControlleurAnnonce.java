@@ -126,7 +126,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 	}
 
 
-	@RequestMapping(value = "/annonce", method = RequestMethod.GET)
+/*	@RequestMapping(value = "/annonce", method = RequestMethod.GET)
 	public String listerAnnonces(Locale locale,Model model,@RequestParam(defaultValue="") String categorie, @RequestParam(defaultValue="") String motCle, @RequestParam(defaultValue="") TypeAnnonce type){
 
 		List<Annonce>lesAnnonces = new ArrayList<Annonce>();
@@ -157,13 +157,65 @@ public class ControlleurAnnonce implements ServletContextAware{
 		model.addAttribute("categorie",categorie);
 		model.addAttribute("motCle",motCle);
 		return "annonce/lister";
-	}
+	}*/
 	@RequestMapping(value = "/annonce/categorie/choisir", method = RequestMethod.GET)
 	public String choixCategorie(Model model) {
 		model.addAttribute("categories", metierCategorie.listerCategories());
 		model.addAttribute("types", TypeAnnonce.values());
 		return "annonce/categorie/choisir";
 	}
+
+	@RequestMapping(value = "/annonce/listerOffre", method = RequestMethod.GET)
+	public String listerOffres(Locale locale,Model model,@RequestParam(defaultValue="") String categorie, @RequestParam(defaultValue="") String motCle){
+
+		List<Annonce>lesAnnonces = new ArrayList<Annonce>();
+		System.out.println(categorie);
+		System.out.println(motCle);
+		if ( ((motCle == null || (motCle.equals("")) && (categorie == null || categorie.equals(""))))) {
+			lesAnnonces= metierAnnonce.listerAnnoncesParType(TypeAnnonce.offre);
+		} 
+		else if ( ((motCle == null || (motCle.equals("")) && (categorie != null && (!categorie.equals("")))))) {
+			lesAnnonces=metierAnnonce.chercherAnnonceParTypeCate(categorie, TypeAnnonce.offre);
+		}
+		else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie == null || categorie.equals(""))))) {
+			lesAnnonces= metierAnnonce.chercherAnnonceParTypeMotCle(TypeAnnonce.offre, motCle);
+		}
+		else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie != null && (!categorie.equals("")))))) {
+			lesAnnonces=metierAnnonce.chercherAnnoncesParTypeMotCleCate(TypeAnnonce.offre, categorie, motCle);
+		}
+
+		model.addAttribute("categories", metierCategorie.listerCategories());	
+		model.addAttribute("annonces",lesAnnonces);
+		model.addAttribute("types", TypeAnnonce.offre); 
+		model.addAttribute("categorie",categorie);
+		model.addAttribute("motCle",motCle);
+		return "annonce/listerOffre";
+	}
+
+	@RequestMapping(value = "/annonce/listerDemande", method = RequestMethod.GET)
+	public String listerDemandes(Locale locale,Model model,@RequestParam(defaultValue="") String categorie, @RequestParam(defaultValue="") String motCle){
+
+		List<Annonce>lesAnnonces = new ArrayList<Annonce>();
+		System.out.println(categorie);
+		System.out.println(motCle);
+		if ( ((motCle == null || (motCle.equals("")) && (categorie == null || categorie.equals(""))))) {
+			lesAnnonces= metierAnnonce.listerAnnoncesParType(TypeAnnonce.demande);
+		} else if ( ((motCle == null || (motCle.equals("")) && (categorie != null && (!categorie.equals("")))))) {
+			lesAnnonces=metierAnnonce.chercherAnnonceParTypeCate(categorie, TypeAnnonce.demande);
+		} else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie == null || categorie.equals(""))))) {
+			lesAnnonces= metierAnnonce.chercherAnnonceParTypeMotCle(TypeAnnonce.demande, motCle);
+		} else if ( ((motCle != null && (!(motCle.equals(""))) && (categorie != null && (!categorie.equals("")))))) {
+			lesAnnonces=metierAnnonce.chercherAnnoncesParTypeMotCleCate(TypeAnnonce.demande, categorie, motCle);
+		}
+
+		model.addAttribute("categories", metierCategorie.listerCategories());	
+		model.addAttribute("annonces",lesAnnonces);
+		model.addAttribute("types", TypeAnnonce.demande); 
+		model.addAttribute("categorie",categorie);
+		model.addAttribute("motCle",motCle);
+		return "annonce/listerDemande";
+	}
+
 
 
 	@RequestMapping(value = "/annonce/consulter", method = RequestMethod.GET)

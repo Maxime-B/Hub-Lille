@@ -59,7 +59,7 @@ static FabAnnonce fb;
 //		return a;
 //	}
 	public Annonce creerAnnonce(Categorie categorie,String titre, String description,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
-		this.listerAnnonces();
+		this.listerAnnonces(typeAnnonce);
 		Annonce a = new Annonce();
 		a.setCategorie(categorie);
 		a.setDescription(description);
@@ -81,7 +81,7 @@ static FabAnnonce fb;
 	}
 
 
-	public List<Annonce> listerAnnonces (){
+	public List<Annonce> listerAnnonces (TypeAnnonce typeAnnonce){
 
 		Query query = connexion.getEm().createQuery("Select ann from Annonce ann");
 		List<Annonce> annonces = query.getResultList();

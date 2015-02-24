@@ -3,6 +3,7 @@ package ipint.glp.controlleurs;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
 import ipint.glp.donnees.Droit;
+import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.TypeChamp;
 import ipint.glp.fabriques.FabAnnonce;
 import ipint.glp.fabriques.FabCategorie;
@@ -35,7 +36,7 @@ public class ControlleurAccueil {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		model.addAttribute("annonces", FabAnnonce.getInstance()
-				.listerAnnonces());
+				.listerAnnonces(TypeAnnonce.offre));
 		model.addAttribute("evenements", FabEvenement.getInstance().lister());
 		model.addAttribute("jobs", FabJob.getInstance().listerJob());
 		return "index";
@@ -44,7 +45,7 @@ public class ControlleurAccueil {
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Locale locale, Model model) {
 		model.addAttribute("annonces", FabAnnonce.getInstance()
-				.listerAnnonces());
+				.listerAnnonces(TypeAnnonce.offre));
 		model.addAttribute("evenements", FabEvenement.getInstance().lister());
 		model.addAttribute("jobs", FabJob.getInstance().listerJob());
 		return "index";
@@ -53,7 +54,7 @@ public class ControlleurAccueil {
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test(Locale locale, Model model) {
 		model.addAttribute("annonces", FabAnnonce.getInstance()
-				.listerAnnonces());
+				.listerAnnonces(TypeAnnonce.offre));
 		model.addAttribute("evenements", FabEvenement.getInstance().lister());
 		model.addAttribute("jobs", FabJob.getInstance().listerJob());
 		return "test";
