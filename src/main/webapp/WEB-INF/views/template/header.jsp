@@ -28,7 +28,7 @@
 					<%--  liens de l'utilisateur  --%>
 					<!-- Dropdown -->
 					<li class="has-dropdown not-click"><a href="#"><i
-							class="step fi-male size-36"> </i><span id="remoteUser">${pageContext.request.remoteUser}</span></a>
+							class="step fi-male size-36"> </i>${pageContext.request.remoteUser}</a>
 						<ul class="dropdown">
 							<li class="title back js-generated"><h5>
 									<a href="javascript:void(0)">Back</a>
@@ -42,12 +42,12 @@
 								href="${pageContext.request.contextPath}/utilisateur/lister/annonce"><i
 									class="step fi-results size-36"> </i> <spring:message
 										code="template.header.mesAnnonces" /></a></li>
-							<li><a
+	<sec:authorize url="/job/**">				<li><a
 								href="${pageContext.request.contextPath}/utilisateur/lister/job"><i
 									class="step fi-dollar-bill size-36"> </i> <spring:message
 										code="template.header.mesJobs" /></a></li>
-
-<sec:authorize url="/evenement/modifier">
+</sec:authorize>
+<sec:authorize url="/evenement/**">
 							<li><a
 								href="${pageContext.request.contextPath}/utilisateur/lister/evenement"><i
 									class="step fi-universal-access size-36"> </i> <spring:message

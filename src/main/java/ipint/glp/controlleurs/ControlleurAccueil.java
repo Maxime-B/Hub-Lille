@@ -100,12 +100,12 @@ public class ControlleurAccueil {
 			Set<Droit> droits = new HashSet<Droit>();
 			droits.add(Droit.SUPER_ADMIN);
 			try {
-				metierUtilisateur.modifierDroit("clement.duhaupas", droits);
-				metierUtilisateur.modifierDroit("guillaume.bergeus", droits);
-				metierUtilisateur.modifierDroit("hind.bahaoui", droits);
-				metierUtilisateur.modifierDroit("latifou.sano", droits);
-				metierUtilisateur.modifierDroit("maxime.briche", droits);
-				metierUtilisateur.modifierDroit("soukaina.bekkai", droits);
+				metierUtilisateur.modifierRole("clement.duhaupas", droits);
+				metierUtilisateur.modifierRole("guillaume.bergeus", droits);
+				metierUtilisateur.modifierRole("hind.bahaoui", droits);
+				metierUtilisateur.modifierRole("latifou.sano", droits);
+				metierUtilisateur.modifierRole("maxime.briche", droits);
+				metierUtilisateur.modifierRole("soukaina.bekkai", droits);
 			} catch (AuMoinsUnAdminException e) {
 				e.printStackTrace();
 			}

@@ -10,7 +10,7 @@
 
 	
 	<!-- http://docs.spring.io/spring-security/site/docs/3.2.5.RELEASE/reference/htmlsingle/#el-common-built-in -->
-	<http entry-point-ref="casEntryPoint" auto-config="false"
+		<http entry-point-ref="casEntryPoint" auto-config="false"
 		use-expressions="true" access-decision-manager-ref="accessDecisionManager">
 		<intercept-url pattern="/" access="permitAll" />
 		<intercept-url pattern="/index" access="permitAll" />
@@ -18,14 +18,11 @@
 		<intercept-url pattern="/cas/casfailed" access="permitAll" />
 
 		<intercept-url pattern="/utilisateur/**" access="isAuthenticated()" />
-		<!-- <intercept-url pattern="/admin/**" access="hasRole('ADMIN')" 
-			/> -->
+		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />
+		<intercept-url pattern="/annonce/**" access="isAuthenticated()"/>
 		<intercept-url pattern="/moderateur/**" access="hasRole('MODERATEUR')" />
-		<intercept-url pattern="/vie-etudiante/**" access="hasRole('VIE_ETUDIANTE')" />
-		
-		<intercept-url pattern="/evenement/supprimer/**" access="hasAnyRole('ASSOCIATION,MODERATEUR')" />
-		<intercept-url pattern="/evenement/modifier/**" access="hasRole('ASSOCIATION')" />
-		<intercept-url pattern="/evenement/creer/**" access="hasRole('ASSOCIATION')" />
+		<intercept-url pattern="/job/**" access="hasRole('VIE_ETUDIANTE')" />
+		<intercept-url pattern="/evenement/**" access="hasRole('ASSOCIATION')" />
 
 		<custom-filter ref="requestSingleLogoutFilter" before="LOGOUT_FILTER" />
 		<custom-filter ref="singleLogoutFilter" before="CAS_FILTER" />
