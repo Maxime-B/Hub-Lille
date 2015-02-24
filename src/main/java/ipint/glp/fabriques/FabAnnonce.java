@@ -16,6 +16,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaDelete;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
@@ -105,6 +106,17 @@ static FabAnnonce fb;
 				.orderBy(cb.asc(root.get(Annonce_.signal)))
 			)
 			.getResultList();
+	}
+	
+	public List<Annonce> getAnnoncesPerimees() {
+		EntityManager em = connexion.getEm();
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Annonce> cq = cb.createQuery(Annonce.class);
+		Root<Annonce> root = cq.from(Annonce.class);
+		
+		return em.createQuery(
+			cq.where(cb.lessThan(root.get(Annonce_.finpublication), cb.currentDate()))
+		).getResultList();
 	}
 	
 	public void supprimerAnnonce(Annonce a){

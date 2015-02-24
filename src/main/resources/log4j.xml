@@ -24,7 +24,17 @@
 	<logger name="ipint.glp.controlleurs">
 		<level value="info" />
 	</logger>
-
+	
+	<logger name="ipint.glp.controlleurs.planificateurs">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+	
+	<logger name="ipint.glp.metiers">
+		<level value="info" />
+		<appender-ref ref="console" />
+	</logger>
+	
 	<!-- 3rdparty Loggers -->
 	<logger name="org.springframework.core">
 		<level value="info" />
@@ -34,15 +44,11 @@
 		<level value="info" />
 	</logger>
 
-	<logger name="org.springframework.context">
-		<level value="info" />
-	</logger>
-
 	<logger name="org.springframework.web">
 		<level value="info" />
 	</logger>
 
-	<logger name="log4j.rootLogger" additivity="false">
+	<logger name="log4j.rootLogger" additivity="true">
 		<level value="DEBUG" />
 		<appender-ref ref="console" />
 	</logger>

@@ -9,6 +9,7 @@
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="main">
+	<session id="pas-de-js">
 		<h1>Gérer les roles</h1>
 
 		<c:set var="hide" value=" hide" />
@@ -119,14 +120,14 @@
 													<span class="buttons small-3 columns"> <a
 														class="bouton-editer button success" href="#">éditer</a> <a
 														class="bouton-supprimer button alert" href="#">supprimer</a>
-													</span> <span class="login small-4 columns"></span><span
-														class="droits small-5 columns"></span>
+													</span> <span class="login small-5 columns"></span><span
+														class="droits small-4 columns"></span>
 												</div>
 											</li>
 										</ul>
 									</div>
 
-									<div id="liste-recherche">
+									<div id="liste-recherche" class="hide">
 										<ul class="list no-bullet">
 											<c:forEach items="${utilisateurs}" var="utilisateur">
 												<li>
@@ -134,8 +135,8 @@
 														<span class="buttons small-3 columns"> <a
 															class="bouton-editer button success" href="#">éditer</a>
 															<a class="bouton-supprimer button alert" href="#">supprimer</a>
-														</span> <span class="login small-4 columns">${utilisateur.login}</span><span
-															class="droits small-5 columns">${utilisateur.droits}</span>
+														</span> <span class="login small-5 columns">${utilisateur.login}</span><span
+															class="droits small-4 columns">${utilisateur.droits}</span>
 													</div>
 												</li>
 											</c:forEach>
@@ -153,6 +154,7 @@
 				</form>
 			</section>
 		</div>
+		</session>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="js">
@@ -198,14 +200,17 @@
 		                return $(el).val();
 		            }).get(), callback);
 		    }
-		    filtrerInit = function() {
+		    filtrerInit = function(values) {
+		    		var paginationOptions = {
+    					outerWindow : 1,
+	                    innerWindow : 6
+		    		}
 		            var options = {
 		                    valueNames: ['login', 'droits'],
 		                    item: "model-recherche",
-		                    //page : 3,
-		                    plugins: [ListPagination({})]
+		                    plugins: [ListPagination(paginationOptions)],
 		                },
-		                userList = new List('utilisateurs', options);
+		                userList = new List('utilisateurs', options, values);
 
 		            if ($("#liste-recherche li:first").length > 0) {
 		                userList.search($("#filtre").val())
@@ -476,10 +481,12 @@
 		            equalizer("#fieldset-changer-role, #fieldset-chercher-utilisateur")
 		        }, main = function() {
 		            //mise en forme + comportement
+		            
 		            userList = filtrerInit()
 		            remplacerInputsDejaPresents()
 		            loginInit()
 		            boutonsInit()
+		            $("#liste-recherche").removeClass("hide")
 		                //dimensions
 		            $("#container, body").css({
 		                    margin: 0,
@@ -567,6 +574,7 @@
 		            userList.add(item)
 		            var user = userList.get("login",login)
 		            $("#gerer-droits").trigger("add",user.elm)
+		            userList.sort('login', { order: "asc" });
 		            $(window).trigger("resize")
 		        }
 		        // fin ihm
@@ -611,17 +619,27 @@
 		        }
 		    }
 		})
+		$("#pas-de-js").attr("id", null)
 		</script>
+		<!-- si js désactivé -->
+		<style>
+			#pas-de-js .switch label {color:black}
+			#pas-de-js #liste-recherche {display:block !important;visibility:visible !important}
+		</style>
+		<!-- fin si js désactivé -->
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="css">
 		<style>
+#container-messages .login {
+	word-break: break-all;
+}
 #container-messages {
 	position : relative
 }
 #messages-reduire {
 	position : absolute;
-	top : 8px;
+	top : 13px;
 	right : -45px;
 }
 #liste-recherche li {

@@ -324,13 +324,21 @@
 			<artifactId>spring-websocket</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-messaging</artifactId>
 			<version>${org.springframework-version}</version>
 		</dependency>
 		<!-- Websocket -->
+		
+		<!-- csv import de données, à supprimer en production -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-csv</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- fin csv import de données, à supprimer en production -->
 
 		<!-- Java Mail API -->
 		<dependency>

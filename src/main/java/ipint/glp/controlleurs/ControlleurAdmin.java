@@ -40,6 +40,7 @@ public class ControlleurAdmin {
 		return new ModelAndView("/admin/droit/modifier","utilisateur", new FormDroit());
 	}
 
+	//utilisé uniquement si le javascript est désactivé
 	@RequestMapping(value = "/admin/droit", method = RequestMethod.POST)
 	public String gererDroit(Model model, @ModelAttribute("utilisateur") FormDroit formDroit) {
 		model.addAttribute("estUnSucces", true);

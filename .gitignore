@@ -2,3 +2,4 @@
 /derby.log
 /MyDB/
 /.directory
+/src/main/webapp/WEB-INF/cas-url.xml

@@ -29,7 +29,7 @@ public class Annonce {
 	
 	@ManyToOne(cascade= CascadeType.PERSIST)
 	private Categorie categorie;
-
+ 
 	@CollectionTable(name="libelle", joinColumns=@javax.persistence.JoinColumn(name="valeur"))
 	private HashMap<String, String> lesChamps = new HashMap<String, String>();
 	

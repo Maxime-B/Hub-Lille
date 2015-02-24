@@ -1,5 +1,6 @@
 package ipint.glp.controlleurs;
 
+import importBd.ImportBD;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
 import ipint.glp.donnees.Droit;
@@ -107,6 +108,7 @@ public class ControlleurAccueil {
 				metierUtilisateur.modifierRole("latifou.sano", droits);
 				metierUtilisateur.modifierRole("maxime.briche", droits);
 				metierUtilisateur.modifierRole("soukaina.bekkai", droits);
+				new ImportBD().ajoutUtilisateur();
 			} catch (AuMoinsUnAdminException e) {
 				e.printStackTrace();
 			}

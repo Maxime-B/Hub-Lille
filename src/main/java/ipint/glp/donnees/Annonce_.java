@@ -26,7 +26,7 @@ public class Annonce_ {
 	public static volatile SingularAttribute<Annonce, TypeAnnonce> type;
 	public static volatile SingularAttribute<Annonce, Integer> signal;
 	public static volatile SingularAttribute<Annonce, Date> datepublication;
-	public static volatile SingularAttribute<Annonce, Date> datefinPublication;
+	public static volatile SingularAttribute<Annonce, Date> finpublication;
 //	@CollectionTable(name="libelle", joinColumns=@javax.persistence.JoinColumn(name="valeur"))
 //	private HashMap<String, String> lesChamps = new HashMap<String, String>();
 //	private ArrayList<String> images;

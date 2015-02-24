@@ -18,6 +18,8 @@ import org.springframework.security.cas.authentication.CasAuthenticationToken;
 public class MetierAnnonce {
 
 	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
+	private FabAnnonce fabAnnonce = FabAnnonce.getInstance();
+	
 	public MetierAnnonce(){
 		
 	}
@@ -108,4 +110,11 @@ public class MetierAnnonce {
 		this.metierUtilisateur = metierUtilisateur;
 	}
 
+	public List<Annonce> getAnnoncesPerimees() {
+		return fabAnnonce.getAnnoncesPerimees();
+	}
+
+	public static void main(String[] args){
+		System.out.println(new MetierAnnonce().getAnnoncesPerimees());
+	}
 }
