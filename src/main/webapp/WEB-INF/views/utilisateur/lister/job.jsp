@@ -11,32 +11,45 @@
 	<tiles:putAttribute name="main">
 		<section class="section">
 			<h1>liste de mes jobs</h1>
-
-
+			
+			
 			<c:if test="${not empty jobs}">
-				<div class="row">
-					<strong class="small-4 columns">titre</strong> <strong
-						class="small-4 columns">date</strong>
-				</div>
-
-				<c:forEach items="${jobs}" var="job">
-					<div class="row">
-						<div class="small-4 columns">${job.titre}</div>
-						<div class="small-4 columns">${job.description}</div>
-						<div class="small-4 columns">
+				<table>
+				<tr>
+					<th width=400>titre</th>
+					
+					
+					
+					<th></th>
+					<th></th>
+					<th></th>
+				</tr>
+				 <c:forEach items="${jobs}" var="job" >
+					<tr>
+						<td>${job.titre}</td>
+						
+					
+						
+						<td><a href="${pageContext.request.contextPath}/job/consulter?ref=${job.id}"><button class="button small">Consulter</button> </a></td>
+						<td>
 							<a
 								href="${pageContext.request.contextPath}/job/modifier/${job.id}"
-								class="button small">Modifier</a>
-							<a
+								class="button small">Modifier</a></td>
+						<td>	<a
 								href="${pageContext.request.contextPath}/job/supprimer/${job.id}"
-								class="button small">Supprimer</a>
-						</div>
-					</div>
-				</c:forEach>
-			</c:if>
-			<c:if test="${empty jobs}">
-				<div>aucun job créé</div>
-			</c:if>
+								class="button small">Supprimer</a></td>
+						
+					</tr>
+					</c:forEach>
+					</table>
+				</c:if>
+				<c:if test="${empty jobs}">
+					<tr>
+						<td colspan="2">aucun job créé</td>
+					</tr>
+				</c:if>
+			
+			
 		</section>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

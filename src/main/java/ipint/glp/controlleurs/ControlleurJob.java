@@ -26,15 +26,20 @@ import ipint.glp.metiers.MetierJob;
 import ipint.glp.metiers.MetierUtilisateur;
 
 import javax.*;
+import javax.inject.Inject;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import java.io.IOException;
 import java.lang.reflect.Array;
 import java.text.DateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -47,7 +52,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.cas.authentication.CasAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -76,10 +84,8 @@ public class ControlleurJob implements ServletContextAware {
 	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
 	@Autowired
 	ServletContext servletcontext;
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	
+	@Inject
+	private RoleHierarchyImpl roleHierarchy;
 	
 	
 	
@@ -198,5 +204,92 @@ public class ControlleurJob implements ServletContextAware {
 			return new ModelAndView("redirect:/utilisateur/lister/job");
 		}
 
+		
+		@RequestMapping(value = "/job/modifier/{id}", method = RequestMethod.GET)
+		public ModelAndView modifier(@PathVariable Integer id,
+				HttpServletRequest request, HttpServletResponse response) {
+			// login correspond au crÃ©ateur ou Ã  un modÃ©rateur sinon refus d'acces
+			Set<Droit> droitsPrincipal = metierUtilisateur.getUtilisateur(
+					(CasAuthenticationToken) request.getUserPrincipal())
+					.getDroits();
+			Collection<GrantedAuthority> reachableGrantedAuthorities, authorities = new HashSet<GrantedAuthority>();
+			for (Droit droitPrincipal : droitsPrincipal) {
+				authorities.add(new SimpleGrantedAuthority(droitPrincipal.name()));
+			}
+			reachableGrantedAuthorities = roleHierarchy
+					.getReachableGrantedAuthorities(authorities);
+			Utilisateur utilisateur = metierJob.rechercher(id).getUtilisateur();
+			if (!reachableGrantedAuthorities.contains(new SimpleGrantedAuthority(
+					Droit.MODERATEUR.name()))) {
+				if (!utilisateur.getLogin().equals(request.getRemoteUser())) {
+					try {
+						response.sendError(HttpServletResponse.SC_FORBIDDEN);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return new ModelAndView("index");
+				}
+			}
+			//fin authentification
+
+			ModelAndView modelAndView = new ModelAndView("/job/modifier",
+					"job", metierJob.rechercher(id));
+			//modelAndView.addObject("page", "modifier");
+			return modelAndView;
+		}
+
+		@RequestMapping(value="/job/modifier", method = RequestMethod.POST)
+		public ModelAndView modifier(HttpServletRequest request,
+				HttpServletResponse response, Model model,
+				@Valid @ModelAttribute("Job") Job job,
+				BindingResult bindingResultOfJob) {
+			// login correspond au crÃ©ateur ou Ã  un modÃ©rateur sinon refus d'acces
+			Set<Droit> droitsPrincipal = metierUtilisateur.getUtilisateur(
+					(CasAuthenticationToken) request.getUserPrincipal())
+					.getDroits();
+			Collection<GrantedAuthority> reachableGrantedAuthorities, authorities = new HashSet<GrantedAuthority>();
+			for (Droit droitPrincipal : droitsPrincipal) {
+				authorities.add(new SimpleGrantedAuthority(droitPrincipal.name()));
+			}
+			reachableGrantedAuthorities = roleHierarchy
+					.getReachableGrantedAuthorities(authorities);
+			Utilisateur utilisateur = metierJob.rechercher(job.getId())
+					.getUtilisateur();
+			if (!reachableGrantedAuthorities.contains(new SimpleGrantedAuthority(
+					Droit.MODERATEUR.name()))) {
+				System.out.println("pas admin");
+				if (!utilisateur.getLogin().equals(request.getRemoteUser())) {
+					System.out.println("pas proprio");
+					try {
+						response.sendError(HttpServletResponse.SC_FORBIDDEN);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return new ModelAndView("index");
+				}
+			}
+			//fin authentification
+			
+			if (bindingResultOfJob.hasErrors()) {
+				ModelAndView modelAndView = new ModelAndView("/job/modifier",
+						"job", job);
+				modelAndView.addObject("estUnSucces", false);
+				//modelAndView.addObject("page", "modifier");
+				return modelAndView;
+			}
+			job.setUtilisateur(utilisateur);
+			metierJob.modifier(job);
+			ModelAndView modelAndView = new ModelAndView(
+					"redirect:/utilisateur/lister/job");
+			modelAndView.addObject("estUnSucces", true);
+			//modelAndView.addObject("page", "modifier");
+			modelAndView.addObject("jobCree", job);
+			return modelAndView;
+		}
+		
+		
+		
+		
+		
 	
 }

@@ -108,6 +108,10 @@ public class FabJob {
 			o.getUtilisateur().getLesJobs().add(o);
 			return o;
 		}
+		public Job modifier(Job j) {
+			connexion.getEm().merge(j);
+			return j;
+		}
 		
 		public void supprimerJob(){
 

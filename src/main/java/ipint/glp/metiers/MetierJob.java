@@ -3,6 +3,7 @@ package ipint.glp.metiers;
 
 import ipint.glp.donnees.Annonce;
 import ipint.glp.donnees.Categorie;
+import ipint.glp.donnees.Evenement;
 import ipint.glp.donnees.Job;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.Utilisateur;
@@ -59,6 +60,9 @@ public class MetierJob {
 	public List<Job> chercherJob(String mot){
 		return FabJob.getInstance().chercherJobParMotCle(mot);
 		
+	}
+	public Job modifier(Job j) {
+		return FabJob.getInstance().modifier(j);
 	}
 
 }
