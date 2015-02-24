@@ -32,10 +32,10 @@
 				<p>
 				<h3>
 					<div class="large-8 columns">
-						Dernieres Annonces 
+						Dernières Annonces 
 					</div>
 					<div class="large-4 columns">
-						<a class="small radius button" href="${pageContext.request.contextPath}/annonce/categorie/choisir">Deposer une annonce</a>
+						<a class="small radius button" href="${pageContext.request.contextPath}/annonce/categorie/choisir">Déposer une annonce</a>
 					</div>
 				</h3>
 				
@@ -65,7 +65,7 @@
 				</c:if>
 				<c:if test="${empty annonces}">
 					<tr>
-						<td colspan="5">Aucune annonce trouvee</td>
+						<td colspan="5">Aucune annonce trouvée</td>
 					</tr>
 				</c:if>
 				</p>
@@ -76,10 +76,10 @@
 				<p>
 				<h3>
 					<div class="large-8 columns">
-						Derniers evenements 
+						Derniers événements 
 					</div>
 					<div class="large-4 columns">
-						<a class="small radius button" href="${pageContext.request.contextPath}/evenement/creer">Deposer un evenement</a>
+						<a class="small radius button" href="${pageContext.request.contextPath}/evenement/creer">Déposer un événement</a>
 					</div>
 				</h3>
 				
@@ -98,7 +98,7 @@
 				</c:if>
 				<c:if test="${empty evenements}">
 					<tr>
-						<td colspan="5">Aucun evenement trouve</td>
+						<td colspan="5">Aucun événement trouvé</td>
 					</tr>
 				</c:if>
 				</p>
@@ -112,7 +112,7 @@
 						Derniers jobs 
 					</div>
 					<div class="large-4 columns">
-						<a class="small radius button" href="${pageContext.request.contextPath}/job/creer">Deposer un jobs</a>
+						<a class="small radius button" href="${pageContext.request.contextPath}/job/creer">Déposer un jobs</a>
 					</div>
 				</h3>
 				
@@ -129,9 +129,9 @@
 						</c:forEach>
 					</ul>
 				</c:if>
-				<c:if test="${empty evenements}">
+				<c:if test="${empty jobs}">
 					<tr>
-						<td colspan="5">Aucun job trouve</td>
+						<td colspan="5">Aucun job trouvé</td>
 					</tr>
 				</c:if>
 				</p>

@@ -27,7 +27,7 @@
 			<input class="radius button" type="button" value="Ajouter un champ"  onClick="ajouterChamp()"/>
 			<br>
 			<br>
-			Ordre d'affichage des champs de la catégorie :
+			Ordre d'affichage des champs de la catÃ©gorie :
 			<div id="champsChoisi">
 				<ul id="sortable" class="no-bullet">
 				</ul>
