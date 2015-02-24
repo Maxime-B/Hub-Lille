@@ -7,9 +7,12 @@
 
 <h6>Annonces</h6>
 <ul class="four side-nav">
-	<li><a href="${pageContext.request.contextPath}/annonce">Déposer une annonce</a></li>
-	<li><a href="${pageContext.request.contextPath}/annonce/categorie/choisirOffre">Les offres </a></li>
-	<li><a href="${pageContext.request.contextPath}/annonce/categorie/choisirOffre">Les demandes </a></li>
+	<li><a
+				href="${pageContext.request.contextPath}/annonce/categorie/choisir">Creer Annonce </a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/annonce/listerOffre">Les offres</a></li>
+
+			<li><a href="${pageContext.request.contextPath}/annonce/listerDemande">Les demandes</a></li>
 </ul>
 <sec:authorize url="/evenement/**">
 <h6>Evénements</h6>
