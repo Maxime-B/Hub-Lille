@@ -215,6 +215,11 @@ public class ControlleurAnnonce implements ServletContextAware{
 		model.addAttribute("motCle",motCle);
 		return "annonce/listerDemande";
 	}
+	
+	@RequestMapping(value = "/job/lister", method = RequestMethod.GET)
+	public String listerJob(Model model, @RequestParam("ref") int ref) {
+		return "redirect:/job/lister";
+	}
 
 
 
@@ -268,13 +273,11 @@ public class ControlleurAnnonce implements ServletContextAware{
 		boolean estSignale=false;
 		model.addAttribute("annonce", annonce);
 		model.addAttribute("ref",ref);
-
 		if(metierAnnonce.signalerAnnonce(u,annonce)){
 			System.out.println(annonce.getSignal());
 
 			estSignale=true;
 		}
-
 
 		else {
 			estSignale=false;

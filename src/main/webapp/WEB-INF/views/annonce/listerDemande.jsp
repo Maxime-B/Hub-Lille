@@ -9,26 +9,26 @@
 	
 		<div class="row">
 			<div class="large-12 columns">
+			<div style="text-align: right">
+					<div align="right">
+							<td><select id="publication" name="publication"
+								style="width: 200px; height: 35px">
+									<option value="/hublille1/annonce/listerOffre">annonces-offres</option>
+									<option value="/hublille1/annonce/listerDemande">annonces-demandes</option>
+									<option value="/hublille1/job/listerJob">jobs</option>
+									<option value="/hublille1/evenement">événements</option>
+							</select></td>
+							&nbsp
+							<td><input id="publication-submit" type="submit" value="chercher" class="button small"/></td>
+						
+					</div>
+				</div>
 				<br />
 				<h4>
 					<spring:message code="annonce.lister.titreDemande" />
 				</h4>
 				<br />
-				<div style="text-align: right">
-					<div align="right">
-							<td><select name="publication"
-								style="width: 200px; height: 35px">
-									<option>publications</option>
-									<option>annonces</option>
-									<option>jobs</option>
-									<option>evenements</option>
-							</select></td>
-							&nbsp
-							<td><input type="reset" value="chercher" 
-								 /></td>
-						
-					</div>
-				</div>
+				
 				<!--  <div style="width: 450px; height: 250px; border: 1px solid black;-webkit-border-radius: 10px;-moz-border-radius: 10px; border-radius: 10px;">-->
 
 				<div
@@ -93,8 +93,7 @@
 								<tr>
 									<td width=50% bgcolor="#FFFFFF"></td>
 									<td  width=25% bgcolor="#FFFFFF">
-										<a href="annonce/consulter?ref=${a.id }" />
-
+										<a href="annonce/consulter?ref=${a.id}" />
 											 <button class="radius button" >Details</button>
 
 										</a>
@@ -140,7 +139,7 @@
 					</c:if>
 					<c:if test="${empty annonces}">
 						<tr>
-							<td colspan="2">aucune annonce trouv�e</td>
+							<td colspan="2">aucune annonce trouvée</td>
 						</tr>
 					</c:if>
 
@@ -151,6 +150,5 @@
 	<tiles:putAttribute name="js">
 		
 	<script src="<c:url value="/ressources/js/datatablesLister.js"/>"></script>
-		
 	</tiles:putAttribute>
 </tiles:insertDefinition>

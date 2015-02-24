@@ -56,3 +56,5 @@
 		showButtonPanel : true
 	});
 </script>
+
+<script>$("#publication-submit").click(function(){location = $("#publication").val()})</script>

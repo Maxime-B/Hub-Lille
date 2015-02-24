@@ -6,6 +6,7 @@
 	<tiles:putAttribute name="main">
 		<div class="row">
 			<div class="large-12 columns">
+		
 				<br />
 				<B></B><spring:message code="job.jobs.confirmation" /></B>
 				<br />
