@@ -14,7 +14,8 @@
 			
 			
 			<c:if test="${not empty jobs}">
-				<table>
+				<table id="datatable">
+				<thead>
 				<tr>
 					<th width=400>titre</th>
 					
@@ -24,6 +25,8 @@
 					<th></th>
 					<th></th>
 				</tr>
+				</thead>
+				<tbody>
 				 <c:forEach items="${jobs}" var="job" >
 					<tr>
 						<td>${job.titre}</td>
@@ -41,6 +44,7 @@
 						
 					</tr>
 					</c:forEach>
+					</tbody>
 					</table>
 				</c:if>
 				<c:if test="${empty jobs}">
@@ -51,5 +55,8 @@
 			
 			
 		</section>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="js">
+		<script src="<c:url value="/ressources/js/datatablesLister.js"/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

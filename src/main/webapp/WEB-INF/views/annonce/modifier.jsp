@@ -84,6 +84,15 @@
 				</c:forEach>
 				<div>
 					<div id="photo">
+					<div class="row">
+					<ul class="clearing-thumbs" data-clearing>
+						<c:forEach items="${images}" var="img">
+							<li><a href="${pageContext.request.contextPath}/ressources/photos/${img }"><img class="th"src="${pageContext.request.contextPath}/ressources/photos/${img }"></a></li> 
+						</c:forEach>
+						 
+					</ul>
+						
+					</div>
 						
 					</div>
 					<div class="row">

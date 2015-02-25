@@ -315,6 +315,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 			
 				
 		}
+		model.addAttribute("images", annonce.getImages());
 		model.addAttribute("annonce", formannonce);
 		return "annonce/modifier";
 	}
@@ -353,8 +354,11 @@ public class ControlleurAnnonce implements ServletContextAware{
 			
 				
 		}
+		
+		
+		System.out.println(annonce.getImages().size());
 
-		/*int nb = 1;
+		int nb =annonce.getImages().size() +1;
 		ArrayList<String> liens = new ArrayList<String>();
 		for(MultipartFile image : lesphotos)
 		{
@@ -384,7 +388,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 			}
 
 		}
-		annonce.setImages(liens);*/
+		annonce.getImages().addAll(liens);
 		metierAnnonce.modifier(annonce);
 		System.err.println(annonce.getId());
 		System.err.println(annonce.getId());

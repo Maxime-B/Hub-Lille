@@ -39,7 +39,17 @@ public class FormAnnonce {
 	@Temporal(TemporalType.DATE)
 	private HashMap<String, Date> date;
 	
-	private HashMap<String, File> image;
+	private ArrayList<String> image;
+	
+
+	public ArrayList<String> getImage() {
+		return image;
+	}
+
+	public void setImage(ArrayList<String> image) {
+		this.image = image;
+	}
+
 	private ArrayList<HashMap<String, ?>> lesTypes;
 	
 	public FormAnnonce() {
@@ -58,8 +68,9 @@ public class FormAnnonce {
 		date = new HashMap<String, Date>();
 		lesTypes.add(date);
 		
-		image = new HashMap<String, File>();
-		lesTypes.add(image);
+		
+		
+		
 	}
 	
 	/**
@@ -207,20 +218,7 @@ public class FormAnnonce {
 	}
 
 
-	/**
-	 * @return the image
-	 */
-	public HashMap<String, File> getImage() {
-		return image;
-	}
 
-
-	/**
-	 * @param image the image to set
-	 */
-	public void setImage(HashMap<String, File> image) {
-		this.image = image;
-	}
 
 
 	/**
