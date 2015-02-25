@@ -38,9 +38,19 @@
 							<a
 								href="${pageContext.request.contextPath}/job/modifier/${job.id}"
 								class="button small">Modifier</a></td>
-						<td>	<a
-								href="${pageContext.request.contextPath}/job/supprimer/${job.id}"
-								class="button small">Supprimer</a></td>
+						<td>	
+						<button type="button" data-reveal-id="supprimer_${annonce.id}">Supprimer</button>
+							<div id="supprimer_${annonce.id}" class="reveal-modal" data-reveal>
+							<form method="post" action="">
+								<h3>Voulez vous supprimer le job "${job.titre}"</h3>
+								<input type="hidden" name="ref" value="${job.id}"/>
+								<input type="hidden" name="typeAction" value="supprimer"/>
+								<button onclick="this.form.submit();">Oui</button>
+								<button class="supprimer"type="button" data-reveal>Non</button>
+							</form>
+							</div>
+						
+						</td>
 						
 					</tr>
 					</c:forEach>

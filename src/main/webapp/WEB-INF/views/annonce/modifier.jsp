@@ -20,14 +20,12 @@
 
 			<form:form action="modifier" method="post" enctype="multipart/form-data"
 				modelAttribute="annonce">
-				<c:if test='${estUnSucces}'>
+				<c:if test='${estModifie}'>
 					<div class="alert-box success radius">
-						<spring:message code="annonce.creer.succes" />
+						L'annonce à etait modifié avec succes
 					</div>
 				</c:if>
-				<c:if test='${!estUnSucces}'>
-					<span> </span>
-				</c:if>
+				
 				<input type="hidden" name="ref" value="${ref }"/>
 					
 				<form:input type="hidden" path="categorie"

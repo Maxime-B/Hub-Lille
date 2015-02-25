@@ -323,7 +323,7 @@ public class ControlleurAnnonce implements ServletContextAware{
 	@RequestMapping(value = "/annonce/modifier", method = RequestMethod.POST)
 	public String modifAnnonce(Model model, @RequestParam("ref") int ref, HttpServletRequest request,@RequestParam Map parameters, @ModelAttribute("annonce") FormAnnonce formAnnonce,
 			BindingResult bindingResultOfAnnonce,@RequestParam("photos")MultipartFile[] lesphotos) {
-		model.addAttribute("estUnSucces", true);
+		model.addAttribute("estModifie", true);
 		valideurAnnonce.validate(formAnnonce, bindingResultOfAnnonce);
 		if (bindingResultOfAnnonce.hasErrors()) {
 			model.addAttribute("estModifie", false);

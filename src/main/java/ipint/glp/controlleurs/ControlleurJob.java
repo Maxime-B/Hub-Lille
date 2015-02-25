@@ -197,8 +197,8 @@ public class ControlleurJob implements ServletContextAware {
 					return "job/contacter";
 				}
 		
-		@RequestMapping(value="/job/supprimer/{id}", method = RequestMethod.GET)
-		public ModelAndView supprimerAnnonce(Model model, @PathVariable Integer id) {
+		@RequestMapping(value="/job/supprimer", method = RequestMethod.GET)
+		public ModelAndView supprimerAnnonce(Model model, @RequestParam("ref")Integer id) {
 			System.out.println(id);
 			metierJob.supprimer(metierJob.rechercher(id));
 			return new ModelAndView("redirect:/utilisateur/lister/job");

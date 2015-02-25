@@ -5,7 +5,9 @@ import java.sql.Date;
 import java.util.GregorianCalendar;
 
 import ipint.glp.donnees.Annonce;
+import ipint.glp.donnees.Job;
 import ipint.glp.metiers.MetierAnnonce;
+import ipint.glp.metiers.MetierJob;
 import ipint.glp.metiers.MetierUtilisateur;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +28,7 @@ public class ControlleurUtilisateur {
 	
 	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
 	private MetierAnnonce metierAnnonce = new MetierAnnonce();
+	private MetierJob metierJob = new MetierJob();
 	
 	@RequestMapping(value = "/utilisateur/connecter", method = RequestMethod.GET)
 	public String connecter() {
@@ -77,7 +80,19 @@ public class ControlleurUtilisateur {
 		return "/utilisateur/lister/evenement";
 	}
 	@RequestMapping(value = "/utilisateur/lister/job", method = RequestMethod.GET)
-	public String listerJO (Model model, HttpServletRequest request) {
+	public String listerJob (Model model, HttpServletRequest request) {
+		model.addAttribute("jobs", metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()).getLesJobs());
+		return "/utilisateur/lister/job";
+	}
+	
+	@RequestMapping(value = "/utilisateur/lister/job", method = RequestMethod.POST)
+	public String listerJob2 (Model model, HttpServletRequest request,@RequestParam("ref") int reference,@RequestParam("typeAction") String action) {
+		Job job = metierJob.rechercher(reference);
+		if(action.equalsIgnoreCase("supprimer"))
+		{
+			metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()).getLesJobs().remove(job);
+			metierJob.supprimer(job);
+		}
 		model.addAttribute("jobs", metierUtilisateur.getUtilisateur((CasAuthenticationToken) request.getUserPrincipal()).getLesJobs());
 		return "/utilisateur/lister/job";
 	}
