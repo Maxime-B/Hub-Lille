@@ -7,6 +7,13 @@
 
 	<tiles:putAttribute name="main">
 		<section class="section">
+			<c:if test="${!empty param['estUnSucces']}">
+				<div class="alert-box success radius">
+					Le job ${job.titre} est maintenant consultable. <br /> Tous
+					les messages seront addressés à l'adresse suivante :
+					${job.utilisateur.email}
+				</div>
+			</c:if>
 			<h1>${job.titre}</h1>
 
 			<!-- message si redirection -->
