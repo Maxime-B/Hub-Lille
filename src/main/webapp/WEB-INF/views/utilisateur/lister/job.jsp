@@ -68,5 +68,18 @@
 	</tiles:putAttribute>
 	<tiles:putAttribute name="js">
 		<script src="<c:url value="/ressources/js/datatablesLister.js"/>"></script>
+		<script type="text/javascript">
+	$( document ).ready(function() {
+	    var length = $(".ligne").length;
+	    for(i = 1 ; i < length+1;i++)
+	    	{
+	    	$(document).on('click tap touchstart', '.reveal-modal-bg, .supprimer,.republier', function() {
+	    	    return $('[data-reveal]').foundation('reveal', 'close');
+	    	});
+	    	}
+	});
+	
+	
+	</script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>
