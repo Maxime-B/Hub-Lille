@@ -33,6 +33,7 @@
 							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;">${job.modalite}</p>
 						</div>
 						<br/>
+						
 						<div>
 							<form action="contacter" method="get">
 								<input type="hidden" name="ref" value="${job.id}" /> <input
