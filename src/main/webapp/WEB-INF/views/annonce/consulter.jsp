@@ -18,14 +18,20 @@
 			<!-- message si redirection -->
 			<c:if test="${!empty param['estUnSucces']}">
 				<div class="alert-box success radius">
-					<spring:message code="annonce.consulter.motAnnonce" /> ${annonce.titre} <spring:message code="annonce.consulter.estPublie" /> <br />
+					<spring:message code="annonce.consulter.motAnnonce" />
+					${annonce.titre}
+					<spring:message code="annonce.consulter.estPublie" />
+					<br />
 					<spring:message code="annonce.consulter.envoiMessage" />
 					${annonce.utilisateur.email}
 				</div>
 			</c:if>
 			<c:if test="${!empty param['estModifie']}">
-				<div class="alert-box success radius"><spring:message code="annonce.consulter.motAnnonce" />
-					${annonce.titre} <spring:message code="annonce.consulter.estModifie" /></div>
+				<div class="alert-box success radius">
+					<spring:message code="annonce.consulter.motAnnonce" />
+					${annonce.titre}
+					<spring:message code="annonce.consulter.estModifie" />
+				</div>
 			</c:if>
 			<div
 				style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin: 2% 3% 2% 0%;">
@@ -36,7 +42,9 @@
 							<div class="row">
 
 								<b><spring:message code="annonce.consulter.typeAnnonce" /></b>
-								<p><spring:message code="annonce.${annonce.type }" /></p>
+								<p>
+									<spring:message code="annonce.${annonce.type }" />
+								</p>
 							</div>
 							<div class="row">
 								<b><spring:message code="annonce.consulter.description" /></b>
@@ -73,8 +81,12 @@
 									</div>
 								</c:if>
 							</c:forEach>
-							<div class="row"><spring:message code="annonce.consulter.publieLe" /> ${annonce.datepublication}
-								(<spring:message code="annonce.consulter.valable" /> ${annonce.finpublication})</div>
+							<div class="row">
+								<spring:message code="annonce.consulter.publieLe" />
+								${annonce.datepublication} (
+								<spring:message code="annonce.consulter.valable" />
+								${annonce.finpublication})
+							</div>
 						</div>
 						<div class="small-4 columns">
 							<div class="row">
@@ -107,12 +119,14 @@
 									<form action="contacter" method="get">
 										<input type="hidden" name="ref" value="${annonce.id}" />
 										<CENTER>
-											<input type="submit" name="Contacter" value="<spring:message code="annonce.consulter.contacter" />"
+											<input type="submit" name="Contacter"
+												value="<spring:message code="annonce.consulter.contacter" />"
 												class="radius button" style="padding: 10px 50px" />
 											<CENTER>
 									</form>
 									<CENTER>
-										<a href="signaler?ref=${annonce.id}"><spring:message code="annonce.consulter.signaler" /></a>
+										<a href="signaler?ref=${annonce.id}"><spring:message
+												code="annonce.consulter.signaler" /></a>
 									</CENTER>
 						</div>
 					</div>

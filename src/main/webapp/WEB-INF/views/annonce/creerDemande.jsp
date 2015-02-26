@@ -1,4 +1,4 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<!-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
@@ -39,7 +39,7 @@
 
 				<form:label path="description" cssErrorClass="error"><B><spring:message code="job.creer.label.description" /></B></form:label>
 				<form:textarea path="description" rows="5" cols="30"
-					placeholder="200 caractère max" cssErrorClass="error"></form:textarea>
+					placeholder="200 caractï¿½re max" cssErrorClass="error"></form:textarea>
 				<form:errors path="description" cssClass="error" />
 				
 				<c:forEach items='${annonce.categorieObject.champs}' var="item">
@@ -100,4 +100,4 @@
 		<script src="<c:url value="/ressources/js/creerAnnonce.js"/>"></script>
 		
 	</tiles:putAttribute>
-</tiles:insertDefinition>
+</tiles:insertDefinition>-->

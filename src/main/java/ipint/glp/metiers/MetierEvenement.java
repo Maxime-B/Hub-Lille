@@ -23,7 +23,7 @@ public class MetierEvenement {
 
 	private static MetierEvenement instance;
 
-	public MetierEvenement() {
+	private MetierEvenement() {
 		super();
 	}
 
@@ -68,5 +68,10 @@ public class MetierEvenement {
 
 	public Evenement obtenir(String titre, Date dateDebut) {
 		return fabEvenement.obtenir(titre, dateDebut);
+	}
+
+	public List<Evenement> chercherParMotCle(String motCle) {
+		return fabEvenement.chercherParMotCle(motCle);
+		
 	}
 }

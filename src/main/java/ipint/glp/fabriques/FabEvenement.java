@@ -97,4 +97,25 @@ public class FabEvenement {
 			return null;
 		}
 	}
+
+	public List<Evenement> chercherParMotCle(String motCle) {
+		CriteriaBuilder cb = em.getCriteriaBuilder();
+		CriteriaQuery<Evenement> cq = cb.createQuery(Evenement.class);
+		Root<Evenement> root = cq.from(Evenement.class);
+		try {
+			return em.createQuery(
+					cq.select(root)
+					.where(
+							cb.or(
+								cb.like(root.get(Publication_.titre), motCle),
+								cb.like(root.get(Evenement_.description), motCle)
+							)
+					)
+				)
+				.getResultList();
+		}
+		catch (NoResultException noResultException) {
+			return null;
+		}
+	}
 }
