@@ -9,8 +9,7 @@
 		<section class="section">
 			<c:if test="${!empty param['estUnSucces']}">
 				<div class="alert-box success radius">
-					Le job ${job.titre} est maintenant consultable. <br /> Tous les
-					messages seront addressés à l'adresse suivante :
+					<spring:message code="job.consulter.jobMot" /> ${job.titre} <spring:message code="job.consulter.estConsultable" />. <br /> <spring:message code="job.consulter.envoi" />
 					${job.utilisateur.email}
 				</div>
 			</c:if>
@@ -24,12 +23,12 @@
 				<div style="border: 2px double #ddd;padding: 5%;"class="row">
 					<div class="small-8 columns" style="width: 100%;">
 						<div class="row">
-							<p class="titre upper">Description</p>
+							<p class="titre upper"><spring:message code="job.consulter.description" /></p>
 							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;text-align: justify;">${job.description}</p>
 						</div>
 						<br/>
 						<div class="row">
-							<p class="titre upper">Modalités pour postuler :</p>
+							<p class="titre upper"><spring:message code="job.consulter.modalite" /></p>
 							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;text-align: justify;">${job.modalite}</p>
 						</div>
 						<br/>
@@ -37,7 +36,7 @@
 						<div>
 							<form action="contacter" method="get">
 								<input type="hidden" name="ref" value="${job.id}" /> <input
-									type="submit" name="Contacter" value="Postuler"
+									type="submit" name="Contacter" value="<spring:message code="job.consulter.postuler" />"
 									class="radius button" style="padding: 10px 50px;float: right;">
 							</form>
 						</div>

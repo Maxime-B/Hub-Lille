@@ -31,17 +31,14 @@
 						<spring:message code="job.contacter.succes" />
 					</div>
 				</c:if>
-				<c:if test='${!estUnSucces}'>
-					<B><span>Â </span></B>
-				</c:if>
 
 				<input type="hidden" name="ref" value="${a.id}" />
-				<B><spring:message code="annonce.contacter.emetteur" /></B>
+				<B><spring:message code="job.contacter.emeteur" /></B>
 				<form:input type="text" path="emeteur" cssErrorClass="error" />
 				<form:errors path="emeteur" cssClass="error" />
 
 
-				<B><spring:message code="annonce.contacter.objet" /></B>
+				<B><spring:message code="job.contacter.objet" /></B>
 				<form:input type="text" path="objet" cssErrorClass="error" />
 				<form:errors path="emeteur" cssClass="error" />
 

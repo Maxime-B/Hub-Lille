@@ -31,7 +31,7 @@ public class ControlleurUtilisateur {
 	private MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
 	private MetierAnnonce metierAnnonce = new MetierAnnonce();
 	private MetierJob metierJob = new MetierJob();
-	private MetierEvenement metierEvenement = new MetierEvenement();
+	private MetierEvenement metierEvenement = MetierEvenement.getInstance();
 	
 	@RequestMapping(value = "/utilisateur/connecter", method = RequestMethod.GET)
 	public String connecter() {

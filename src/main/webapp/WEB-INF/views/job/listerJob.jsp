@@ -8,20 +8,7 @@
 	<tiles:putAttribute name="main">
 		<div class="row">
 			<div class="large-12 columns">
-				<div style="text-align: right">
-					<div align="right">
-							<td><select id="publication" name="publication"
-								style="width: 200px; height: 35px">
-									<option value="/hublille1/annonce/listerOffre">annonces-offres</option>
-									<option value="/hublille1/annonce/listerDemande">annonces-demandes</option>
-									<option value="/hublille1/job/listerJob">jobs</option>
-									<option value="/hublille1/evenement">événements</option>
-							</select></td>
-							&nbsp
-							<td><input id="publication-submit" type="submit" value="chercher" class="button small" /></td>
-						
-					</div>
-				</div>
+
 				<br />
 				<h3>
 					<spring:message code="job.listerJob.titre" />
