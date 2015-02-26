@@ -20,7 +20,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(uniqueConstraints = @UniqueConstraint(columnNames = { "titre",
 		"dateDebut" }))
 public class Evenement extends Publication implements Comparable<Evenement> {
-	@DateTimeFormat(pattern = "dd/MM/yyyy")
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private Date dateDebut;
 

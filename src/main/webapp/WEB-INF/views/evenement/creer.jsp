@@ -71,7 +71,7 @@
 							<small><spring:message code="evenement.creer.requis" /></small>
 						</form:label>
 
-						<form:input class="datepicker" required="required" type="date" cssErrorClass="error"
+						<form:input class="datepicker" required="required"
 							path="dateDebut" id="input-dateDebut" />
 
 						<form:errors path="dateDebut" cssClass="error" />
