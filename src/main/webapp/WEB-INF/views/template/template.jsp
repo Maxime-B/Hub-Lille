@@ -43,7 +43,8 @@
 										<option value="evenements">événements</option>
 								</select></td> &nbsp
 								<td><input id="publication-submit" type="submit"
-									value="chercher" class="button small" /></td>
+									value="<spring:message
+												code="template.rechercher" />" class="button small" /></td>
 							</tr>
 						</table>
 					</form>

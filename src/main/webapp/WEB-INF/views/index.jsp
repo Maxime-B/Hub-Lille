@@ -12,18 +12,6 @@
 			</div>
 		</div>
 
-		<div class="row">
-			<div class="large-6 columns">
-				<div class="row collapse postfix-round">
-					<div class="small-9 columns">
-						<input type="text" placeholder="ex">
-					</div>
-					<div class="small-3 columns">
-						<a href="#" class="button postfix"><spring:message code="accueil.rechercher" /></a>
-					</div>
-				</div>
-			</div>
-		</div>
 		
 		<div class="row">
 
