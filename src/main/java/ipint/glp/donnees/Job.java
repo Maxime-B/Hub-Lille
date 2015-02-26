@@ -7,43 +7,30 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
-import ipint.glp.interfaces.Publication;
+
 
 
 @Entity
-public class Job implements Publication{
-
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
-	
+public class Job extends Publication{
 
 
-	private String titre;
 	private String remuneration;
 	private String description;
 	private String modalite;
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 
 
 
-	@ManyToOne(cascade= CascadeType.PERSIST)
-	private Utilisateur utilisateur;
+
+
 
 	public Job(String titre, String remuneration, String description,String modalite,Utilisateur utilisateur){
 		super();
-		this.titre = titre;
+		super.setTitre(titre);
 		this.remuneration = remuneration;
 		this.description = description;
-		this.utilisateur = utilisateur;
+		super.setUtilisateur(utilisateur);
 		this.modalite=modalite;
 	}
 
@@ -51,12 +38,7 @@ public class Job implements Publication{
 		super();
 		
 	}
-	public String getTitre() {
-		return titre;
-	}
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
+
 	public String getRemuneration() {
 		return remuneration;
 	}
@@ -70,13 +52,6 @@ public class Job implements Publication{
 		this.description = description;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
-
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
 	public String getModalite() {
 		return modalite;
 	}

@@ -18,14 +18,9 @@ import javax.persistence.TemporalType;
 
 
 @Entity
-public class Annonce {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+public class Annonce extends Publication{
+
 	
-	
-	@ManyToOne(cascade= CascadeType.PERSIST)
-	private Utilisateur utilisateur;
 	
 	@ManyToOne(cascade= CascadeType.PERSIST)
 	private Categorie categorie;
@@ -36,7 +31,7 @@ public class Annonce {
 	@Enumerated(EnumType.STRING)
 	private TypeAnnonce type;
 	
-	private String titre;
+	
 	private String description;
 	private ArrayList<String> images;
 	private int signal;
@@ -53,13 +48,7 @@ public class Annonce {
 		this.images = images;
 	}
 
-	public String getTitre() {
-		return titre;
-	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
+	
 
 	public String getDescription() {
 		return description;
@@ -90,13 +79,7 @@ public class Annonce {
 		this.type = type;
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
+	
 
 	public HashMap<String, String> getLesChamps() {
 		return lesChamps;
@@ -120,13 +103,7 @@ public class Annonce {
 		this.categorie = categorie;
 	}
 
-	public Utilisateur getUtilisateur() {
-		return utilisateur;
-	}
 
-	public void setUtilisateur(Utilisateur utilisateur) {
-		this.utilisateur = utilisateur;
-	}
 
 	public int getSignal() {
 		return signal;

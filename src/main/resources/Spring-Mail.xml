@@ -7,8 +7,8 @@ http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
 		<property name="host" value="smtps.univ-lille1.fr" />
 		<property name="port" value="587" />
 		
-		<property name="username" value="" />
-		<property name="password" value="" />
+		<property name="username" value="latifou.sano" />
+		<property name="password" value="190688sl" />
 		
 		<property name="javaMailProperties">
 			<props>
