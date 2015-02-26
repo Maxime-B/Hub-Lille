@@ -48,8 +48,10 @@ var en =
 	};
 
 $( document ).ready(function() {
-	var current = navigator.language;
-	var langage = (current == "fr" ? fr : en)
+	var current = extractUrlParams()["locale"];
+	
+	
+	var langage = (current == "fr_FR" || current == null ? fr : en)
 		$("#datatable").DataTable({
 		"searching": false,
 		"pagingType": "simple_numbers",
@@ -58,3 +60,16 @@ $( document ).ready(function() {
 		
 		
 });
+
+
+function extractUrlParams () {
+	var t = location.search.substring(1).split('&');
+	
+	var f = [];
+	for (var i=0; i<t.length; i++) {
+	var x = t[ i ].split('=');
+	f[x[0]]=x[1];
+	}
+	
+	return f;
+	}
