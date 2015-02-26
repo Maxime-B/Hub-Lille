@@ -5,7 +5,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <tiles:insertDefinition name="evenement">
 	<tiles:putAttribute name="title">
-		<spring:message code="evenement.creer.titre" />
+		<spring:message code="evenement.lister.titre" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
@@ -24,7 +24,7 @@
 				</div>
 			</div>
 
-			<h3>Les evenements</h3>
+			<h3><spring:message code="evenement.lister.lesEve" /></h3>
 			<br />
 
 

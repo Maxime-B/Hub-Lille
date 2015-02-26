@@ -36,6 +36,7 @@
 				<value>classpath:i18n/temoignage/temoignage</value>
 				<value>classpath:i18n/admin/admin</value>
 				<value>classpath:i18n/utilisateur/utilisateur</value>
+				<value>classpath:i18n/moderation/moderation</value>
 			</list>
 		</property>
 		<property name="defaultEncoding" value="UTF-8" />
