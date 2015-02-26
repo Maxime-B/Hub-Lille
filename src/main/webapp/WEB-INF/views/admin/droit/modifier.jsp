@@ -479,7 +479,8 @@
 		            })
 		            heightNonVisible = ($('#container').height() - innerHeight)
 		            if (heightNonVisible > 0) { //rollback si scroll bar toujours visible
-		                $(selecteur).css('max-height', sauvegarde)
+		            	$(selecteur).css('max-height', "20em")
+		            	//$(selecteur).css('max-height', sauvegarde)
 		            }
 		        },
 		        resizeList = function() {
