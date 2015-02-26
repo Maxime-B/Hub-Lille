@@ -14,29 +14,63 @@
 
 
 			<c:if test="${not empty evenements}">
-				<div class="row">
-					<strong class="small-4 columns">titre</strong> <strong
-						class="small-4 columns">date</strong>
-				</div>
-
-				<c:forEach items="${evenements}" var="evenement">
-					<div class="row">
-						<div class="small-4 columns">${evenement.titre}</div>
-						<div class="small-4 columns"><fmt:formatDate type="date" dateStyle="long" value="${evenement.dateDebut}"/></div>
-						<div class="small-4 columns">
-							<a
+				<table id="datatable">
+					<thead>
+						<tr>
+							<th>Titre</th>
+							<th>Date</th>
+							<th></th>
+							<th></th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach items="${evenements}" var="evenement">
+						<tr>
+							<td>${evenement.titre}</td>
+							<td>${evenement.dateDebut}</td>
+							<td><a
 								href="${pageContext.request.contextPath}/evenement/modifier/${evenement.id}"
-								class="button small">Modifier</a>
-							<a
-								href="${pageContext.request.contextPath}/evenement/supprimer/${evenement.id}"
-								class="button small">Supprimer</a>
-						</div>
-					</div>
-				</c:forEach>
+								class="button small">Modifier</a></td>
+							<td>
+							
+								<button type="button" data-reveal-id="supprimer_${evenement.id}">Supprimer</button>
+							<div id="supprimer_${evenement.id}" class="reveal-modal" data-reveal>
+							<form method="post" action="">
+								<h3>Voulez vous supprimer l'evenement "${evenement.titre}"</h3>
+								<input type="hidden" name="ref" value="${evenement.id}"/>
+								<input type="hidden" name="typeAction" value="supprimer"/>
+								<button onclick="this.form.submit();">Oui</button>
+								<button class="supprimer" type="button" data-reveal>Non</button>
+							</form>
+							</div>
+							</td>
+						</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+				
+
+			
 			</c:if>
 			<c:if test="${empty evenements}">
 				<div>aucun evenement créé</div>
 			</c:if>
 		</section>
+	</tiles:putAttribute>
+	<tiles:putAttribute name="js">
+	<script type="text/javascript">
+	$( document ).ready(function() {
+	    var length = $(".ligne").length;
+	 
+	    	$(document).on('click tap touchstart', '.reveal-modal-bg, .supprimer,.republier', function() {
+	    	    return $('[data-reveal]').foundation('reveal', 'close');
+	    	});
+	    	
+	});
+	
+	
+	</script>
+	
+<script src="<c:url value="/ressources/js/datatablesLister.js"/>"></script>
 	</tiles:putAttribute>
 </tiles:insertDefinition>

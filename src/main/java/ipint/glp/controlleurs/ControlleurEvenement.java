@@ -74,7 +74,7 @@ public class ControlleurEvenement {
 	}
 
 	@RequestMapping(value = "/evenement/creer", method = RequestMethod.POST)
-	public ModelAndView creer(HttpServletRequest request,
+	public String creer(HttpServletRequest request,
 			@Valid @ModelAttribute("evenement") Evenement evenement,
 			BindingResult bindingResultOfEvenement) {
 		valideurUniciteEvenement.validate(evenement, bindingResultOfEvenement);
@@ -82,18 +82,14 @@ public class ControlleurEvenement {
 			ModelAndView modelAndView = new ModelAndView("evenement/creer",
 					"evenement", evenement);
 			modelAndView.addObject("page", "creer");
-			return modelAndView;
+			return "evenement/creer";
 		}
 		evenement.setUtilisateur(metierUtilisateur
 				.getUtilisateur((CasAuthenticationToken) request
 						.getUserPrincipal()));
 		metierEvenement.creer(evenement);
-		ModelAndView modelAndView = new ModelAndView("evenement/creer");
-		modelAndView.addObject("estUnSucces", true);
-		modelAndView.addObject("page", "creer");
-		modelAndView.addObject("evenement", new Evenement());
-		modelAndView.addObject("evenementCree", evenement);
-		return modelAndView;
+
+		return "redirect:/evenement/";
 	}
 
 	@RequestMapping(value = "/evenement/modifier/{id}", method = RequestMethod.GET)
