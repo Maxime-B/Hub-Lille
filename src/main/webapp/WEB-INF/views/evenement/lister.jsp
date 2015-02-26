@@ -41,7 +41,7 @@
 							<tr>
 								<td style="padding-left: 15%; padding-top: 2%;"><h5
 										class="titre upper">${evenement.titre}</h5>
-									<p class="description upper">${evenement.description}</p></td>
+									<p class="description upper" style="word-wrap : break-word;width:450px">${evenement.description}</p></td>
 								<td rowspan="2"></td>
 
 
