@@ -1,18 +1,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+    <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <tiles:insertDefinition name="global">
-	<tiles:putAttribute name="title">Nouvelle catégorie
+	<tiles:putAttribute name="title"><spring:message code="admin.nouvelleCategorie.titre" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
+	<c:if test="${erreur=='erreur'}">
+	<span class=" alert round label"><spring:message code="admin.nouvelleCategorie.erreur" /></span>
+	
+	</c:if>
 		<form action="creationCategorie">
-			Nom de la catégorie : <input maxlength="26" type="text" name="nomCategorie" />
+			<spring:message code="admin.nouvelleCategorie.nomCategorie" /> <input maxlength="30" type="text" name="nomCategorie" required/>
 			<table style="width: 100%" id="tableau">
 				<tr>
-					<th>Nom du champ</th>
-					<th>Type</th>
-					<th>Obligatoire</th>
-					<th>Choix</th>
+					<th><spring:message code="admin.nouvelleCategorie.nomChamp" /></th>
+					<th><spring:message code="admin.nouvelleCategorie.type" /></th>
+					<th><spring:message code="admin.nouvelleCategorie.obligatoire" /></th>
+					<th><spring:message code="admin.nouvelleCategorie.choix" /></th>
 				</tr>
 				<c:forEach items="${champs}" var="item">
 					<tr>
@@ -24,15 +29,15 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<input class="radius button" type="button" value="Ajouter un champ"  onClick="ajouterChamp()"/>
+			<input class="radius button" type="button" value="<spring:message code="admin.nouvelleCategorie.ajouterChamp" />"  onClick="ajouterChamp()"/>
 			<br>
 			<br>
-			Ordre d'affichage des champs de la catégorie :
+			<spring:message code="admin.nouvelleCategorie.ordreAffichage" />
 			<div id="champsChoisi">
 				<ul id="sortable" class="no-bullet">
 				</ul>
 			</div>
-			<br> <input class="radius button" type="submit" value="Valider" />
+			<br> <input class="radius button" type="submit" value="<spring:message code="admin.nouvelleCategorie.valider" />" />
 		</form>
 
 	</tiles:putAttribute>

@@ -33,9 +33,6 @@
 						<spring:message code="annonce.contacter.succes" />
 					</div>
 				</c:if>
-				<c:if test='${!estUnSucces}'>
-					<B><span>Â </span></B>
-				</c:if>
 
 				<input type="hidden" name="ref" value="${a.id}" />
 				<B><spring:message code="annonce.contacter.emetteur" /></B>
@@ -58,7 +55,7 @@
 				</tr>
 			</table>
 
-				<spring:message code="job.creer.submit" var="submit" />
+				<spring:message code="annonce.contacter.submit" var="submit" />
 
 				
 				<table

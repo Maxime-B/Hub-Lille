@@ -18,46 +18,63 @@
 			<!-- message si redirection -->
 			<c:if test="${!empty param['estUnSucces']}">
 				<div class="alert-box success radius">
-					L'annonce ${annonce.titre} est maintenant consultable. <br /> Tout
-					les message seront dressés à l'adresse suivante :
+					<spring:message code="annonce.consulter.motAnnonce" /> ${annonce.titre} <spring:message code="annonce.consulter.estPublie" /> <br />
+					<spring:message code="annonce.consulter.envoiMessage" />
 					${annonce.utilisateur.email}
 				</div>
 			</c:if>
 			<c:if test="${!empty param['estModifie']}">
-				<div class="alert-box success radius">
-					L'annonce ${annonce.titre} à bien été modifié
-				</div>
+				<div class="alert-box success radius"><spring:message code="annonce.consulter.motAnnonce" />
+					${annonce.titre} <spring:message code="annonce.consulter.estModifie" /></div>
 			</c:if>
 			<div
 				style="padding-top: 10px; padding-right: 40px; padding-bottom: 10px; padding-left: 40px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; margin: 2% 3% 2% 0%;">
 				<div class="row">
 					<div class="row">
-			
+
 						<div class="small-8 columns">
 							<div class="row">
-				
-								<b>Nature de l'annonce</b>
-								<p>	${annonce.type }</p>
+
+								<b><spring:message code="annonce.consulter.typeAnnonce" /></b>
+								<p><spring:message code="annonce.${annonce.type }" /></p>
 							</div>
 							<div class="row">
-								<b>Description</b>
+								<b><spring:message code="annonce.consulter.description" /></b>
 								<p>${annonce.description}</p>
 							</div>
 
 							<div class="row">
-								<b>Categorie</b>
-								<p>${annonce.categorie.nom }</p>
+								<b><spring:message code="annonce.consulter.categorie" /></b>
+								<c:set var="tmp" value="${annonce.categorie.nom }" />
+								<c:set var="libelle" value="${fn:split(tmp, '-')}" />
+								<c:set var="langue">
+									<spring:message code="template.langue" />
+								</c:set>
+								<c:if test="${langue=='fr'}">
+									<p>${libelle[0]}</p>
+								</c:if>
+								<c:if test="${langue=='en'}">
+									<p>${libelle[1]}</p>
+								</c:if>
 							</div>
 							<c:forEach items='${annonce.lesChamps}' var="item">
-								<div class="row">
-									<b>${item.key}</b>
-											<p>${item.value}
-											</p>
-								</div>
+								<c:set var="tmp" value="${item.key}" />
+								<c:set var="libelle" value="${fn:split(tmp, '-')}" />
+								<c:if test="${langue=='fr'}">
+									<div class="row">
+										<b>${libelle[0]}</b>
+										<p>${item.value}</p>
+									</div>
+								</c:if>
+								<c:if test="${langue=='en'}">
+									<div class="row">
+										<b>${libelle[1]}</b>
+										<p>${item.value}</p>
+									</div>
+								</c:if>
 							</c:forEach>
-							<div class="row">
-									Publiée le ${annonce.datepublication} (valable jusqu'au ${annonce.finpublication})
-								</div>
+							<div class="row"><spring:message code="annonce.consulter.publieLe" /> ${annonce.datepublication}
+								(<spring:message code="annonce.consulter.valable" /> ${annonce.finpublication})</div>
 						</div>
 						<div class="small-4 columns">
 							<div class="row">
@@ -81,23 +98,21 @@
 									</c:if>
 									<CENTER>
 							</div>
-							<br />
-							<br />
+							<br /> <br />
 							<CENTER>
-								
+
 								<CENTER>
-									<br />
-									<br />
+									<br /> <br />
 
 									<form action="contacter" method="get">
 										<input type="hidden" name="ref" value="${annonce.id}" />
 										<CENTER>
-											<input type="submit" name="Contacter" value="Contacter"
+											<input type="submit" name="Contacter" value="<spring:message code="annonce.consulter.contacter" />"
 												class="radius button" style="padding: 10px 50px" />
 											<CENTER>
 									</form>
 									<CENTER>
-										<a href="signaler?ref=${annonce.id}">signaler</a>
+										<a href="signaler?ref=${annonce.id}"><spring:message code="annonce.consulter.signaler" /></a>
 									</CENTER>
 						</div>
 					</div>

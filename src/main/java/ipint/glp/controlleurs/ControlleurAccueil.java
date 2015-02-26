@@ -68,13 +68,13 @@ public class ControlleurAccueil {
 		 * TypeChamp.TEXTE,true); Champ c2 = FabChamp.getInstance()
 		 * .creerChamp("description", 500, TypeChamp.TEXTEAREA,true);
 		 */
-		Champ c3 = FabChamp.getInstance().creerChamp("depart",
+		Champ c3 = FabChamp.getInstance().creerChamp("Départ-Departure",
 				TypeChamp.TEXTE, true);
-		Champ c4 = FabChamp.getInstance().creerChamp("arrivee",
+		Champ c4 = FabChamp.getInstance().creerChamp("Arrivée-Arrival",
 				TypeChamp.TEXTE, true);
-		Champ c5 = FabChamp.getInstance().creerChamp("date",
+		Champ c5 = FabChamp.getInstance().creerChamp("Date-Date",
 				TypeChamp.DATE, true);
-		Champ c6 = FabChamp.getInstance().creerChamp("prix",
+		Champ c6 = FabChamp.getInstance().creerChamp("Prix-Price",
 				TypeChamp.NUMERIQUE, false);
 		
 		List<Champ> champs1 = new ArrayList<Champ>();
@@ -92,10 +92,10 @@ public class ControlleurAccueil {
 		champs2.add(c6);
 		
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
-				"Covoiturage", champs1);
+				"Covoiturage-Carpooling", champs1);
 
 		Categorie categorie2 = FabCategorie.getInstance().creerCategorie(
-				"Biens", champs2);
+				"Biens-Goods", champs2);
 
 		// utilisateurs avec roles par defaut
 			MetierUtilisateur metierUtilisateur = new MetierUtilisateur();

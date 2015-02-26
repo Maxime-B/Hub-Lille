@@ -4,7 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="annonce">
-	<tiles:putAttribute name="title">Les annonces</tiles:putAttribute>
+	<tiles:putAttribute name="title"><spring:message code="annonce.lister.titre" /></tiles:putAttribute>
 	<tiles:putAttribute name="main">
 	
 		<div class="row">
@@ -19,7 +19,7 @@
 									<option value="/hublille1/evenement">événements</option>
 							</select></td>
 							&nbsp
-							<td><input id="publication-submit" type="submit" value="chercher" class="button small" /></td>
+							<td><input id="publication-submit" type="submit" value="<spring:message code="annonce.lister.titre" />" class="button small" /></td>
 						
 					</div>
 				</div>
@@ -46,18 +46,35 @@
 										style="width: 200px; height: 35px">
 											<option></option>
 											<c:forEach items="${categories}" var="item">
-												<option value="${item.nom}">${item.nom}</option>
+													<c:set var="tmp" value="${item.nom}" />
+								<c:set var="libelle" value="${fn:split(tmp, '-')}" />
+								<c:set var="langue">
+									<spring:message code="template.langue" />
+								</c:set>
+								<c:if test="${langue=='fr'}">
+									<option value="${item.nom}">${libelle[0]}</option>
+								</c:if>
+								<c:if test="${langue=='en'}">
+									<option value="${item.nom}">${libelle[1]}</option>
+								</c:if>
 											</c:forEach>
 									</select></td>
 									
-									<td><input type="submit" value="chercher"
+									<td><input type="submit" value="<spring:message code="annonce.lister.rechercher" />"
 										class="radius button" style="padding: 10px 50px" /></td>
 								</tr>
 							</table>
 						</div>
 
 					</form>
-					${motCle} ${categorie} <br /> <br /> &nbsp
+											<c:set var="tmp" value="${categorie}" />
+								<c:set var="libelle" value="${fn:split(tmp, '-')}" />
+								<c:if test="${langue=='fr'}">
+									${motCle} ${libelle[0]} <br /> <br /> &nbsp
+								</c:if>
+								<c:if test="${langue=='en'}">
+									${motCle} ${libelle[1]} <br /> <br /> &nbsp
+								</c:if>
 					<c:if test="${not empty annonces}">
 						<table width="100%" id="datatable">
 						<thead>
@@ -95,9 +112,9 @@
 								<tr>
 									<td width=50% bgcolor="#FFFFFF"></td>
 									<td  width=25% bgcolor="#FFFFFF">
-										<a href="annonce/consulter?ref=${a.id }" />
+										<a href="consulter?ref=${a.id }" >
 
-											 <button class="radius button" >Détails</button>
+											 <button class="radius button" ><spring:message code="annonce.lister.details" /></button>
 
 										</a>
 									</td>
@@ -142,7 +159,7 @@
 					</c:if>
 					<c:if test="${empty annonces}">
 						<tr>
-							<td colspan="2">aucune annonce trouvée</td>
+							<td colspan="2"><spring:message code="annonce.lister.pasAnnonce" /></td>
 						</tr>
 					</c:if>
 

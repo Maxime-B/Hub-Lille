@@ -36,11 +36,11 @@
 				<form:input type="hidden" path="type"
 					value="${annonce.type}" />
 				
-				<form:label path="titre" cssErrorClass="error"><spring:message code="job.creer.label.titre" /></form:label>
+				<form:label path="titre" cssErrorClass="error"><spring:message code="annonce.creer.label.titre" /></form:label>
 				<form:input type="text" path="titre" placeholder="50 char max" cssErrorClass="error"/>
 				<form:errors path="titre" cssClass="error" />
 
-				<form:label path="description" cssErrorClass="error"><spring:message code="job.creer.label.description" /></form:label>
+				<form:label path="description" cssErrorClass="error"><spring:message code="annonce.creer.label.description" /></form:label>
 				<form:textarea path="description" rows="5" cols="30"
 					placeholder="200 caractère max" cssErrorClass="error"></form:textarea>
 				<form:errors path="description" cssClass="error" />
@@ -49,7 +49,17 @@
 					<c:set var="path" value="${fn:toLowerCase(item.typeChamp)}['${item.libelle}']" />
 					<div>
 						<form:label path="${path}" cssErrorClass="error">
-							${item.libelle}
+						<c:set var="tmp" value="${item.libelle}"/>
+						<c:set var="libelle" value="${fn:split(tmp, '-')}" />
+						<c:set var="langue">
+							<spring:message code="template.langue" />
+						</c:set>
+						<c:if test="${langue=='fr'}">
+							${libelle[0]}
+							</c:if>
+						<c:if test="${langue=='en'}" >
+							${libelle[1]}
+						</c:if>
 							<c:if test='${item.obligatoire}'>
 								<small><spring:message code="annonce.creer.requis" /></small>
 							</c:if>
@@ -86,13 +96,13 @@
 						
 					</div>
 					<div class="row">
-						<button type='button' class="radius button" onclick="ajouterPhoto();">Ajouter une photo</button>
+						<button type='button' class="radius button" onclick="ajouterPhoto();"><spring:message code="annonce.creer.photo" /></button>
 					</div>
 				</div>
 				
 				
 				<div style="text-align: right">
-					<spring:message code="job.creer.submit" var="submit" />
+					<spring:message code="annonce.creer.submit" var="submit" />
 
 					<input type="submit" value="${submit}" class="radius button" />
 				</div>

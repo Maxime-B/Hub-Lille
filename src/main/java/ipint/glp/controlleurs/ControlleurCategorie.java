@@ -20,31 +20,40 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ControlleurCategorie {
-	
+
 	MetierCategorie metierCategorie = new MetierCategorie();
 	MetierChamp metierChamp = new MetierChamp();
-	
+
 	@RequestMapping(value = "/admin/categorieAdmin", method = RequestMethod.GET)
 	public String adminCategorie(Locale locale, Model model) {
-		model.addAttribute("categories",metierCategorie.listerCategories());
+		model.addAttribute("categories", metierCategorie.listerCategories());
 		return "admin/categorieAdmin";
 	}
 
 	@RequestMapping(value = "/admin/nouvelleCategorie", method = RequestMethod.GET)
 	public String nouvelleCategorie(Locale locale, Model model) {
 		model.addAttribute("typeChamps", TypeChamp.values());
-		model.addAttribute("champs",metierChamp.listerChamps());
+		model.addAttribute("champs", metierChamp.listerChamps());
 		return "admin/nouvelleCategorie";
 	}
-	
+
 	@RequestMapping(value = "/admin/creationCategorie", method = RequestMethod.GET)
-	public String creationCategorie(Locale locale,Model model, @RequestParam("nomCategorie") String nomCategorie,String[] champs) {
+	public String creationCategorie(Locale locale, Model model,
+			@RequestParam("nomCategorie") String nomCategorie, String[] champs) {
 		List<Champ> lesChamps = new ArrayList<Champ>();
-		for(String libelle : champs){
-			lesChamps.add(metierChamp.getChamp(libelle));
+		if (nomCategorie.equals("")) {
+			model.addAttribute("typeChamps", TypeChamp.values());
+			model.addAttribute("champs", metierChamp.listerChamps());
+			model.addAttribute("erreur", "erreur");
+			return "admin/nouvelleCategorie";
+		}
+		if (champs != null) {
+			for (String libelle : champs) {
+				lesChamps.add(metierChamp.getChamp(libelle));
+			}
 		}
 		metierCategorie.creerCategorie(nomCategorie, lesChamps);
-		model.addAttribute("categories",metierCategorie.listerCategories());
+		model.addAttribute("categories", metierCategorie.listerCategories());
 		return "/admin/categorieAdmin";
 	}
 }
