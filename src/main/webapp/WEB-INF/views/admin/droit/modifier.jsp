@@ -10,21 +10,27 @@
 
 	<tiles:putAttribute name="main">
 	<session id="pas-de-js">
-		<h1>Gérer les roles</h1>
+		<h1><spring:message code="admin.droits.titre"/></h1>
 
 		<c:set var="hide" value=" hide" />
 		<c:if test="${AuMoinsUnAdminException}">
 			<c:set var="hide" value="" />
 		</c:if>
+		<c:set var="login"><span class="login"></span></c:set>
+		<c:set var="spanDroits"><span class="droits"></span></c:set>
+		<c:set var="anciensDroits"><span class="anciens-droits"></span></c:set>
+		<c:set var="expediteur"><span class="expediteur"></span></c:set>
+		<c:set var="logins"><span class="logins"></span></c:set>
+		
+		
 		<div id="container-messages">
 			<div id="messages">
 				<div id="messages-perso" class="model hide">
 					<div id="AuMoinsUnAdminException"
-						class="alert-box alert radius${hide}">Le dernier Admin ne peut
-						être supprimé</div>
-					<div id="perso-ajouter" class="hide alert-box success radius">tu a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
-					<div id="perso-supprimer" class="hide alert-box success radius">tu a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
-					<div id="perso-modifier" class="hide alert-box success radius">tu a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span>, son ancien rôle était : <span class="anciens-droits"></span></div>
+						class="alert-box alert radius${hide}"><spring:message code="admin.droits.AuMoinsUnAdminException"/></div>
+					<div id="perso-ajouter" class="hide alert-box success radius"><spring:message code="admin.droits.perso-ajouter" arguments="${login},${spanDroits}" htmlEscape="false"/></div>
+					<div id="perso-supprimer" class="hide alert-box success radius"><spring:message code="admin.droits.perso-supprimer" arguments="${login},${spanDroits}" htmlEscape="false"/></div>
+					<div id="perso-modifier" class="hide alert-box success radius"><spring:message code="admin.droits.perso-modifier" arguments="${login},${spanDroits},${anciensDroits}" htmlEscape="false"/></div>
 					<c:if test="${estUnSucces}">
 						<div class="alert-box success radius">${utilisateur.login} a
 							maintenant les droits : [${fn:join(utilisateur.droits, ', ')}]</div>
@@ -32,12 +38,12 @@
 				</div>
 				
 				<div id="messages-autrui" class="model hide">
-					<div id="autrui-logins" class="hide alert-box radius"><span class="logins"></span> sont connectés</div>
-					<div id="autrui-login" class="hide alert-box radius"><span class="expediteur"></span> vient de se connecter</div>
-					<div id="autrui-logout" class="hide alert-box radius"><span class="expediteur"></span> vient de se déconnecter</div>
-					<div id="autrui-ajouter" class="hide alert-box radius"><span class="expediteur"></span> a donné des droits à <span class="login"></span>, son nouveau rôle est : <span class="droits"></span></div>
-					<div id="autrui-supprimer" class="hide alert-box radius"><span class="expediteur"></span> a supprimé les droits de <span class="login"></span>, son ancien rôle était : <span class="droits"></span></div>
-					<div id="autrui-modifier" class="hide alert-box radius"><span class="expediteur"></span> a modifié le rôle de <span class="login"></span>, son nouveau rôle est : <span class="droits"></span>, son ancien rôle était : <span class="anciens-droits"></span></div>
+					<div id="autrui-logins" class="hide alert-box radius"><spring:message code="admin.droits.autrui-logins" arguments="${logins}" htmlEscape="false"/></div>
+					<div id="autrui-login" class="hide alert-box radius"><spring:message code="admin.droits.autrui-login" arguments="${expediteur}" htmlEscape="false"/></div>
+					<div id="autrui-logout" class="hide alert-box radius"><spring:message code="admin.droits.autrui-logout" arguments="${expediteur}" htmlEscape="false"/></div>
+					<div id="autrui-ajouter" class="hide alert-box radius"><spring:message code="admin.droits.autrui-ajouter" arguments="${expediteur}, ${login}, ${spanDroits}" htmlEscape="false"/></div>
+					<div id="autrui-supprimer" class="hide alert-box radius"><spring:message code="admin.droits.autrui-supprimer" arguments="${expediteur}, ${login}, ${spanDroits}" htmlEscape="false"/></div>
+					<div id="autrui-modifier" class="hide alert-box radius"><spring:message code="admin.droits.autrui-modifier" arguments="${expediteur}, ${login}, ${spanDroits}, ${AnciensDroits}" htmlEscape="false"/></div>
 				</div>
 			</div>
 			<div id="messages-bouttons">
@@ -48,7 +54,7 @@
 			<section class="section small-5 columns">
 				<form:form method="post" modelAttribute="utilisateur">
 					<fieldset id="fieldset-changer-role">
-						<legend>Utilisateur</legend>
+						<legend><spring:message code="admin.droits.utilisateur"/></legend>
 						<div id="container-changer-role">
 							<div id="login-changer-role" class="row">
 								<div class="small-3 columns">
@@ -86,10 +92,11 @@
 											</div>
 										</c:forEach>
 									</div>
-
+									
+									<c:set var="submitChangerRole"><spring:message code="admin.droits.submit"/></c:set>
 									<div class="small-12 columns">
 										<input id="bouton-modifier" type="submit"
-											value="Changer son rôle" class="radius button small expand" />
+											value="${submitChangerRole}" class="radius button small expand" />
 									</div>
 								</div>
 							</div>
@@ -103,10 +110,11 @@
 					<div class="row">
 						<div id="utilisateurs" class="small-12 columns">
 							<fieldset id="fieldset-chercher-utilisateur">
-								<legend>Rechercher</legend>
+								<legend><spring:message code="admin.droits.rechercher"/></legend>
 								<div id="container-chercher-utilisateur">
 									<spring:bind path="utilisateur.filtre">
-										<input id="filtre" placeholder="filtre"
+										<c:set var="filtre"><spring:message code="admin.droits.filtre"/></c:set>
+										<input id="filtre" placeholder="${filtre}"
 											name="${status.expression}" value="${status.value}"
 											form="utilisateur" type="text" class="search" />
 									</spring:bind>
@@ -118,8 +126,8 @@
 											<li id="model-recherche">
 												<div class="row">
 													<span class="buttons small-3 columns"> <a
-														class="bouton-editer button success" href="#">éditer</a> <a
-														class="bouton-supprimer button alert" href="#">supprimer</a>
+														class="bouton-editer button success" href="#"><spring:message code="admin.droits.editer"/></a> <a
+														class="bouton-supprimer button alert" href="#"><spring:message code="admin.droits.supprimer"/></a>
 													</span> <span class="login small-5 columns"></span><span
 														class="droits small-4 columns"></span>
 												</div>
@@ -133,8 +141,8 @@
 												<li>
 													<div class="row">
 														<span class="buttons small-3 columns"> <a
-															class="bouton-editer button success" href="#">éditer</a>
-															<a class="bouton-supprimer button alert" href="#">supprimer</a>
+															class="bouton-editer button success" href="#"><spring:message code="admin.droits.editer"/></a>
+															<a class="bouton-supprimer button alert" href="#"><spring:message code="admin.droits.supprimer"/></a>
 														</span> <span class="login small-5 columns">${utilisateur.login}</span><span
 															class="droits small-4 columns">${utilisateur.droits}</span>
 													</div>
@@ -142,8 +150,7 @@
 											</c:forEach>
 										</ul>
 										<div id="liste-vide" data-alert
-											class="alert-box warning radius">aucun utilisateur n'a
-											de rôle</div>
+											class="alert-box warning radius"><spring:message code="admin.droits.aucunUtilisateur"/></div>
 									</div>
 								</div>
 								<ul class="pagination no-bullet">
@@ -631,6 +638,13 @@
 
 	<tiles:putAttribute name="css">
 		<style>
+
+session h1 {
+	position: absolute;
+	left: 1em;
+	top: 2em;
+}		
+		
 #container-messages .login {
 	word-break: break-all;
 }

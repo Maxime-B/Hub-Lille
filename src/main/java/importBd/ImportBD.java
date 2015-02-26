@@ -32,10 +32,14 @@ public class ImportBD {
 			Droit[] droits = Droit.values();
 			int i = 0;
 			for (CSVRecord csvRecord : cSVParser) {
+				String mail = csvRecord.get(2);
+				if (mail == null || "".equals(mail.trim())) {
+					continue;
+				}
 				i++;
 				String nom = csvRecord.get(0);
 				String prenom = csvRecord.get(1);
-				String mail = csvRecord.get(2);
+				String login = mail.split("@")[0];
 				Set<Droit> authorities = new HashSet<Droit>();
 				if (i % 2 == 0) {
 					authorities.add(droits[0]);
@@ -55,7 +59,9 @@ public class ImportBD {
 					authorities.add(droits[2]);
 				}
 				Utilisateur utilisateur = metierUtilisateur
-						.getUtilisateur(prenom + "." + nom);
+						.getUtilisateur(login);
+				utilisateur.setPrenom(prenom);
+				utilisateur.setPrenom(nom);
 				utilisateur.setDroits(authorities);
 				utilisateur.setEmail(mail);
 				metierUtilisateur.modifier(utilisateur);
