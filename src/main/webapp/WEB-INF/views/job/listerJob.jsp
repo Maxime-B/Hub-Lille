@@ -64,28 +64,23 @@
 					<c:if test="${not empty jobs}">
 						<c:forEach items="${jobs}" var="a">
 
-
-
-							<table
-								style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; width: 100%;">
+								<table
+							style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; width: 100%;">
+							<tbody>
 								<tr>
-									<td style="padding-left: 15%;padding-top: 2%;"><h5 class="titre upper" >${a.titre}</h5>
-										<p class="description upper" style="word-wrap : break-word;width:450px" >${a.description}</p></td>
-									<td rowspan="2"></td>
-
-
-
-									<td><table style="border: solid 1px #FFFFFF">
-											<tr>
-												<td></td>
-												<td></td>
-												<td></td>
-											</tr>
-										</table></td>
-
-
+									<td style="padding-left: 15%; padding-top: 2%;"><h5
+											class="titre upper">${a.titre}
+										</h5></td>
+									<td><p class="description upper"
+											style="text-align: justify;word-wrap: break-word;font-size: small;font-weight: bold;font-style: normal;">
+											${a.remuneration}
+										</p></td>
 								</tr>
-
+								<tr>
+									<td rowspan="2" style="padding-left: 15%;background-color: #FFF"><p class="description upper"
+											style="word-wrap: break-word; width: 450px;text-align: justify;">${a.description}</p></td>
+								</tr>
+								<tr><td></td><td></td></tr>
 								<tr>
 								<td width=80% bgcolor="#FFFFFF"></td>
 									<td bgcolor="#FFFFFF">
@@ -97,9 +92,8 @@
 										class="radius button" /></td>
 									</form>
 								</tr>
-
+							</tbody>
 							</table>
-
 						</c:forEach>
 					</c:if>
 					<c:if test="${empty jobs}">

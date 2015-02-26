@@ -25,12 +25,12 @@
 					<div class="small-8 columns" style="width: 100%;">
 						<div class="row">
 							<p class="titre upper">Description</p>
-							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;">${job.description}</p>
+							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;text-align: justify;">${job.description}</p>
 						</div>
 						<br/>
 						<div class="row">
 							<p class="titre upper">Modalités pour postuler :</p>
-							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;">${job.modalite}</p>
+							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;text-align: justify;">${job.modalite}</p>
 						</div>
 						<br/>
 						
