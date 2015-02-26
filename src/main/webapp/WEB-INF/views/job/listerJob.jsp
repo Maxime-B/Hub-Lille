@@ -69,8 +69,8 @@
 							<table
 								style="padding-top: 2px; padding-right: 2px; padding-bottom: 2px; padding-left: 2px; border: solid 1px #EAEAEA; -webkit-border-radius: 10px; -moz-border-radius: 10px; border-radius: 10px; width: 100%;">
 								<tr>
-									<td><h5 class="titre upper" >${a.titre}</h5>
-										<p class="description upper">${a.description}</p></td>
+									<td style="padding-left: 15%;padding-top: 2%;"><h5 class="titre upper" >${a.titre}</h5>
+										<p class="description upper" style="word-wrap : break-word;width:450px" >${a.description}</p></td>
 									<td rowspan="2"></td>
 
 

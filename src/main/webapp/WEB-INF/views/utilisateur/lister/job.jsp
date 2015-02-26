@@ -5,19 +5,19 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <tiles:insertDefinition name="utilisateur">
 	<tiles:putAttribute name="title">
-		liste de mes jobs
+		<spring:message code="utilisateur.job.titre" />
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="main">
 		<section class="section">
-			<h1>liste de mes jobs</h1>
+			<h1><spring:message code="utilisateur.job.titre" /></h1>
 			
 			
 			<c:if test="${not empty jobs}">
 				<table id="datatable">
 				<thead>
 				<tr>
-					<th width=400>titre</th>
+					<th width=400><spring:message code="utilisateur.job.label.titre" /></th>
 					
 					
 					
@@ -33,13 +33,13 @@
 						
 					
 						
-						<td><a href="${pageContext.request.contextPath}/job/consulter?ref=${job.id}"><button class="button small">Consulter</button> </a></td>
+						<td><a href="${pageContext.request.contextPath}/job/consulter?ref=${job.id}"><button class="button small"><spring:message code="utilisateur.job.consulter" /></button> </a></td>
 						<td>
 							<a
 								href="${pageContext.request.contextPath}/job/modifier/${job.id}"
-								class="button small">Modifier</a></td>
+								class="button small"><spring:message code="utilisateur.job.modifier" /></a></td>
 						<td>	
-						<button type="button" data-reveal-id="supprimer_${annonce.id}">Supprimer</button>
+						<button type="button" data-reveal-id="supprimer_${annonce.id}"><spring:message code="utilisateur.job.supprimer" /></button>
 							<div id="supprimer_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
 								<h3>Voulez vous supprimer le job "${job.titre}"</h3>

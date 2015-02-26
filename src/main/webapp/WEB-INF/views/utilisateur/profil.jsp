@@ -13,7 +13,7 @@
 			<div>login : ${ pageContext.request.remoteUser }</div>
 			<div>roles : ${ pageContext.request.userPrincipal.authorities }</div>
 
-			<h2>attributs</h2>
+			<h2><spring:message code="utilisateur.profil.attributs" /></h2>
 
 			<c:forEach
 				items="${pageContext.request.userPrincipal.assertion.principal.attributes}"

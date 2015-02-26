@@ -1,5 +1,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="accueil">
@@ -15,10 +16,10 @@
 			<div class="large-6 columns">
 				<div class="row collapse postfix-round">
 					<div class="small-9 columns">
-						<input type="text" placeholder="Mot a rechercher">
+						<input type="text" placeholder="ex">
 					</div>
 					<div class="small-3 columns">
-						<a href="#" class="button postfix">Rechercher</a>
+						<a href="#" class="button postfix"><spring:message code="accueil.rechercher" /></a>
 					</div>
 				</div>
 			</div>
@@ -32,10 +33,10 @@
 				<p>
 				<h3>
 					<div class="large-8 columns">
-						Dernières Annonces 
+						<spring:message code="accueil.dernAnn" /> 
 					</div>
 					<div class="large-4 columns">
-						<a class="small radius button" href="${pageContext.request.contextPath}/annonce/categorie/choisir">Déposer une annonce</a>
+						<a class="small radius button" href="${pageContext.request.contextPath}/annonce/categorie/choisir"><spring:message code="accueil.deposeAnn" /></a>
 					</div>
 				</h3>
 				
@@ -65,7 +66,7 @@
 				</c:if>
 				<c:if test="${empty annonces}">
 					<tr>
-						<td colspan="5">Aucune annonce trouvée</td>
+						<td colspan="5"><spring:message code="accueil.pasAnnonce" /></td>
 					</tr>
 				</c:if>
 				</p>
@@ -76,10 +77,10 @@
 				<p>
 				<h3>
 					<div class="large-8 columns">
-						Derniers événements 
+						<spring:message code="accueil.dernEve" /> 
 					</div>
 					<div class="large-4 columns">
-						<a class="small radius button" href="${pageContext.request.contextPath}/evenement/creer">Déposer un événement</a>
+						<a class="small radius button" href="${pageContext.request.contextPath}/evenement/creer"><spring:message code="accueil.deposeEve" /></a>
 					</div>
 				</h3>
 				
@@ -98,7 +99,7 @@
 				</c:if>
 				<c:if test="${empty evenements}">
 					<tr>
-						<td colspan="5">Aucun événement trouvé</td>
+						<td colspan="5"><spring:message code="accueil.pasEvenement" /></td>
 					</tr>
 				</c:if>
 				</p>
@@ -109,10 +110,10 @@
 				<p>
 				<h3>
 					<div class="large-8 columns">
-						Derniers jobs 
+						<spring:message code="accueil.dernJob" />
 					</div>
 					<div class="large-4 columns">
-						<a class="small radius button" href="${pageContext.request.contextPath}/job/creer">Déposer un jobs</a>
+						<a class="small radius button" href="${pageContext.request.contextPath}/job/creer"><spring:message code="accueil.deposeJob" /></a>
 					</div>
 				</h3>
 				
@@ -131,7 +132,7 @@
 				</c:if>
 				<c:if test="${empty jobs}">
 					<tr>
-						<td colspan="5">Aucun job trouvé</td>
+						<td colspan="5"><spring:message code="accueil.pasJob" /></td>
 					</tr>
 				</c:if>
 				</p>

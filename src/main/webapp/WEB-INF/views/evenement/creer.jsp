@@ -48,7 +48,7 @@
 					</form:label>
 
 					<form:textarea cssErrorClass="error" path="description"
-						id="input-description" rows="5" maxlength="400"/>
+						id="input-description" rows="5" maxlength="254"/>
 
 					<form:errors path="description" cssClass="error" />
 				</div>
@@ -71,7 +71,7 @@
 							<small><spring:message code="evenement.creer.requis" /></small>
 						</form:label>
 
-						<form:input required="required" type="date" cssErrorClass="error"
+						<form:input class="datepicker" required="required"
 							path="dateDebut" id="input-dateDebut" />
 
 						<form:errors path="dateDebut" cssClass="error" />

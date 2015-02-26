@@ -53,7 +53,8 @@
 		changeYear : true,
 		showWeek : true,
 		firstDay : 1,
-		showButtonPanel : true
+		showButtonPanel : true,
+		dateFormat: "yy-mm-dd"
 	});
 </script>
 
