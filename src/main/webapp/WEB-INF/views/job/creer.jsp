@@ -43,7 +43,7 @@
 					<small><spring:message code="evenement.creer.requis" /></small>
 					</form:label>
 					<form:textarea cssErrorClass="error" path="description"
-						id="input-description" rows="5" maxlength="400"/>
+						id="input-description" rows="5" maxlength="254"/>
 
 					<form:errors path="description" cssClass="error" />
 					
@@ -53,7 +53,7 @@
 					<small><spring:message code="evenement.creer.requis" /></small>
 					</form:label>
 					<form:textarea cssErrorClass="error" path="modalite"
-						id="input-description" rows="5" maxlength="400"/>
+						id="input-description" rows="5" maxlength="254"/>
 						<form:errors path="modalite" cssClass="error" />
 
 					<label><B><spring:message code="job.creer.label.remuneration" /></B></label>
