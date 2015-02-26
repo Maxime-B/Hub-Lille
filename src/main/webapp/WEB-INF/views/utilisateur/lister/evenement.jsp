@@ -5,20 +5,20 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <tiles:insertDefinition name="utilisateur">
 	<tiles:putAttribute name="title">
-		liste de mes evenements
+		<spring:message code="evenement.lister.titre" />
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="main">
 		<section class="section">
-			<h1>liste de mes evenements</h1>
+			<h1><spring:message code="evenement.lister.titre" /></h1>
 
 
 			<c:if test="${not empty evenements}">
 				<table id="datatable">
 					<thead>
 						<tr>
-							<th>Titre</th>
-							<th>Date</th>
+							<th><spring:message code="evenement.lister.label.titre" /></th>
+							<th><spring:message code="evenement.lister.label.dateDebut" /></th>
 							<th></th>
 							<th></th>
 						</tr>
@@ -30,17 +30,17 @@
 							<td>${evenement.dateDebut}</td>
 							<td><a
 								href="${pageContext.request.contextPath}/evenement/modifier/${evenement.id}"
-								class="button small">Modifier</a></td>
+								class="button small"><spring:message code="evenement.lister.modifier" /></a></td>
 							<td>
 							
-								<button type="button" data-reveal-id="supprimer_${evenement.id}">Supprimer</button>
+								<button type="button" data-reveal-id="supprimer_${evenement.id}"><spring:message code="evenement.lister.supprimer" /></button>
 							<div id="supprimer_${evenement.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
-								<h3>Voulez vous supprimer l'evenement "${evenement.titre}"</h3>
+								<h3><spring:message code="evenement.lister.question" /> "${evenement.titre}"</h3>
 								<input type="hidden" name="ref" value="${evenement.id}"/>
 								<input type="hidden" name="typeAction" value="supprimer"/>
-								<button onclick="this.form.submit();">Oui</button>
-								<button class="supprimer" type="button" data-reveal>Non</button>
+								<button onclick="this.form.submit();"><spring:message code="evenement.lister.oui" /></button>
+								<button class="supprimer" type="button" data-reveal><spring:message code="evenement.lister.non" /></button>
 							</form>
 							</div>
 							</td>
