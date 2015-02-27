@@ -44,7 +44,6 @@ static FabAnnonce fb;
 		return fb;
 	}
 	
-
 //	public Annonce creerAnnonce(Categorie categorie,Utilisateur utilisateur,TypeAnnonce typeAnnonce, HashMap<String, String> lesChamps){
 //		this.listerAnnonces();
 //		Annonce a = new Annonce();
@@ -158,7 +157,6 @@ static FabAnnonce fb;
 		connexion.getEm().getTransaction().begin();
 		String query ="Delete from Annonce";
 		connexion.getEm().createQuery(query).executeUpdate();
-		connexion.getEm().getTransaction().commit();
 		System.out.println("Tout est supprimer...");
 
 

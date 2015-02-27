@@ -35,7 +35,7 @@ public class FormAnnonce {
 	//@NumberFormat
 	private HashMap<String, Double> numerique;
 	
-	@DateTimeFormat(pattern = "dd/MM/yyyy")//yyyy-MM-dd
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@Temporal(TemporalType.DATE)
 	private HashMap<String, Date> date;
 	

@@ -67,7 +67,7 @@ public class ImportBD {
 				metierUtilisateur.modifier(utilisateur);
 			}
 			cSVParser.close();
-			Connexion.getConnexion().commit();
+			Connexion.getConnexion().flush();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

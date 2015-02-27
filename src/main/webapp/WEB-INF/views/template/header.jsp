@@ -1,15 +1,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ page import="org.jasig.cas.client.authentication.AttributePrincipal"%>
-<%@ page import="java.util.*"%>
-<%@ page
-	import="org.springframework.security.cas.authentication.CasAuthenticationToken"%>
+<%@ taglib uri="http://www.springframework.org/security/tags" prefix="sec"%>
 
 <div class="contain-to-grid sticky">
 	<nav class="top-bar" data-topbar role="navigation"
 		data-options="sticky_on: large">
+		<!-- logo -->
 		<ul class="title-area">
 			<li class="name"><a href="${pageContext.request.contextPath}"
 				title="accueil"><img width="100px"
@@ -18,7 +15,7 @@
 					<a href="#"></a>
 				</h1></li>
 		</ul>
-
+		
 		<section class="top-bar-section">
 			<!-- Top Bar Left Nav Elements -->
 			<!-- Top Bar Right Nav Elements -->

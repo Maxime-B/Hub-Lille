@@ -5,7 +5,7 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <tiles:insertDefinition name="admin">
 	<tiles:putAttribute name="title">
-		Gérer les roles des utilisateurs
+		<spring:message code="admin.droits.titre"/>
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="main">
@@ -166,7 +166,7 @@
 
 	<tiles:putAttribute name="js">
 		<script
-			src="${pageContext.request.contextPath}/ressources/js/list.js"></script>
+			src="${pageContext.request.contextPath}/ressources/js/list.min.js"></script>
 		<script
 			src="${pageContext.request.contextPath}/ressources/js/list.pagination.min.js"></script>
 		<script type='text/javascript'
@@ -175,460 +175,465 @@
 			src='${pageContext.request.contextPath}/dwr/interface/JSMetierUtilisateur.js'></script>
 		<script type='text/javascript'
 			src='${pageContext.request.contextPath}/dwr/util.js'></script>
-		<script>
-		var userList = null
+<script>
+var userList = null
 
-		$(function() {
-		    updateInput = function(input) {
-		        $(input).find(".label-droit").append(
-		            $(input).find("label").clone().addClass("inline"))
-		    }, remplacerInputsDejaPresents = function() {
-		        $(".droit").each(function() {
-		            updateInput(this)
-		        })
-		    }, loginInit = function() {
-		        $("#login").delay(100).focus()
-		    }, editer = function(login, StringDroits) {
-		        $("#login").val(login)
-		        var droits = StringDroits.slice(1, StringDroits.length - 1)
-		            .split(", ")
-		        $("[name~='droits']").prop("checked", false)
-		        $.each(droits, function(i, droit) {
-		            $("[value='" + droit + "']").prop("checked", true)
-		        })
-	        // metier coté serveur
-		    }, supprimer = function(login, callback) {
-		        JSMetierUtilisateur.supprimerDroits(login, callback);
-		    }, modifier = function(login, droits, callback) {
-		        JSMetierUtilisateur.modifierRole(
-		            dwr.util.getValue("login"), $(
-		                '#gerer-droits [name="droits"]:checked')
-		            .map(function(i, el) {
-		                return $(el).val();
-		            }).get(), callback);
-		    }
-		    filtrerInit = function(values) {
-		    		var paginationOptions = {
-    					outerWindow : 1,
-	                    innerWindow : 6
-		    		}
-		            var options = {
-		                    valueNames: ['login', 'droits'],
-		                    item: "model-recherche",
-		                    plugins: [ListPagination(paginationOptions)],
-		                },
-		                userList = new List('utilisateurs', options, values);
+$(function() {
+	var boutonsJQuerySelector = ".bouton-editer, .bouton-supprimer"
+    updateInput = function(input) {
+        $(input).find(".label-droit").append(
+            $(input).find("label").clone().addClass("inline"))
+    }, remplacerInputsDejaPresents = function() {
+        $(".droit").each(function() {
+            updateInput(this)
+        })
+    }, loginInit = function() {
+        $("#login").delay(100).focus()
+    }, editer = function(login, StringDroits) {
+        $("#login").val(login)
+        var droits = StringDroits.slice(1, StringDroits.length - 1)
+            .split(", ")
+        $("[name~='droits']").prop("checked", false)
+        $.each(droits, function(i, droit) {
+            $("[value='" + droit + "']").prop("checked", true)
+        })
+       // metier coté serveur
+    }, supprimer = function(login, callback) {
+        JSMetierUtilisateur.supprimerDroits(login, callback);
+    }, modifier = function(login, droits, callback) {
+        JSMetierUtilisateur.modifierRole(
+            dwr.util.getValue("login"), $(
+                '#gerer-droits [name="droits"]:checked')
+            .map(function(i, el) {
+                return $(el).val();
+            }).get(), callback);
+    }
+    filtrerInit = function(values) {
+    		var paginationOptions = {
+					outerWindow : 1,
+                   innerWindow : 6
+    		}
+            var options = {
+                valueNames: ['login', 'droits'],
+                item: "model-recherche",
+                plugins: [ListPagination(paginationOptions)],
+            }
+    		,	userList = new List('utilisateurs', options, values);
 
-		            if ($("#liste-recherche li:first").length > 0) {
-		                userList.search($("#filtre").val())
-		            }
-		            $('.no-enter-submit').keypress(function(event) {
-		                if (event.keyCode == '13') {
-		                    event.preventDefault();
-		                }
-		            })
-		            $(window).trigger("resize")
+            if ($("#liste-recherche li:first").length > 0) {
+                userList.search($("#filtre").val())
+            }
+            $("#gerer-droits").on("add", function(event, li) {
+				userList.search($("#filtre").val())
+            })
+            $(window).trigger("resize")
+            $('.no-enter-submit').keypress(function(event) {
+                if (event.keyCode == '13') {
+                    event.preventDefault();
+                }
+            })
+            $containerInput = $(
+                    '<div class="small-10 columns"></div>')
+                .append($("#filtre").clone())
+            var $newInput = $(
+                    '<div id="container-filtre" class="filtre"></div>')
+                .addClass('row collapse prefix-round')
+                .append(
+                    $(
+                        '<div><a href="#" class="supprimer-filtre prefix button alert">reset</a></div>')
+                    .addClass("small-2 columns")
+                    .find("a")
+                    .click(
+                        function supprimerFiltre(
+                            e) {
+                            $("#filtre")
+                                .val("")
+                            userList
+                                .search()
+                            $(window)
+                                .trigger(
+                                    "resize")
+                            return false
+                        }).end())
 
-		            $containerInput = $(
-		                    '<div class="small-10 columns"></div>')
-		                .append($("#filtre").clone())
-		            var $newInput = $(
-		                    '<div id="container-filtre" class="filtre"></div>')
-		                .addClass('row collapse prefix-round')
-		                .append(
-		                    $(
-		                        '<div><a href="#" class="supprimer-filtre prefix button alert">reset</a></div>')
-		                    .addClass("small-2 columns")
-		                    .find("a")
-		                    .click(
-		                        function supprimerFiltre(
-		                            e) {
-		                            $("#filtre")
-		                                .val("")
-		                            userList
-		                                .search()
-		                            $(window)
-		                                .trigger(
-		                                    "resize")
-		                            return false
-		                        }).end())
-
-		            $newInput.append($containerInput.clone())
-		            $("#filtre").replaceWith($newInput)
-		            var timer = null
-		            $("#filtre").keyup(function() {
-		                window.clearTimeout(timer)
-		                if ($("#filtre").val().length > 2) {
-		                    timer = window.setTimeout(function() {
-		                        userList.search($("#filtre").val())
-		                    }, 200)
-		                } else {
-		                    timer = window.setTimeout(function() {
-		                        userList.search($("#filtre").val())
-		                    }, 1000)
-		                }
-		            })
-		            return userList;
-		        },
-		        updateButton = function(selecteur) {
-		            selecteur = $(selecteur).not(".ui-widget")
-		            var buttons = {
-		                "bouton-editer": "ui-icon-pencil",
-		                "bouton-supprimer": "ui-icon-closethick",
-		            }
-		            selecteur.each(function(i, el) {
-		                var buttonIcon = null
-		                for (var buttonSelecteur in buttons) {
-		                    if ($(el).hasClass(buttonSelecteur)) {
-		                        buttonIcon = buttons[buttonSelecteur]
-		                        break;
-		                    }
-		                }
-		                $(el).button({
-		                    icons: {
-		                        primary: buttonIcon
-		                    },
-		                    text: false
-		                }).click(function(event) {
-		                    return null
-		                })
-		            })
-		        },
-		        boutonsInit = function() {
-		            var boutonsJQuerySelector = ".bouton-editer, .bouton-supprimer"
-		            var $messages = $("#messages-reduire")
-		            ,	optionRestaurer = {
-			     		      icons : {
-			     		         primary : "ui-icon ui-icon-carat-1-s"
-			     		       }, label: "réduire", text : false 
-     		     	}
-		            ,   optionReduire = {
-	     		      icons: {
-		     		         primary: "ui-icon ui-icon-carat-1-w"
-		     		       },
-		     		      label: "restaurer", text : false 
-	     		     }
-		            , restaurer = function (){
-		            	$("#messages").css({
-				        	height: "250px",
-				        	"overflow-y" : "scroll"
-		     		   })
-		     		   $messages.button("option", optionRestaurer)
-	     			  $messages.one("click", reduire)
-		            }, reduire = function(){
-		            	$("#messages").scrollTop(0)
-	     				$("#messages").css({
-			        		height: "60px",
-		        			"overflow-y" : "scroll"
-		     		   })
-		     		   $messages.button("option", optionReduire)
-		     		  	$messages.one("click",restaurer)
-	     		 	 }
-		            $messages.button(optionReduire)
-		            reduire()
-		            $messages.one("click", restaurer)
-		            $("#gerer-droits").on("add", function(event, li) {
-		                updateButton($(boutonsJQuerySelector, li))
-		            })
-		            $("#fieldset-chercher-utilisateur .pagination").on("click", function() {
-		                updateButton($(boutonsJQuerySelector,
-		                    "#liste-recherche"))
-		            })
-		            $("#filtre").keyup(function() {
-		                updateButton($(boutonsJQuerySelector,
-		                    "#liste-recherche"))
-		            })
-		            $("#bouton-modifier")
-		                .click(
-		                    function() {
-		                        var login = $("#login").val()
-		                        ,   droits = $(
-		                                '#gerer-droits [name="droits"]:checked')
-		                            .map(function(i, el) {
-		                                return $(el).val();
-		                            }).get(),
-		                            droitsString = "[" + droits.join(", ") + "]"
-	                            ,	users = userList.get("login", login)
-		                        modifier(
-		                            login,
-		                            droits,
-		                            function() {
-		                                var item = {
-		                                    login: login,
-		                                    droits: droitsString
-		                                }
-		                                if (droits.length == 0) {
-		                                    send(JSON.stringify({
-		                                        type: "remove",
-		                                        item : item
-		                                    }))
-		                                    supprimerIhm(login)
-		                                    
-		                                    afficherMessage($("#perso-supprimer")
-									            	.find(".login").text(login).end()
-									            	.find(".droits").text(droitsString).end())
-		                                } else if (users.length == 0) {
-		                                    send(JSON.stringify({
-		                                        type: "add",
-		                                        item: item
-		                                    }))
-		                                    ajouterIhm(login, item)
-		                                    afficherMessage($("#perso-ajouter")
-									            	.find(".login").text(login).end()
-									            	.find(".droits").text(droitsString).end())
-		                                } else {
-		                                	var	anciensDroits = users[0].values().droits
-		                                    send(JSON.stringify({
-		                                        type: "modify",
-		                                        item: item,
-		                                        anciensDroits : anciensDroits
-		                                    }))
-		                                    afficherMessage($("#perso-modifier")
-									            	.find(".login").text(login).end()
-									            	.find(".droits").text(droitsString).end()
-									            	.find(".anciens-droits").text(anciensDroits).end())
-		                                    modifierIhm(users[0], item)
-		                                }
-		                                $(window).trigger(
-		                                    "resize")
-		                            })
-	                            $("#login").delay(200).focus()
-		                        return false
-		                    })
-		            $("#liste-recherche")
-		                .on(
-		                    "click",
-		                    ".bouton-editer",
-		                    null,
-		                    function() {
-		                        var login = $(this).closest(
-		                                "li").find(".login")
-		                            .text(),
-		                            droits = $(
-		                                this).closest("li")
-		                            .find(".droits").text()
-		                        editer(login, droits)
-		                        return false
-		                    })
-		                .on(
-		                    "click",
-		                    ".bouton-supprimer",
-		                    null,
-		                    function() {
-		                        var $li = $(this).closest("li"),
-		                            login = $li.find(".login").text()
-	                            ,	droitsString = $li.find(".droits").text()
-	                            ,   item = {login:login,droits:droitsString}
-		                        ,	callback = function() {
-	                                supprimerIhm(login)
-	                                send(JSON.stringify({
-	                                    type : "remove",
-	                                    item : item
-	                                }))
-	                                
-	                                afficherMessage($("#perso-supprimer")
+            $newInput.append($containerInput.clone())
+            $("#filtre").replaceWith($newInput)
+            var timer = null
+            $("#filtre").keyup(function() {
+            	var search = function() {
+                    userList.search($("#filtre").val())
+                }
+                window.clearTimeout(timer)
+                if ($("#filtre").val().length > 2) {
+                    timer = window.setTimeout(search, 200)
+                } else {
+                    timer = window.setTimeout(search, 1000)
+                }
+            })
+            return userList;
+        },
+        updateButton = function(selecteur) {
+            selecteur = $(selecteur).not(".ui-widget")
+            var buttons = {
+                "bouton-editer": "ui-icon-pencil",
+                "bouton-supprimer": "ui-icon-closethick",
+            }
+            selecteur.each(function(i, el) {
+                var buttonIcon = null
+                for (var buttonSelecteur in buttons) {
+                    if ($(el).hasClass(buttonSelecteur)) {
+                        buttonIcon = buttons[buttonSelecteur]
+                        break;
+                    }
+                }
+                $(el).button({
+                    icons: {
+                        primary: buttonIcon
+                    },
+                    text: false
+                }).click(function(event) {
+                    return null
+                })
+            })
+        },
+        boutonsInit = function() {
+            var $messages = $("#messages-reduire")
+            ,	optionRestaurer = {
+	     		      icons : {
+	     		         primary : "ui-icon ui-icon-carat-1-s"
+	     		       }, label: "réduire", text : false 
+   		     	}
+            ,   optionReduire = {
+    		      icons: {
+     		         primary: "ui-icon ui-icon-carat-1-w"
+     		       },
+     		      label: "restaurer", text : false 
+    		     }
+            , restaurer = function (){
+            	$("#messages").css({
+		        	height: "250px",
+		        	"overflow-y" : "scroll"
+     		   })
+     		   $messages.button("option", optionRestaurer)
+    			  $messages.one("click", reduire)
+            }, reduire = function(){
+            	$("#messages").scrollTop(0)
+    				$("#messages").css({
+	        		height: "60px",
+        			"overflow-y" : "scroll"
+     		   })
+     		   $messages.button("option", optionReduire)
+     		  	$messages.one("click",restaurer)
+    		 	 }
+            $messages.button(optionReduire)
+            reduire()
+            $messages.one("click", restaurer)
+            $("#gerer-droits").on("add", function(event, li) {
+                updateButton($(boutonsJQuerySelector, li))
+            })
+            /* $("#fieldset-chercher-utilisateur .pagination").on("click", function() {
+                updateButton($(boutonsJQuerySelector,
+                    "#liste-recherche"))
+            }) */
+           /*  $("#filtre").keyup(function() {
+                updateButton($(boutonsJQuerySelector,
+                    "#liste-recherche"))
+            }) */
+            $("#bouton-modifier")
+                .click(
+                    function() {
+                        var login = $("#login").val()
+                        ,   droits = $(
+                                '#gerer-droits [name="droits"]:checked')
+                            .map(function(i, el) {
+                                return $(el).val();
+                            }).get(),
+                            droitsString = "[" + droits.join(", ") + "]"
+                           ,	users = userList.get("login", login)
+                        modifier(
+                            login,
+                            droits,
+                            function() {
+                                var item = {
+                                    login: login,
+                                    droits: droitsString
+                                }
+                                if (droits.length == 0) {
+                                    send(JSON.stringify({
+                                        type: "remove",
+                                        item : item
+                                    }))
+                                    supprimerIhm(login)
+                                    
+                                    afficherMessage($("#perso-supprimer")
 							            	.find(".login").text(login).end()
 							            	.find(".droits").text(droitsString).end())
-	                                $("#login").val(
-	                                    login)
-	                                $(
-	                                        "[name~='droits']")
-	                                    .prop(
-	                                        "checked",
-	                                        false)
-	                            }
-		                        dwr.engine
-		                            .setErrorHandler(function(
-		                                msg, exc) {
-		                                if (exc.javaClassName = "ipint.glp.metiers.exceptions.AuMoinsUnAdminException") {
-		                                    afficherMessage("#AuMoinsUnAdminException")
-		                                }
-		                            });
-		                        supprimer(
-		                            login,
-		                            callback
-		                            )
-		                        return false
-		                    })
-		            updateButton($(boutonsJQuerySelector,
-		                "#liste-recherche"))
-		        },
-		        libererHauteur = function(selecteur) {
-		            $(selecteur).height("inherit")
-		        },
-		        equalizer = function(selecteur) {
-		            $(selecteur).height("inherit")
-		            max = 0;
-		            $(selecteur).each(function() {
-		                max = Math.max(max, $(this).height());
-		            })
-		            $(selecteur).height(max)
-		        },
-		        limiterHauteur = function(selecteur) {
-		            var sauvegarde = $(selecteur).css('max-height')
-		            $(selecteur).css('max-height', "inherit")
-		            var heightNonVisible = ($('#container').height() - innerHeight)
-		            if (heightNonVisible <= 0) {
-		                return
-		            }
-		            $(selecteur).css({
-		                "max-height": $(selecteur).height() - heightNonVisible - 2,
-		                "overflow-y": "auto"
-		            }).children().css({
-		                "margin-right": "8px" //scroll-bar, margin de row
-		            })
-		            heightNonVisible = ($('#container').height() - innerHeight)
-		            if (heightNonVisible > 0) { //rollback si scroll bar toujours visible
-		            	$(selecteur).css('max-height', "20em")
-		            	//$(selecteur).css('max-height', sauvegarde)
-		            }
-		        },
-		        resizeList = function() {
-		            libererHauteur("#fieldset-changer-role, #fieldset-chercher-utilisateur")
-		            limiterHauteur("#liste-recherche")
-		            equalizer("#fieldset-changer-role, #fieldset-chercher-utilisateur")
-		        }, main = function() {
-		            //mise en forme + comportement
-		            
-		            userList = filtrerInit()
-		            remplacerInputsDejaPresents()
-		            loginInit()
-		            boutonsInit()
-		            $("#liste-recherche").removeClass("hide")
-		                //dimensions
-		            $("#container, body").css({
-		                    margin: 0,
-		                    padding: 0
-		                }) //normalizer
-		            $(window).resize(resizeList)
-		            $(window).trigger("resize")
-		        }
-		    main()
-		    var send = function(message, callback) {
-		        waitForConnection(function() {
-		            socket.send(message);
-		            if (typeof callback !== 'undefined') {
-		                callback();
-		            }
-		        }, 1000);
-		    };
+                                } else if (users.length == 0) {
+                                    send(JSON.stringify({
+                                        type: "add",
+                                        item: item
+                                    }))
+                                    ajouterIhm(login, item)
+                                    afficherMessage($("#perso-ajouter")
+							            	.find(".login").text(login).end()
+							            	.find(".droits").text(droitsString).end())
+                                } else {
+                                	var	anciensDroits = users[0].values().droits
+                                    send(JSON.stringify({
+                                        type: "modify",
+                                        item: item,
+                                        anciensDroits : anciensDroits
+                                    }))
+                                    afficherMessage($("#perso-modifier")
+							            	.find(".login").text(login).end()
+							            	.find(".droits").text(droitsString).end()
+							            	.find(".anciens-droits").text(anciensDroits).end())
+                                    modifierIhm(users[0], item)
+                                }
+                                $(window).trigger(
+                                    "resize")
+                            })
+                           $("#login").delay(200).focus()
+                        return false
+                    })
+            $("#liste-recherche")
+                .on(
+                    "click",
+                    ".bouton-editer",
+                    null,
+                    function() {
+                        var login = $(this).closest(
+                                "li").find(".login")
+                            .text(),
+                            droits = $(
+                                this).closest("li")
+                            .find(".droits").text()
+                        editer(login, droits)
+                        return false
+                    })
+                .on(
+                    "click",
+                    ".bouton-supprimer",
+                    null,
+                    function() {
+                        var $li = $(this).closest("li"),
+                            login = $li.find(".login").text()
+                           ,	droitsString = $li.find(".droits").text()
+                           ,   item = {login:login,droits:droitsString}
+                        ,	callback = function() {
+                               supprimerIhm(login)
+                               send(JSON.stringify({
+                                   type : "remove",
+                                   item : item
+                               }))
+                               
+                               afficherMessage($("#perso-supprimer")
+					            	.find(".login").text(login).end()
+					            	.find(".droits").text(droitsString).end())
+                               $("#login").val(
+                                   login)
+                               $(
+                                       "[name~='droits']")
+                                   .prop(
+                                       "checked",
+                                       false)
+                           }
+                        dwr.engine
+                            .setErrorHandler(function(
+                                msg, exc) {
+                                if (exc.javaClassName = "ipint.glp.metiers.exceptions.AuMoinsUnAdminException") {
+                                    afficherMessage("#AuMoinsUnAdminException")
+                                }
+                            });
+                        supprimer(
+                            login,
+                            callback
+                            )
+                        return false
+                    })
+        },
+        libererHauteur = function(selecteur) {
+            $(selecteur).height("inherit")
+        },
+        equalizer = function(selecteur) {
+            $(selecteur).height("inherit")
+            max = 0;
+            $(selecteur).each(function() {
+                max = Math.max(max, $(this).height());
+            })
+            $(selecteur).height(max)
+        },
+        limiterHauteur = function(selecteur) {
+        	$("#container, body").css({
+                margin: 0,
+                padding: 0
+            }) //normalizer
+            var sauvegarde = $(selecteur).css('max-height')
+            $(selecteur).css('max-height', "inhderit")
+            var heightNonVisible = ($('#container').height() - innerHeight)
+            if (heightNonVisible <= 0) {
+                return
+            }
+            $(selecteur).css({
+                "max-height": $(selecteur).height() - heightNonVisible - 2,
+                "overflow-y": "auto"
+            }).children().css({
+                "margin-right": "8px" //scroll-bar, margin de row
+            })
+            heightNonVisible = ($('#container').height() - innerHeight)
+            if (heightNonVisible > 0) { //rollback si scroll bar toujours visible
+            	$(selecteur).css('max-height', "20em")
+            	//$(selecteur).css('max-height', sauvegarde)
+            }
+        },
+        resizeList = function() {
+            limiterHauteur("#liste-recherche")
+            equalizer("#fieldset-changer-role, #fieldset-chercher-utilisateur")
+            
+        }
+    var send = function(message, callback) {
+    	if (typeof WebSocket !== 'undefined') {
+	        waitForConnection(function() {
+	            socket.send(message);
+	            if (typeof callback !== 'undefined') {
+	                callback();
+	            }
+	        }, 1000);
+    	}
+    }
+    ,	waitForConnection = function(callback, interval) {
+        if (socket.readyState === 1) {
+            callback();
+        } else {
+            setTimeout(function() {
+                waitForConnection(callback);
+            }, interval);
+        }
+    }
+    ,	afficherMessage = function(selecteur) {
+        $(selecteur)
+        	.clone()
+            .removeClass("hide")
+            .fadeIn()
+            .prependTo($("#messages"))
+    }
+    ,	 login = function(message) {
+            var messageDiv = $("#autrui-login").find(".expediteur").text(message.expediteur).end()
+            afficherMessage(messageDiv)
+        },
+        logins = function(message) {
+            var messageDiv = $("#autrui-logins").find(".logins").text(message.logins).end()
+            afficherMessage(messageDiv)
+        },
+        logout = function(message) {
+            var messageDiv = $("#autrui-logout").find(".expediteur").text(message.expediteur).end()
+            afficherMessage(messageDiv)
+        },
+        add = function(message) {
+            ajouterIhm(message.item.login, message.item)
+            var messageDiv = $("#autrui-ajouter")
+            	.find(".expediteur").text(message.expediteur).end()
+            	.find(".login").text(message.item.login).end()
+            	.find(".droits").text(message.item.droits).end()
+            afficherMessage(messageDiv)
+        },
+        remove = function(message) {
+            supprimerIhm(message.item.login)
+            var messageDiv = $("#autrui-supprimer")
+	            .find(".expediteur").text(message.expediteur).end()
+            	.find(".login").text(message.item.login).end()
+            	.find(".droits").text(message.item.droits).end()		            
+         	afficherMessage(messageDiv)
+        },
+        modify = function(message) {
+        	console.log(message)
+            modifierIhm(message.item.login, message.item)
+            var messageDiv = $("#autrui-modifier")
+            	.find(".expediteur").text(message.expediteur).end()
+            	.find(".login").text(message.item.login).end()
+            	.find(".droits").text(message.item.droits).end()
+            	.find(".anciens-droits").text(message.anciensDroits).end()
+            afficherMessage(messageDiv)
+        }
+        // ihm
+        ,
+        supprimerIhm = function(login) {
+            userList.remove("login", login)
+        },
+        modifierIhm = function(user, item) {
+            if (typeof user === "string") {
+                user = userList.get("login", item.login)[0]
+            }
+            user.values(item);
+        },
+        ajouterIhm = function(login, item) {
+            userList.add(item)
+            var user = userList.get("login",login)
+            $("#gerer-droits").trigger("add",user.elm)
+            userList.sort('login', { order: "asc" });
+            $(window).trigger("resize")
+        }
+        // fin ihm
+       ,	websocketInit = function(){
+        	if (typeof WebSocket !== 'undefined') {
+		        var socket = new WebSocket("ws://" + location.host + "/hublille1/droit");
+		        $(window).on('beforeunload unload', function () {
+			        socket.close()
+	       	    });
+			    
+			    socket.onopen = function(e) {
+			        console.log(e)
+			    }
+			    socket.onclose = function(e) {
+			        console.log(e)
+			    }
+			    socket.onerror = function(e) {
+			        console.log(e.stack)
+			    }
+			    socket.onmessage = function(e) {
+			        var message = $.parseJSON(e.data)
+			        switch (message.type) {
+				        case "logins" :
+			                logins(message);
+			                break;
+			            case "login" :
+			                login(message);
+			                break;
+			            case "logout" :
+			                logout(message);
+			                break;
+			            case "add" :
+			                add(message);
+			                break;
+			            case "remove" :
+			                remove(message);
+			                break;
+			            case "modify" :
+			                modify(message);
+			                break;
+			            default:
+			                console.log("type d'un message invalide : " + message.type)
+			        }
+			    }
+		    }
+        }
+    ,	 main = function() {
+    		websocketInit()
+            //mise en forme + comportement
+            updateButton($(boutonsJQuerySelector,"#liste-recherche"))
+            userList = filtrerInit()
+            remplacerInputsDejaPresents()
+            loginInit()
+            boutonsInit()
+            $("#liste-recherche").removeClass("hide")
+                //dimensions
+            resizeList()
+        }
+    main()
+})
 
-		    var waitForConnection = function(callback, interval) {
-		        if (socket.readyState === 1) {
-		            callback();
-		        } else {
-		            setTimeout(function() {
-		                waitForConnection(callback);
-		            }, interval);
-		        }
-		    };
-		    var afficherMessage = function(selecteur) {
-		        $(selecteur)
-		        	.clone()
-		            .removeClass("hide")
-		            .fadeIn()
-		            .prependTo($("#messages"))
-		    }
-		    var login = function(message) {
-		            var messageDiv = $("#autrui-login").find(".expediteur").text(message.expediteur).end()
-		            afficherMessage(messageDiv)
-		        },
-		        logins = function(message) {
-		            var messageDiv = $("#autrui-logins").find(".logins").text(message.logins).end()
-		            afficherMessage(messageDiv)
-		        },
-		        logout = function(message) {
-		            var messageDiv = $("#autrui-logout").find(".expediteur").text(message.expediteur).end()
-		            afficherMessage(messageDiv)
-		        },
-		        add = function(message) {
-		            ajouterIhm(message.item.login, message.item)
-		            var messageDiv = $("#autrui-ajouter")
-		            	.find(".expediteur").text(message.expediteur).end()
-		            	.find(".login").text(message.item.login).end()
-		            	.find(".droits").text(message.item.droits).end()
-		            afficherMessage(messageDiv)
-		        },
-		        remove = function(message) {
-		            supprimerIhm(message.item.login)
-		            var messageDiv = $("#autrui-supprimer")
-			            .find(".expediteur").text(message.expediteur).end()
-		            	.find(".login").text(message.item.login).end()
-		            	.find(".droits").text(message.item.droits).end()		            
-		         	afficherMessage(messageDiv)
-		        },
-		        modify = function(message) {
-		        	console.log(message)
-		            modifierIhm(message.item.login, message.item)
-		            var messageDiv = $("#autrui-modifier")
-		            	.find(".expediteur").text(message.expediteur).end()
-		            	.find(".login").text(message.item.login).end()
-		            	.find(".droits").text(message.item.droits).end()
-		            	.find(".anciens-droits").text(message.anciensDroits).end()
-		            afficherMessage(messageDiv)
-		        }
-		        // ihm
-		        ,
-		        supprimerIhm = function(login) {
-		            userList.remove("login", login)
-		        },
-		        modifierIhm = function(user, item) {
-		            if (typeof user === "string") {
-		                user = userList.get("login", item.login)[0]
-		            }
-		            user.values(item);
-		        },
-		        ajouterIhm = function(login, item) {
-		            userList.add(item)
-		            var user = userList.get("login",login)
-		            $("#gerer-droits").trigger("add",user.elm)
-		            userList.sort('login', { order: "asc" });
-		            $(window).trigger("resize")
-		        }
-		        // fin ihm
-		        
-	        var socket = new WebSocket("ws://" + location.host + "/hublille1/droit");
-	        $(window).on('beforeunload unload', function () {
-		        socket.close()
-       	    });
-		    
-		    socket.onopen = function(e) {
-		        console.log(e)
-		    }
-		    socket.onclose = function(e) {
-		        console.log(e)
-		    }
-		    socket.onerror = function(e) {
-		        console.log(e.stack)
-		    }
-		    socket.onmessage = function(e) {
-		        var message = $.parseJSON(e.data)
-		        switch (message.type) {
-			        case "logins" :
-		                logins(message);
-		                break;
-		            case "login" :
-		                login(message);
-		                break;
-		            case "logout" :
-		                logout(message);
-		                break;
-		            case "add" :
-		                add(message);
-		                break;
-		            case "remove" :
-		                remove(message);
-		                break;
-		            case "modify" :
-		                modify(message);
-		                break;
-		            default:
-		                console.log("type d'un message invalide : " + message.type)
-		        }
-		    }
-		})
-		$("#pas-de-js").attr("id", null)
-		</script>
+$("#pas-de-js").attr("id", null)
+</script>
 		<!-- si js désactivé -->
 		<style>
 			#pas-de-js .switch label {color:black}
@@ -638,14 +643,7 @@
 	</tiles:putAttribute>
 
 	<tiles:putAttribute name="css">
-		<style>
-
-session h1 {
-	position: absolute;
-	left: 1em;
-	top: 2em;
-}		
-		
+		<style>	
 #container-messages .login {
 	word-break: break-all;
 }

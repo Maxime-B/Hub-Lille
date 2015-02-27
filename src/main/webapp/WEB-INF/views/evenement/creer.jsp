@@ -4,10 +4,20 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <tiles:insertDefinition name="evenement">
+	<%-- <tiles:putAttribute name="search" value=""/> --%>
+
 	<tiles:putAttribute name="title">
 		<spring:message code="evenement.creer.titre" />
 	</tiles:putAttribute>
+	
 	<tiles:putAttribute name="main">
+		<c:if test="${evenement.id eq 0}">
+			<c:set var="page" value="creer"/>
+		</c:if>
+		<c:if test="${not(evenement.id eq 0)}">
+			<c:set var="page" value="modifier"/>
+		</c:if>
+		
 		<section class="section">
 			<h1>
 				<spring:message code="evenement.${page}.titre" />
@@ -65,14 +75,15 @@
 
 				<div class="row">
 					<div class="small-6 columns">
-						<form:label path="dateDebut" cssErrorClass="error"
-							for="input-dateDebut">
+						<form:label path="dateDebut" cssErrorClass="error">
 							<spring:message code="evenement.creer.label.dateDebut" />
 							<small><spring:message code="evenement.creer.requis" /></small>
 						</form:label>
 
-						<form:input class="datepicker" required="required"
-							path="dateDebut" id="input-dateDebut" />
+						<form:hidden class="datepicker" required="required"
+							path="dateDebut"/>
+						<noscript><form:input class="datepicker" required="required"
+							path="dateDebut" type="date"/></noscript>
 
 						<form:errors path="dateDebut" cssClass="error" />
 					</div>

@@ -47,15 +47,25 @@
 	
 	$(".spinner").spinner()
 	//traductions à télécharger : https://github.com/jquery/jquery-ui/tree/master/ui/i18n
-	$(".datepicker").datepicker($.datepicker.regional["${langue}"]);
-	$(".datepicker").datepicker("option", {
-		changeMonth : true,
-		changeYear : true,
-		showWeek : true,
-		firstDay : 1,
-		showButtonPanel : true,
-		dateFormat: "yy-mm-dd"
-	});
+	$(".datepicker").each(function(i, datePicker){
+		var id = "fake-" + $(datePicker).attr("id")
+		,   date = $(datePicker).attr("value")
+		,   fakeInput = $('<input type="text"/>')
+		fakeInput
+			.attr("id", id)
+			.datepicker($.datepicker.regional["${langue}"])
+			.attr("placeholder", "dd/mm/yyyy")
+			.datepicker("option", {
+				changeMonth : true,
+				changeYear : true,
+				showWeek : true,
+				firstDay : 1,
+				showButtonPanel : true,
+				altField: datePicker,
+				altFormat: $.datepicker.W3C,//equivaut à yyyy-MM-dd
+			})
+		$(fakeInput).datepicker( "setDate", $.datepicker.parseDate("yy-mm-dd", date));
+		$(datePicker).before(fakeInput)
+		$('[for="' + $(datePicker).attr("id") + '"]').attr("for", id)
+	})
 </script>
-
-<!-- <script>$("#publication-submit").click(function(){location = $("#publication").val()})</script> -->

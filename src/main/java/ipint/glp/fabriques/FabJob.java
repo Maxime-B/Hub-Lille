@@ -118,7 +118,6 @@ public class FabJob {
 			connexion.getEm().getTransaction().begin();
 			String query ="Delete from Job";
 			connexion.getEm().createQuery(query).executeUpdate();
-			connexion.getEm().getTransaction().commit();
 			System.out.println("Tout est supprimer...");
 
 

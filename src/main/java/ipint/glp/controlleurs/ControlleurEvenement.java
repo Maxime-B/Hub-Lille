@@ -61,15 +61,16 @@ public class ControlleurEvenement {
 
 	@RequestMapping(value = "/evenement", method = RequestMethod.GET)
 	public ModelAndView lister(Locale locale, Model model) {
+		logger.info("GET /evenement");
 		return new ModelAndView("/evenement/lister", "evenements",
 				metierEvenement.lister());
 	}
 
 	@RequestMapping(value = "/evenement/creer", method = RequestMethod.GET)
 	public ModelAndView creer() {
+		logger.info("GET /evenement/creer");
 		ModelAndView modelAndView = new ModelAndView("evenement/creer",
 				"evenement", new Evenement());
-		modelAndView.addObject("page", "creer");
 		return modelAndView;
 	}
 
@@ -77,11 +78,12 @@ public class ControlleurEvenement {
 	public String creer(HttpServletRequest request,
 			@Valid @ModelAttribute("evenement") Evenement evenement,
 			BindingResult bindingResultOfEvenement) {
+		logger.info("POST /evenement/creer");
 		valideurUniciteEvenement.validate(evenement, bindingResultOfEvenement);
 		if (bindingResultOfEvenement.hasErrors()) {
+			logger.info("formulaire invalide");
 			ModelAndView modelAndView = new ModelAndView("evenement/creer",
 					"evenement", evenement);
-			modelAndView.addObject("page", "creer");
 			return "evenement/creer";
 		}
 		evenement.setUtilisateur(metierUtilisateur
@@ -95,6 +97,7 @@ public class ControlleurEvenement {
 	@RequestMapping(value = "/evenement/modifier/{id}", method = RequestMethod.GET)
 	public ModelAndView modifier(@PathVariable Integer id,
 			HttpServletRequest request, HttpServletResponse response) {
+		logger.info("GET /evenement/modifier/{id}");
 		// login correspond au créateur ou à un modérateur sinon refus d'acces
 		Set<Droit> droitsPrincipal = metierUtilisateur.getUtilisateur(
 				(CasAuthenticationToken) request.getUserPrincipal())
@@ -121,7 +124,6 @@ public class ControlleurEvenement {
 
 		ModelAndView modelAndView = new ModelAndView("evenement/creer",
 				"evenement", metierEvenement.obtenir(id));
-		modelAndView.addObject("page", "modifier");
 		return modelAndView;
 	}
 
@@ -130,6 +132,7 @@ public class ControlleurEvenement {
 			HttpServletResponse response, Model model,
 			@Valid @ModelAttribute("evenement") Evenement evenement,
 			BindingResult bindingResultOfEvenement) {
+		logger.info("POST /evenement/modifier");
 		// login correspond au créateur ou à un modérateur sinon refus d'acces
 		Set<Droit> droitsPrincipal = metierUtilisateur.getUtilisateur(
 				(CasAuthenticationToken) request.getUserPrincipal())
@@ -161,7 +164,6 @@ public class ControlleurEvenement {
 			ModelAndView modelAndView = new ModelAndView("evenement/creer",
 					"evenement", evenement);
 			modelAndView.addObject("estUnSucces", false);
-			modelAndView.addObject("page", "modifier");
 			return modelAndView;
 		}
 		evenement.setUtilisateur(utilisateur);
@@ -169,13 +171,13 @@ public class ControlleurEvenement {
 		ModelAndView modelAndView = new ModelAndView(
 				"redirect:/utilisateur/lister/evenement");
 		modelAndView.addObject("estUnSucces", true);
-		modelAndView.addObject("page", "modifier");
 		modelAndView.addObject("evenementCree", evenement);
 		return modelAndView;
 	}
 	
 	@RequestMapping(value="/evenement/supprimer/{id}", method = RequestMethod.GET)
 	public ModelAndView supprimerAnnonce(Model model, @PathVariable Integer id) {
+		logger.info("GET /evenement/supprimer/{id}");
 		metierEvenement.supprimer(metierEvenement.obtenir(id));
 		return new ModelAndView("utilisateur/lister/evenement");
 	}
