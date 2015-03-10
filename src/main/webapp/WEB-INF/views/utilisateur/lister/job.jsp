@@ -39,14 +39,14 @@
 								href="${pageContext.request.contextPath}/job/modifier/${job.id}"
 								class="button small"><spring:message code="utilisateur.job.modifier" /></a></td>
 						<td>	
-						<button type="button" data-reveal-id="supprimer_${annonce.id}"><spring:message code="utilisateur.job.supprimer" /></button>
-							<div id="supprimer_${annonce.id}" class="reveal-modal" data-reveal>
+						<button type="button" data-reveal-id="supprimer_${job.id}"><spring:message code="utilisateur.job.supprimer" /></button>
+							<div id="supprimer_${job.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
-								<h3>Voulez vous supprimer le job "${job.titre}"</h3>
+								<h3><spring:message code="utilisateur.job.questionSupp" /> "${job.titre}" ?</h3>
 								<input type="hidden" name="ref" value="${job.id}"/>
 								<input type="hidden" name="typeAction" value="supprimer"/>
-								<button onclick="this.form.submit();">Oui</button>
-								<button class="supprimer"type="button" data-reveal>Non</button>
+								<button onclick="this.form.submit();"><spring:message code="utilisateur.job.oui" /></button>
+								<button class="supprimer" type="button" data-reveal><spring:message code="utilisateur.job.non" /></button>
 							</form>
 							</div>
 						
@@ -59,7 +59,7 @@
 				</c:if>
 				<c:if test="${empty jobs}">
 					<tr>
-						<td colspan="2">aucun job créé</td>
+						<td colspan="2"><spring:message code="utilisateur.job.pasJob" /></td>
 					</tr>
 				</c:if>
 			

@@ -15,22 +15,26 @@
 
 			<li><a href="${pageContext.request.contextPath}/annonce/listerDemande"><spring:message code="nav.demande" /></a></li>
 </ul>
-<sec:authorize url="/evenement/**">
+
 <h6><spring:message code="nav.evenement" /></h6>
 <!-- evenement -->
 <ul class="four side-nav">
+<sec:authorize url="/evenement/**">
 	<li><a href="${pageContext.request.contextPath}/evenement/creer"><spring:message code="nav.creerEve" /></a></li>
+	</sec:authorize>
 	<li><a href="${pageContext.request.contextPath}/evenement"><spring:message code="nav.lesEve" /> </a></li>
 </ul>
-</sec:authorize>
-<sec:authorize url="/job/**">
+
+
 <h6><spring:message code="nav.job" /></h6>
 <!-- job -->
 <ul class="four side-nav">
+<sec:authorize url="/job/**">
 	<li><a href="${pageContext.request.contextPath}/job/creer"><spring:message code="nav.creerJob" /></a></li>
+	</sec:authorize>
 	<li><a href="${pageContext.request.contextPath}/job/listerJob"><spring:message code="nav.lesJob" /></a></li>
 </ul>
-</sec:authorize>
+
 <sec:authorize url="/moderateur/**">
 <h6><spring:message code="nav.moderation" /></h6>
 <!-- Moderation -->

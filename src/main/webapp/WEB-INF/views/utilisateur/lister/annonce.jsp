@@ -48,7 +48,7 @@
 							<button type="button" data-reveal-id="publier_${annonce.id}"><spring:message code="utilisateur.annonce.republier" /></button>
 							<div id="publier_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
-							<h3><spring:message code="utilisateur.annonce.questionRep" /> "${annonce.titre}"</h3>
+							<h3><spring:message code="utilisateur.annonce.questionRep" /> "${annonce.titre}" ?</h3>
 								<input type="hidden" name="ref" value="${annonce.id}"/>
 								<input type="hidden" name="typeAction" value="republier"/>
 								<button onclick="this.form.submit();"><spring:message code="utilisateur.annonce.oui" /></button>
@@ -61,7 +61,7 @@
 							<button type="button" data-reveal-id="supprimer_${annonce.id}"><spring:message code="utilisateur.annonce.supprimer" /></button>
 							<div id="supprimer_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
-								<h3><spring:message code="utilisateur.annonce.questionSupp" /> "${annonce.titre}"</h3>
+								<h3><spring:message code="utilisateur.annonce.questionSupp" /> "${annonce.titre}" ?</h3>
 								<input type="hidden" name="ref" value="${annonce.id}"/>
 								<input type="hidden" name="typeAction" value="supprimer"/>
 								<button onclick="this.form.submit();"><spring:message code="utilisateur.annonce.oui" /></button>

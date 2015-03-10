@@ -4,14 +4,14 @@
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
 <tiles:insertDefinition name="job">
 <tiles:putAttribute name="title">
-		Modifier le job
+		<spring:message code="job.modifier" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
 		<div class="row">
 			<div class="large-12 columns">
 				<br />
-				<h2>Modifier le job</h2>
+				<h2><spring:message code="job.modifier" /></h2>
 			
 				<form:form method="post" action="${pageContext.request.contextPath}/job/modifier" modelAttribute="job">
 				

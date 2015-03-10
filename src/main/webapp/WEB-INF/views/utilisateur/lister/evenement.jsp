@@ -36,7 +36,7 @@
 								<button type="button" data-reveal-id="supprimer_${evenement.id}"><spring:message code="evenement.lister.supprimer" /></button>
 							<div id="supprimer_${evenement.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
-								<h3><spring:message code="evenement.lister.question" /> "${evenement.titre}"</h3>
+								<h3><spring:message code="evenement.lister.question" /> "${evenement.titre}" ?</h3>
 								<input type="hidden" name="ref" value="${evenement.id}"/>
 								<input type="hidden" name="typeAction" value="supprimer"/>
 								<button onclick="this.form.submit();"><spring:message code="evenement.lister.oui" /></button>
@@ -53,7 +53,7 @@
 			
 			</c:if>
 			<c:if test="${empty evenements}">
-				<div>aucun evenement créé</div>
+				<div><spring:message code="evenement.lister.pasEve" /></div>
 			</c:if>
 		</section>
 	</tiles:putAttribute>

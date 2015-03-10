@@ -32,7 +32,11 @@
 							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;text-align: justify;">${job.modalite}</p>
 						</div>
 						<br/>
-						
+						<div class="row">
+							<p class="titre upper"><spring:message code="job.consulter.remuneration" /></p>
+							<p class="upper description" style="word-wrap: break-word;margin-left: 2%;text-align: justify;">${job.remuneration}</p>
+						</div>
+						<br/>
 						<div>
 							<form action="contacter" method="get">
 								<input type="hidden" name="ref" value="${job.id}" /> <input

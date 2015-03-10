@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@ taglib uri="http://www.springframework.org/tags" prefix="spring"%>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <tiles:insertDefinition name="accueil">
@@ -68,7 +69,9 @@
 						<spring:message code="accueil.dernEve" /> 
 					</div>
 					<div class="large-4 columns">
+					<sec:authorize url="/evenement/**">
 						<a class="small radius button" href="${pageContext.request.contextPath}/evenement/creer"><spring:message code="accueil.deposeEve" /></a>
+					</sec:authorize>
 					</div>
 				</h3>
 				
@@ -101,7 +104,9 @@
 						<spring:message code="accueil.dernJob" />
 					</div>
 					<div class="large-4 columns">
+					<sec:authorize url="/job/**">
 						<a class="small radius button" href="${pageContext.request.contextPath}/job/creer"><spring:message code="accueil.deposeJob" /></a>
+					</sec:authorize>
 					</div>
 				</h3>
 				

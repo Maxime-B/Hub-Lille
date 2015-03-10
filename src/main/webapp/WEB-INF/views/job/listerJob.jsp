@@ -72,10 +72,10 @@
 								<td width=80% bgcolor="#FFFFFF"></td>
 									<td bgcolor="#FFFFFF">
 									<form method="get" action="consulter">
-									<spring:message
-											code="job.listerJob.submitPostuler" var="submit" /> <input
+									 <input
 										type="hidden" name="ref" value="${a.id}"> <input
-										type="submit" value="${submit}" style="padding: 7px 25px"
+										type="submit" value="<spring:message
+											code="job.listerJob.submitPostuler"/>" style="padding: 7px 25px"
 										class="radius button" /></td>
 									</form>
 								</tr>
@@ -85,7 +85,7 @@
 					</c:if>
 					<c:if test="${empty jobs}">
 						<tr>
-							<td colspan="2">aucun job créé</td>
+							<td colspan="2"><spring:message code="utilisateur.job.pasJob" /></td>
 						</tr>
 					</c:if>
 

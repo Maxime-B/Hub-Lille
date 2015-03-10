@@ -21,11 +21,11 @@
 			
 			<div class="small-4 columns">
 				<form:select path="where">
-					<option value="">tout le site</option>
-					<option value="annonces-offres">annonces-offres</option>
-					<option value="annonces-demandes">annonces-demandes</option>
-					<option value="jobs">jobs</option>
-					<option value="evenements">événements</option>
+					<option value=""><spring:message code="accueil.site" /></option>
+					<option value="annonces-offres"><spring:message code="accueil.annOffre" /></option>
+					<option value="annonces-demandes"><spring:message code="accueil.annDemande" /></option>
+					<option value="jobs"><spring:message code="accueil.job" /></option>
+					<option value="evenements"><spring:message code="accueil.evenement" /></option>
 				</form:select>
 			</div>
 		</div>

@@ -6,14 +6,14 @@
 
 <tiles:insertDefinition name="annonce">
 	<tiles:putAttribute name="title">
-		<spring:message code="annonce.creer.titre" />
+		<spring:message code="annonce.modifier" />
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
 
 			<div style="text-align: left">
 				<h3>
-					Modifier Annonce
+					<spring:message code="annonce.modifier" />
 				</h3>
 				
 			</div>
@@ -22,7 +22,7 @@
 				modelAttribute="annonce">
 				<c:if test='${estModifie}'>
 					<div class="alert-box success radius">
-						L'annonce à etait modifié avec succes
+						<spring:message code="annonce.modifSucces" />
 					</div>
 				</c:if>
 				
@@ -48,7 +48,17 @@
 					<c:set var="path" value="${fn:toLowerCase(item.typeChamp)}['${item.libelle}']" />
 					<div>
 						<form:label path="${path}" cssErrorClass="error">
-							${item.libelle}
+							<c:set var="tmp" value="${item.libelle}" />
+							<c:set var="libelle" value="${fn:split(tmp, '-')}" />
+							<c:set var="langue">
+							<spring:message code="template.langue" />
+							</c:set>
+							<c:if test="${langue=='fr'}">
+								${libelle[0]}
+							</c:if>
+							<c:if test="${langue=='en'}">
+								${libelle[1]}
+							</c:if>
 							<c:if test='${item.obligatoire}'>
 								<small><spring:message code="annonce.creer.requis" /></small>
 							</c:if>
@@ -94,7 +104,7 @@
 						
 					</div>
 					<div class="row">
-						<button type='button' class="radius button" onclick="ajouterPhoto();">Ajouter une photo</button>
+						<button type='button' class="radius button" onclick="ajouterPhoto();"><spring:message code="annonce.creer.photo" /></button>
 					</div>
 				</div>
 				
