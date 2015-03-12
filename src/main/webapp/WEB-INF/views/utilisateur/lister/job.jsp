@@ -39,7 +39,7 @@
 								href="${pageContext.request.contextPath}/job/modifier/${job.id}"
 								class="button small"><spring:message code="utilisateur.job.modifier" /></a></td>
 						<td>	
-						<button type="button" data-reveal-id="supprimer_${job.id}"><spring:message code="utilisateur.job.supprimer" /></button>
+						<button type="button" class="button small" data-reveal-id="supprimer_${job.id}"><spring:message code="utilisateur.job.supprimer" /></button>
 							<div id="supprimer_${job.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
 								<h3><spring:message code="utilisateur.job.questionSupp" /> "${job.titre}" ?</h3>
@@ -70,13 +70,9 @@
 		<script src="<c:url value="/ressources/js/datatablesLister.js"/>"></script>
 		<script type="text/javascript">
 	$( document ).ready(function() {
-	    var length = $(".ligne").length;
-	    for(i = 1 ; i < length+1;i++)
-	    	{
-	    	$(document).on('click tap touchstart', '.reveal-modal-bg, .supprimer,.republier', function() {
+	    $(document).on('click tap touchstart', '.reveal-modal-bg, .supprimer,.republier', function() {
 	    	    return $('[data-reveal]').foundation('reveal', 'close');
 	    	});
-	    	}
 	});
 	
 	
