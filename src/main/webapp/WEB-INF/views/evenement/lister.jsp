@@ -53,7 +53,7 @@
 					</c:forEach>
 				</c:if>
 				<c:if test="${empty evenements}">
-					<h5>Aucun événement à venir</h5>
+					<h5> <spring:message code="evenement.lister.aucun"/> </h5>
 				</c:if>
 			</div>
 		</section>

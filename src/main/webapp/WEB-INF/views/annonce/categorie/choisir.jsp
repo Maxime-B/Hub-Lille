@@ -10,9 +10,8 @@
 			<div class="large-12 columns">
 				<br/>
 				<b><spring:message code="annonce.choix.categorie" /></b>
-				<br/>
-				<br/>
-				<br/>
+				<br/><br/>
+			
 
 				<form method="get"
 					action="${pageContext.request.contextPath}/annonce/creer">
@@ -31,6 +30,10 @@
 						</c:if>
 						</c:forEach>
 					</select>
+					
+					<b><spring:message code="annonce.choix.type" /></b>
+					<br/><br/>
+		     		
 					<select name="typeChoisit">
 						<c:forEach items="${types}" var="type">
 							<option value="${type}"><spring:message code="annonce.${type}" /></option>
