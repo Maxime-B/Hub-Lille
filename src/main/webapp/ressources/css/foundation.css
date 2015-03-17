@@ -37,7 +37,13 @@ footer #footer div{
 .upper:first-letter{
 	text-transform: uppercase;
 }
-
+.slide-acceuil{
+    max-height:250px;
+    overflow:hidden;
+}
+.slide-acceuil-image{
+	width:100%;
+	}
 meta.foundation-version {
   font-family: "/5.5.0/"; }
 

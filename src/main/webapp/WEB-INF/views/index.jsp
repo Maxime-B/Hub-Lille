@@ -36,18 +36,17 @@
 							<li>
 							<c:if test="${fn:length(a.images) gt 0}">
 				  		
-  							
-								 <img class="th"src="${pageContext.request.contextPath}/ressources/photos/${a.images[0] }">
-	
+  								<div class="slide-acceuil" >
+								 <img class="slide-acceuil-image" src="${pageContext.request.contextPath}/ressources/photos/${a.images[0] }">
+								</div>
 				</c:if>
 				<c:if test="${fn:length(a.images) lt 1}">
-							  <img src="/hublille1/ressources/img/pas-dimage.png" width="200" height="450" style="border: solid 1px;"/>
-
+								<div class="slide-acceuil" >
+								 <img class="slide-acceuil-image"src="/hublille1/ressources/img/imageNotFound.png"/>
+								</div>
 				</c:if>
 								<div class="orbit-caption">
-									<c:forEach items="${a.lesChamps}" var="entry">
-										<%--${entry.key}--%>${entry.value}
-									</c:forEach>
+									<a href="annonce/consulter?ref=${a.id }" style="color: white;"><b>${a.titre}</b> <br/> ${a.description}</a>
 								</div>
 							</li>
 						</c:forEach>
@@ -80,7 +79,9 @@
 						<c:forEach items="${evenements}" var="e">
 
 							<li>
-							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+							<div class="slide-acceuil" >
+								 <img class="slide-acceuil-image"src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								</div>
 								<div class="orbit-caption">
 								[${e.titre}] ${e.description}
 								</div>
@@ -115,7 +116,9 @@
 						<c:forEach items="${jobs}" var="j">
 
 							<li>
-							<img src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+							<div class="slide-acceuil" >
+								 <img class="slide-acceuil-image" src="${pageContext.request.contextPath}/ressources/img/imageNotFound.png" />
+								 </div>
 								<div class="orbit-caption">
 									[${j.titre}] ${j.description}
 								</div>
