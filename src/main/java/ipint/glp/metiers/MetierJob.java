@@ -27,7 +27,7 @@ public class MetierJob {
 	
 	
 	
-	public Job creerJob(String titre, String remuneration, String description,String modalite,Utilisateur utilisateur){
+	public Job creerJob(String titre, String description,String remuneration, String modalite,Utilisateur utilisateur){
 		Job job = FabJob.getInstance().creerJob(titre,description , remuneration,modalite, utilisateur );
 		System.out.println("publication réussie ");
 		for (Job an : FabJob.getInstance().listerJob()) {

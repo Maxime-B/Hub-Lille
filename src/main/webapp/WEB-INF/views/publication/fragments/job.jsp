@@ -8,7 +8,7 @@
 <div id="job-champs" class="row">
 	<div class="small-4 columns">
 		<strong><spring:message code="job.creer.label.remuneration" /></strong>
-		<fmt:formatNumber value="${job.remuneration}" type="currency" />
+		<fmt:formatNumber value="${job.remuneration}" type="currency" currencySymbol="€" />/h
 	</div>
 	
 	<div class="small-8 columns">
