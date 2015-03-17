@@ -125,11 +125,12 @@ public class ControlleurAccueil {
 			HashMap<String, String> lesChamps = new HashMap<String,String>();
 			lesChamps.put("Départ-Departure", "Paris");
 			lesChamps.put("Arrivée-Arrival", "Marseille");
-			lesChamps.put("Date-Date", "26/03/2015");
+			lesChamps.put("Date-Date", "2015-05-24");
+			lesChamps.put("Prix-Price", "30");
 			metierAnnonce.creerAnnonce(categorie, "Paris Marseille", "Trajet de 8 heures", metierUtilisateur.getUtilisateur("maxime.briche"), TypeAnnonce.offre, lesChamps);
 			lesChamps = new HashMap<String,String>();
-			lesChamps.put("Prix-Price", "Paris");
-			metierAnnonce.creerAnnonce(categorie, "Megane 3", "50 000km ABS vitre electrique...", metierUtilisateur.getUtilisateur("guillaume.bergeus"), TypeAnnonce.offre, lesChamps);
+			lesChamps.put("Prix-Price", "30");
+			metierAnnonce.creerAnnonce(categorie2, "Megane 3", "50 000km ABS vitre electrique...", metierUtilisateur.getUtilisateur("guillaume.bergeus"), TypeAnnonce.offre, lesChamps);
 			
 			//creation d'evenement
 			Evenement eve = new Evenement();
