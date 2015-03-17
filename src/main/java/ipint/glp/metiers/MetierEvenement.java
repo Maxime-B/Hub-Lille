@@ -23,7 +23,7 @@ public class MetierEvenement {
 
 	private static MetierEvenement instance;
 
-	private MetierEvenement() {
+	public MetierEvenement() {
 		super();
 	}
 
