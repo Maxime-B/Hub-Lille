@@ -46,7 +46,7 @@
 					</form:label>
 
 					<form:input required="required" cssErrorClass="error" path="titre"
-						id="input-titre" />
+						id="input-titre" maxlength="50"/>
 
 					<form:errors path="titre" cssClass="error" />
 				</div>

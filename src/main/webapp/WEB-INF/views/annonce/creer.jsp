@@ -39,14 +39,14 @@
 					<spring:message code="annonce.creer.label.titre" />
 				</form:label>
 				<form:input type="text" path="titre" placeholder="50 char max"
-					cssErrorClass="error" />
+					cssErrorClass="error" maxlength="50"/>
 				<form:errors path="titre" cssClass="error" />
 
 				<form:label path="description" cssErrorClass="error">
 					<spring:message code="annonce.creer.label.description" />
 				</form:label>
 				<form:textarea path="description" rows="5" cols="30"
-					placeholder="200 caractère max" cssErrorClass="error"></form:textarea>
+					placeholder="200 caractère max" maxlength="200" cssErrorClass="error"></form:textarea>
 				<form:errors path="description" cssClass="error" />
 
 				<c:forEach items='${annonce.categorieObject.champs}' var="item">
