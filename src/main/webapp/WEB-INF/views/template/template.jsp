@@ -28,12 +28,12 @@
 		<header id="header"> <tiles:insertAttribute name="header" />
 		</header>
 		<div class="row">
-			<aside id="aside" class="small-3 columns ">
-			<div>${tilesSearch}</div>
-			<nav> <tiles:insertAttribute name="nav" /></nav> </aside>
+			<aside id="aside" class="small-3 columns "> <nav> <tiles:insertAttribute
+				name="nav" /></nav> </aside>
 
-			<main id="main" class="small-9 columns"> <tiles:insertAttribute
-				name="main" /> </main>
+			<main id="main" class="small-9 columns">
+			<div>${tilesSearch}</div>
+			<tiles:insertAttribute name="main" /> </main>
 		</div>
 
 		<footer id="footer"> <tiles:insertAttribute name="footer" />
