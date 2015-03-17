@@ -1,9 +1,9 @@
 package ipint.glp.controlleurs;
 
-import importBd.ImportBD;
 import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
 import ipint.glp.donnees.Droit;
+import ipint.glp.donnees.Evenement;
 import ipint.glp.donnees.TypeAnnonce;
 import ipint.glp.donnees.TypeChamp;
 import ipint.glp.fabriques.FabAnnonce;
@@ -11,10 +11,18 @@ import ipint.glp.fabriques.FabCategorie;
 import ipint.glp.fabriques.FabChamp;
 import ipint.glp.fabriques.FabEvenement;
 import ipint.glp.fabriques.FabJob;
+import ipint.glp.metiers.MetierAnnonce;
+import ipint.glp.metiers.MetierEvenement;
+import ipint.glp.metiers.MetierJob;
 import ipint.glp.metiers.MetierUtilisateur;
 import ipint.glp.metiers.exceptions.AuMoinsUnAdminException;
 
+import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
@@ -62,12 +70,9 @@ public class ControlleurAccueil {
 	}
 	
 	@RequestMapping(value = "/init", method = RequestMethod.GET)
-	public String init(Model model) {
-		/*
-		 * Champ c1 = FabChamp.getInstance().creerChamp("titre", 60,
-		 * TypeChamp.TEXTE,true); Champ c2 = FabChamp.getInstance()
-		 * .creerChamp("description", 500, TypeChamp.TEXTEAREA,true);
-		 */
+	public String init(Model model) throws ParseException {
+
+		//creation des champs
 		Champ c3 = FabChamp.getInstance().creerChamp("Départ-Departure",
 				TypeChamp.TEXTE, true);
 		Champ c4 = FabChamp.getInstance().creerChamp("Arrivée-Arrival",
@@ -76,43 +81,81 @@ public class ControlleurAccueil {
 				TypeChamp.DATE, true);
 		Champ c6 = FabChamp.getInstance().creerChamp("Prix-Price",
 				TypeChamp.NUMERIQUE, false);
+
 		
+		//creation des categories
 		List<Champ> champs1 = new ArrayList<Champ>();
-		// champs1.add(c1);
-		// champs1.add(c2);
 		champs1.add(c3);
 		champs1.add(c4);
 		champs1.add(c5);
 		champs1.add(c6);
-		
-
 		List<Champ> champs2 = new ArrayList<Champ>();
-		// champs2.add(c1);
-		// champs2.add(c2);
 		champs2.add(c6);
-		
 		Categorie categorie = FabCategorie.getInstance().creerCategorie(
 				"Covoiturage-Carpooling", champs1);
-
 		Categorie categorie2 = FabCategorie.getInstance().creerCategorie(
 				"Biens-Goods", champs2);
 
-		// utilisateurs avec roles par defaut
-			MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
-			Set<Droit> droits = new HashSet<Droit>();
-			droits.add(Droit.SUPER_ADMIN);
+		// creation des utilisateurs
+		MetierUtilisateur metierUtilisateur = new MetierUtilisateur();
 			try {
-				metierUtilisateur.modifierRole("clement.duhaupas", droits);
-				metierUtilisateur.modifierRole("guillaume.bergeus", droits);
-				metierUtilisateur.modifierRole("hind.bahaoui", droits);
-				metierUtilisateur.modifierRole("latifou.sano", droits);
+				
+				Set<Droit> droits = new HashSet<Droit>();
+				droits.add(Droit.SUPER_ADMIN);
+				Set<Droit> droits2 = new HashSet<Droit>();
+				droits2.add(Droit.SUPER_ADMIN);
+				Set<Droit> droits3 = new HashSet<Droit>();
+				droits3.add(Droit.MODERATEUR);
+				Set<Droit> droits4 = new HashSet<Droit>();
+				droits4.add(Droit.VIE_ETUDIANTE);
+				Set<Droit> droits5 = new HashSet<Droit>();
+				droits5.add(Droit.ASSOCIATION);
 				metierUtilisateur.modifierRole("maxime.briche", droits);
-				metierUtilisateur.modifierRole("soukaina.bekkai", droits);
-				new ImportBD().ajoutUtilisateur();
+				metierUtilisateur.modifierRole("clement.duhaupas", droits2);
+				metierUtilisateur.modifierRole("guillaume.bergeus", droits3);
+				metierUtilisateur.modifierRole("hind.bahaoui", droits4);
+				metierUtilisateur.modifierRole("latifou.sano", droits5);
+				
 			} catch (AuMoinsUnAdminException e) {
 				e.printStackTrace();
 			}
-		// fin utilisateurs avec roles par defaut
+			
+			//creation d'annonce
+			MetierAnnonce metierAnnonce = new MetierAnnonce();
+			HashMap<String, String> lesChamps = new HashMap<String,String>();
+			lesChamps.put("Départ-Departure", "Paris");
+			lesChamps.put("Arrivée-Arrival", "Marseille");
+			lesChamps.put("Date-Date", "26/03/2015");
+			metierAnnonce.creerAnnonce(categorie, "Paris Marseille", "Trajet de 8 heures", metierUtilisateur.getUtilisateur("maxime.briche"), TypeAnnonce.offre, lesChamps);
+			lesChamps = new HashMap<String,String>();
+			lesChamps.put("Prix-Price", "Paris");
+			metierAnnonce.creerAnnonce(categorie, "Megane 3", "50 000km ABS vitre electrique...", metierUtilisateur.getUtilisateur("guillaume.bergeus"), TypeAnnonce.offre, lesChamps);
+			
+			//creation d'evenement
+			Evenement eve = new Evenement();
+			eve.setTitre("Concert MDE");
+			GregorianCalendar gregorianCalendar = new GregorianCalendar();
+			gregorianCalendar.add(Calendar.DAY_OF_YEAR, 1);
+			eve.setDateDebut(gregorianCalendar.getTime());
+			eve.setDescription("Concert de l'association des étudiants. Boissons à volonté !");
+			eve.setLieu("MDE");
+			eve.setUtilisateur(metierUtilisateur.getUtilisateur("latifou.sano"));
+			MetierEvenement.getInstance().creer(eve);
+			
+			eve = new Evenement();
+			eve.setTitre("Remise des diplômes MIAGE");
+			gregorianCalendar = new GregorianCalendar();
+			gregorianCalendar.add(Calendar.DAY_OF_YEAR, 1);
+			eve.setDateDebut(gregorianCalendar.getTime());
+			eve.setDescription("Remise des diplômes aux anciens de la promo. Buffet gratuit et champagne à gogooooo !");
+			eve.setLieu("M5");
+			eve.setUtilisateur(metierUtilisateur.getUtilisateur("latifou.sano"));
+			MetierEvenement.getInstance().creer(eve);
+			
+			//creation job
+			MetierJob metierJob = new MetierJob();
+			metierJob.creerJob("Serveur au RU", "500 euros par mois", "Besoin d'un serveur du lundi au vendredi pendant 6 mois", "Etre sociable et dynamique", metierUtilisateur.getUtilisateur("hind.bahaoui"));
+			metierJob.creerJob("Traduction de texte", "800 euros par mois", "Nous cherchons quelqu'un capable de traduire des textes d'anglais en français", "Etre sociable et dynamique. Bilingue", metierUtilisateur.getUtilisateur("hind.bahaoui"));
 		return "index";
 	}
 	

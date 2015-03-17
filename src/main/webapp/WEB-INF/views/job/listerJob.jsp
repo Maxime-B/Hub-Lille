@@ -60,12 +60,12 @@
 										</h5></td>
 									<td><p class="description upper"
 											style="text-align: justify;word-wrap: break-word;font-size: small;font-weight: bold;font-style: normal;">
-											${a.remuneration}
+											${a.description}
 										</p></td>
 								</tr>
 								<tr>
 									<td rowspan="2" style="padding-left: 15%;background-color: #FFF"><p class="description upper"
-											style="word-wrap: break-word; width: 450px;text-align: justify;">${a.description}</p></td>
+											style="word-wrap: break-word; width: 450px;text-align: justify;">${a.remuneration}</p></td>
 								</tr>
 								<tr><td></td><td></td></tr>
 								<tr>

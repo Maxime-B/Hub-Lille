@@ -37,10 +37,10 @@
 						<td>${annonce.signal}</td> 
 						
 						
-						<td><a href="${pageContext.request.contextPath}/annonce/modifier?ref=${annonce.id}"><button><spring:message code="moderation.lister.label.modifier" /></button> </a></td>
+						<td><a href="${pageContext.request.contextPath}/annonce/modifier?ref=${annonce.id}"><button><spring:message code="moderation.lister.modifier" /></button> </a></td>
 						
 						<td>
-							<button type="button" data-reveal-id="supprimer_${annonce.id}"><spring:message code="moderation.lister.label.supprimer" /></button>
+							<button type="button" data-reveal-id="supprimer_${annonce.id}"><spring:message code="moderation.lister.supprimer" /></button>
 							<div id="supprimer_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
 								<h3><spring:message code="utilisateur.annonce.questionSupp" /> "${annonce.titre}" ?</h3>
