@@ -49,6 +49,6 @@
 <style>
 #aside {padding-top:1em}
 #search-publication .row  select {border-radius:0 !important}
-#search-publication {max-width:40%;float:right}
+#search-publication {padding:0 0 0 50%}
 </style>
 <!-- fin application -->
