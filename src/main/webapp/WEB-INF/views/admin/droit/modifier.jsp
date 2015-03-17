@@ -177,6 +177,7 @@
 			src='${pageContext.request.contextPath}/dwr/util.js'></script>
 <script>
 var userList = null
+,   socket = null
 
 $(function() {
 	var boutonsJQuerySelector = ".bouton-editer, .bouton-supprimer"
@@ -576,7 +577,7 @@ $(function() {
         // fin ihm
        ,	websocketInit = function(){
         	if (typeof WebSocket !== 'undefined') {
-		        var socket = new WebSocket("ws://" + location.host + "/hublille1/droit");
+		        socket = new WebSocket("ws://" + location.host + "/hublille1/droit");
 		        $(window).on('beforeunload unload', function () {
 			        socket.close()
 	       	    });
