@@ -48,8 +48,6 @@
 <!-- application -->
 <style>
 #aside {padding-top:1em}
-/* #search-publication {float:'right';width:20em;} */
-#search-publication .row>*:first-child input {border-radius:1000px 0 0 1000px !important}
-#search-publication .row>*:last-child select {border-radius:0 1000px 1000px 0 !important}
+#search-publication .row  select {border-radius:0 !important}
 </style>
 <!-- fin application -->
