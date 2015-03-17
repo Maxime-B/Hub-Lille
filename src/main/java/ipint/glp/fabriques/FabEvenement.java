@@ -107,8 +107,9 @@ public class FabEvenement {
 					cq.select(root)
 					.where(
 							cb.or(
-								cb.like(root.get(Publication_.titre), "%" + motCle + "%"),
-								cb.like(root.get(Evenement_.description), "%" + motCle + "%")
+								cb.like(cb.lower(root.get(Publication_.titre)), "%" + motCle.toLowerCase() + "%"),
+								cb.like(cb.lower(root.get(Evenement_.description)), "%" + motCle.toLowerCase() + "%"),
+								cb.like(cb.lower(root.get(Evenement_.lieu)), "%" + motCle.toLowerCase() + "%")
 							)
 					)
 				)

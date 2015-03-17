@@ -94,22 +94,17 @@
 	                margin: 0,
 	                padding: 0
 	            }) //normalizer
-	            var sauvegarde = $(selecteur).css('max-height')
-	            $(selecteur).css('max-height', "inherit")
+	            $(selecteur).css('height', "1000em")
 	            var heightNonVisible = ($('#container').height() - innerHeight)
-	            if (heightNonVisible <= 0) {
-	                return
-	            }
 	            $(selecteur).css({
-	                "max-height": $(selecteur).height() - heightNonVisible - 2,
+	                "height": $(selecteur).height() - heightNonVisible - 2,
 	                "overflow-y": "auto"
 	            }).children().css({
 	                "margin-right": "8px" //scroll-bar, margin de row
 	            })
 	            heightNonVisible = ($('#container').height() - innerHeight)
-	            if (heightNonVisible > 0) { //rollback si scroll bar toujours visible
-	            	$(selecteur).css('max-height', "20em")
-	            	//$(selecteur).css('max-height', sauvegarde)
+	            if (heightNonVisible > 0) { //valeur arbitraire si scroll bar toujours visible après
+	            	$(selecteur).css('height', "20em")
 	            }
 	        }
 			limiterHauteur("#publications .list:first")

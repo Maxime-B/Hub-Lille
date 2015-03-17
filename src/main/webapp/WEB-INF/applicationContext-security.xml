@@ -16,6 +16,11 @@
 		<intercept-url pattern="/index" access="permitAll" />
 		<intercept-url pattern="/cas/cas-logout" access="permitAll" />
 		<intercept-url pattern="/cas/casfailed" access="permitAll" />
+		
+		<intercept-url pattern="/annonce/listerOffre" access="permitAll" />
+		<intercept-url pattern="/annonce/listerDemande" access="permitAll" />
+		<intercept-url pattern="/evenement" access="permitAll" />
+		<intercept-url pattern="/job/listerJob" access="permitAll" />
 
 		<intercept-url pattern="/utilisateur/**" access="isAuthenticated()" />
 		<intercept-url pattern="/admin/**" access="hasRole('ADMIN')" />

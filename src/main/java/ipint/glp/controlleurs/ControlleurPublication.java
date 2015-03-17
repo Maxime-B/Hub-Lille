@@ -17,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -28,7 +29,7 @@ public class ControlleurPublication {
 	private MetierJob metierJob = new MetierJob();
 	private MetierEvenement metierEvenement = MetierEvenement.getInstance();
 	
-	@RequestMapping(value = "/publication")
+	@RequestMapping(value = "/publication", method = RequestMethod.GET)
 	public String listerPubMotCle(Model model, @RequestParam(defaultValue="") String motCle, @RequestParam(defaultValue="") String where) {
 		List<? extends Publication> lesPublications = null;
 		final boolean publicationsMixtes = where.equals("");

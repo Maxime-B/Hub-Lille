@@ -6,7 +6,7 @@
 	<c:if test="${empty search}">
 		<jsp:useBean id="search" class="ipint.glp.controlleurs.forms.FormRecherche" scope="request"/>
 	</c:if>
-	<form:form modelAttribute="search" action="${pageContext.servletContext.contextPath }/publication">
+	<form:form modelAttribute="search" action="${pageContext.servletContext.contextPath }/publication" method="get">
 		<div class="row">
 		<div class="row collapse postfix-round">
 			<div class="small-6 columns">
@@ -15,11 +15,11 @@
 			
 			<div class="small-4 columns">
 				<form:select path="where">
-					<option value=""><spring:message code="accueil.site" /></option>
-					<option value="annonces-offres"><spring:message code="accueil.annOffre" /></option>
-					<option value="annonces-demandes"><spring:message code="accueil.annDemande" /></option>
-					<option value="jobs"><spring:message code="accueil.job" /></option>
-					<option value="evenements"><spring:message code="accueil.evenement" /></option>
+					<form:option value=""><spring:message code="accueil.site" /></form:option>
+					<form:option value="annonces-offres"><spring:message code="accueil.annOffre" /></form:option>
+					<form:option value="annonces-demandes"><spring:message code="accueil.annDemande" /></form:option>
+					<form:option value="jobs"><spring:message code="accueil.job" /></form:option>
+					<form:option value="evenements"><spring:message code="accueil.evenement" /></form:option>
 				</form:select>
 			</div>
 			
