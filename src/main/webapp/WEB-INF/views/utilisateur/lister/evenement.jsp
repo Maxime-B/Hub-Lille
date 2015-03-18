@@ -33,7 +33,7 @@
 								class="button small"><spring:message code="evenement.lister.modifier" /></a></td>
 							<td>
 							
-								<button type="button" data-reveal-id="supprimer_${evenement.id}"><spring:message code="evenement.lister.supprimer" /></button>
+								<button type="button" class="button small" data-reveal-id="supprimer_${evenement.id}"><spring:message code="evenement.lister.supprimer" /></button>
 							<div id="supprimer_${evenement.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
 								<h3><spring:message code="evenement.lister.question" /> "${evenement.titre}" ?</h3>

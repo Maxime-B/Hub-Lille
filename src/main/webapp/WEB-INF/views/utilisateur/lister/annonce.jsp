@@ -42,10 +42,10 @@
 						<td>${annonce.datepublication}</td>
 						<td>${annonce.finpublication}</td> 
 						
-						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}"><button><spring:message code="utilisateur.annonce.consulter" /></button> </a></td>
-						<td><a href="${pageContext.request.contextPath}/annonce/modifier?ref=${annonce.id}"><button><spring:message code="utilisateur.annonce.modifier" /></button> </a></td>
+						<td><a href="${pageContext.request.contextPath}/annonce/consulter?ref=${annonce.id}"><button class="button small"><spring:message code="utilisateur.annonce.consulter" /></button> </a></td>
+						<td><a href="${pageContext.request.contextPath}/annonce/modifier?ref=${annonce.id}"><button class="button small"><spring:message code="utilisateur.annonce.modifier" /></button> </a></td>
 						<td>
-							<button type="button" data-reveal-id="publier_${annonce.id}"><spring:message code="utilisateur.annonce.republier" /></button>
+							<button type="button" class="button small" data-reveal-id="publier_${annonce.id}"><spring:message code="utilisateur.annonce.republier" /></button>
 							<div id="publier_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
 							<h3><spring:message code="utilisateur.annonce.questionRep" /> "${annonce.titre}" ?</h3>
@@ -58,7 +58,7 @@
 							
 						</td>
 						<td>
-							<button type="button" data-reveal-id="supprimer_${annonce.id}"><spring:message code="utilisateur.annonce.supprimer" /></button>
+							<button type="button" class="button small" data-reveal-id="supprimer_${annonce.id}"><spring:message code="utilisateur.annonce.supprimer" /></button>
 							<div id="supprimer_${annonce.id}" class="reveal-modal" data-reveal>
 							<form method="post" action="">
 								<h3><spring:message code="utilisateur.annonce.questionSupp" /> "${annonce.titre}" ?</h3>

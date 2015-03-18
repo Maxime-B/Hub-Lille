@@ -341,7 +341,12 @@ public class ControlleurAnnonce implements ServletContextAware{
 			TypeChamp type = c.getTypeChamp();
 			
 			if(type == TypeChamp.NUMERIQUE)
-				annonce.getLesChamps().put(c.getLibelle(), formAnnonce.getNumerique().get(c.getLibelle()).toString());
+			{
+				
+				double nb = (formAnnonce.getNumerique().get(c.getLibelle()).toString() == null? 0:Double.parseDouble(formAnnonce.getNumerique().get(c.getLibelle()).toString()));
+				annonce.getLesChamps().put(c.getLibelle(), String.valueOf(nb));
+			}
+				
 			
 			if(type == TypeChamp.TEXTE)
 				annonce.getLesChamps().put(c.getLibelle(), formAnnonce.getTexte().get(c.getLibelle()));

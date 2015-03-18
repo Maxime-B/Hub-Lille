@@ -6,7 +6,7 @@
 
 <tiles:insertDefinition name="annonce">
 	<tiles:putAttribute name="title">
-		<spring:message code="annonce.modifier" />
+		<spring:message code="annonce.modifier" /> " ${annonce.titre}"
 	</tiles:putAttribute>
 	<tiles:putAttribute name="main">
 		<section class="section">
@@ -110,7 +110,7 @@
 				
 				
 				<div style="text-align: right">
-					<spring:message code="job.creer.submit" var="submit" />
+					<spring:message code="annonce.bouton.modifier" var="submit" />
 
 					<input type="submit" value="${submit}" class="radius button" />
 				</div>
