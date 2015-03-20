@@ -202,7 +202,7 @@ static FabAnnonce fb;
 			//lesAnnonces.put(a.getId(), a);
 			System.out.println("**********************");
 			System.out.println(a.getTitre().indexOf(motCle));
-			if ((a.getTitre().indexOf(motCle.toLowerCase())>=0) || (a.getDescription().indexOf(motCle.toLowerCase())>=0))
+			if ((a.getTitre().indexOf(motCle.toLowerCase())>=0) || (a.getDescription().indexOf(motCle.toLowerCase())>=0) || (a.getTitre().indexOf(motCle.toUpperCase())>=0) || (a.getDescription().indexOf(motCle.toUpperCase())>=0))
 				//if ((a.getTitre()==motCle) || (a.getDescription()==motCle))
 				annsFinal.add(a);
 		}
@@ -238,8 +238,10 @@ static FabAnnonce fb;
 		return annsFinal;
 	}
 	public List<Annonce> chercherAnnoncesParTypeMotCle(TypeAnnonce type, String motCle){
-		Query query = connexion.getEm().createQuery("Select ann from Annonce ann where ann.type = :type");
+		//Select ann from Annonce ann where LOWER(ann.titre) like LOWER(:motCle) or LOWER(ann.description) like LOWER(:motCle)
+		Query query = connexion.getEm().createQuery("Select ann from Annonce ann where ann.type = :type ");
 		query.setParameter("type", type);
+		System.out.println(motCle);
 		List<Annonce> anns = query.getResultList();
 		lesAnnonces.clear();
 			System.out.println(anns.size());
@@ -249,7 +251,7 @@ static FabAnnonce fb;
 				//lesAnnonces.put(a.getId(), a);
 				System.out.println("**********************");
 				System.out.println(a.getTitre().indexOf(motCle));
-				if (a.getType() == type && (a.getTitre().indexOf(motCle.toLowerCase())>=0) || (a.getDescription().indexOf(motCle.toLowerCase())>=0))
+				if (a.getType() == type && (a.getTitre().indexOf(motCle.toLowerCase())>=0) || (a.getDescription().indexOf(motCle.toLowerCase())>=0) || (a.getTitre().indexOf(motCle.toUpperCase())>=0) || (a.getDescription().indexOf(motCle.toUpperCase())>=0))
 					annsFinal.add(a);
 			}
 			System.out.println(annsFinal.size());
@@ -269,7 +271,7 @@ static FabAnnonce fb;
 			//lesAnnonces.put(a.getId(), a);
 			System.out.println("**********************");
 			System.out.println(a.getTitre().indexOf(motCle));
-			if ((a.getType() == type) && ((a.getCategorie() == categorie) && (a.getTitre().indexOf(motCle.toLowerCase())>=0)) || (a.getDescription().indexOf(motCle.toLowerCase())>=0))
+			if ((a.getType() == type) && ((a.getCategorie() == categorie) && (a.getTitre().indexOf(motCle.toLowerCase())>=0))  || (a.getDescription().indexOf(motCle.toLowerCase())>=0) || (a.getTitre().indexOf(motCle.toUpperCase())>=0) || (a.getDescription().indexOf(motCle.toLowerCase())>=0))
 				annsFinal.add(a);
 		}
 		System.out.println(annsFinal.size());

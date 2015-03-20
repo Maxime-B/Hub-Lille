@@ -32,7 +32,7 @@
 
 								<td><select name="categorie"
 									style="width: 200px; height: 35px">
-										<option></option>
+										<option>Toutes catégories</option>
 										<c:forEach items="${categories}" var="item">
 											<c:set var="tmp" value="${item.nom}" />
 											<c:set var="libelle" value="${fn:split(tmp, '-')}" />
