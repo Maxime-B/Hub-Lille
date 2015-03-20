@@ -5,6 +5,7 @@ package ipint.glp.metiers;
 
 import static org.junit.Assert.assertTrue;
 import ipint.glp.donnees.Evenement;
+import ipint.glp.donnees.Utilisateur;
 
 import java.text.ParseException;
 import java.util.Calendar;
@@ -62,6 +63,7 @@ public class MetierEvenementTest {
 		assertTrue(evenements.isEmpty());
 		Evenement evenement = new Evenement();
 		evenement.setTitre("titre");
+		evenement.setUtilisateur(new Utilisateur("null", "null", "null", "null"));
 		GregorianCalendar gregorianCalendar = new GregorianCalendar();
 		gregorianCalendar.add(Calendar.DAY_OF_YEAR, 1);
 		evenement.setDateDebut(gregorianCalendar.getTime());
