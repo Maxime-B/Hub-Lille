@@ -24,7 +24,7 @@ public class Annonce_ {
 	public static volatile SingularAttribute<Annonce, Utilisateur> utilisateur;
 	public static volatile SingularAttribute<Annonce, Categorie> categorie;
 	public static volatile SingularAttribute<Annonce, TypeAnnonce> type;
-	public static volatile SingularAttribute<Annonce, Integer> signal;
+	public static volatile SingularAttribute<Annonce, Integer> nbSignalement;
 	public static volatile SingularAttribute<Annonce, Date> datepublication;
 	public static volatile SingularAttribute<Annonce, Date> finpublication;
 //	@CollectionTable(name="libelle", joinColumns=@javax.persistence.JoinColumn(name="valeur"))

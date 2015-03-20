@@ -101,8 +101,8 @@ static FabAnnonce fb;
 
 		return em.createQuery(
 				cq.select(root)
-				.where(cb.greaterThan(root.get(Annonce_.signal), 5))
-				.orderBy(cb.asc(root.get(Annonce_.signal)))
+				.where(cb.greaterThan(root.get(Annonce_.nbSignalement), 5))
+				.orderBy(cb.asc(root.get(Annonce_.nbSignalement)))
 			)
 			.getResultList();
 	}

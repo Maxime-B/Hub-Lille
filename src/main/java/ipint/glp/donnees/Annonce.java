@@ -34,7 +34,7 @@ public class Annonce extends Publication{
 	
 	private String description;
 	private ArrayList<String> images;
-	private int signal;
+	private int nbSignalement;
 	private Date datepublication;
 	private Date finpublication;
 	
@@ -106,11 +106,11 @@ public class Annonce extends Publication{
 
 
 	public int getSignal() {
-		return signal;
+		return nbSignalement;
 	}
 
 	public void setSignal(int signal) {
-		this.signal = signal;
+		this.nbSignalement = signal;
 	}
 
 	public Date getDatepublication() {
