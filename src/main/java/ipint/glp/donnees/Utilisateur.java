@@ -6,10 +6,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Basic;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
@@ -24,7 +26,7 @@ public class Utilisateur {
 	
 	private String email;
 	
-	@ElementCollection(targetClass = Droit.class) 
+	@ElementCollection(fetch = FetchType.EAGER, targetClass = Droit.class) 
 	@Enumerated(EnumType.STRING)
 	private Set<Droit> droits;
 
