@@ -48,7 +48,9 @@ public class FabJob {
 			j.setUtilisateur(utilisateur);
 			j.setDescription(description);
 			j.setModalite(modalite);
+			connexion.getTx().begin();
 			connexion.getEm().persist(j);
+			connexion.getTx().commit();
 			utilisateur.getLesJobs().add(j);
 			//utilisateur.addAnnonce(a);
 			lesJobs.put(j.getId(),j);
@@ -80,14 +82,18 @@ public class FabJob {
 		public void supprimerJob(Job j){
 
 			String query ="Delete from Job where Job.id =j.id";
+			connexion.getTx().begin();
 			connexion.getEm().createQuery(query).executeUpdate();
 			this.listerJob();
+			connexion.getTx().commit();
 
 
 		}
 		public void supprimer(Job o) {
+			connexion.getTx().begin();
 			connexion.getEm().remove(o);
 			o.getUtilisateur().getLesJobs().remove(o);
+			connexion.getTx().commit();
 		}
 		
 		public List<Job> chercherJobParMotCle(String mot){
@@ -103,22 +109,27 @@ public class FabJob {
 		}
 		
 		public Job creer(Job o) {
+			connexion.getTx().begin();
 			connexion.getEm().persist(o);
 			connexion.getEm().flush();
 			o.getUtilisateur().getLesJobs().add(o);
+			connexion.getTx().commit();
 			return o;
 		}
 		public Job modifier(Job j) {
+			connexion.getTx().begin();
 			connexion.getEm().merge(j);
+			connexion.getTx().commit();
 			return j;
 		}
 		
 		public void supprimerJob(){
 
-			connexion.getEm().getTransaction().begin();
+			connexion.getTx().begin();
 			String query ="Delete from Job";
 			connexion.getEm().createQuery(query).executeUpdate();
 			System.out.println("Tout est supprimer...");
+			connexion.getTx().commit();
 
 
 

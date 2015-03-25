@@ -60,20 +60,26 @@ public class FabEvenement {
 	}
 	
 	public void supprimer(Evenement o) {
+		Connexion.getConnexion().getTx().begin();
 		em.remove(o);
 		o.getUtilisateur().getLesEvenements().remove(o);
+		Connexion.getConnexion().getTx().commit();
 	}
 
 
 	public Evenement creer(Evenement o) {
+		Connexion.getConnexion().getTx().begin();
 		em.persist(o);
 		em.flush();
+		Connexion.getConnexion().getTx().commit();
 		o.getUtilisateur().getLesEvenements().add(o);
 		return o;
 	}
 
 	public Evenement modifier(Evenement o) {
+		Connexion.getConnexion().getTx().begin();
 		em.merge(o);
+		Connexion.getConnexion().getTx().commit();;
 		return o;
 	}
 

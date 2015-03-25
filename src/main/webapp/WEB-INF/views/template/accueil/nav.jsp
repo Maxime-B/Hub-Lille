@@ -3,7 +3,6 @@
 
 <ul class="four side-nav">
 	<li><a href="${pageContext.request.contextPath}/"><spring:message code="nav.accueil" /></a></li>
-		<li><a href="${pageContext.request.contextPath}/init"><spring:message code="nav.initialiser" /></a></li>
 </ul>
 
 <h6><spring:message code="nav.annonce" /></h6>

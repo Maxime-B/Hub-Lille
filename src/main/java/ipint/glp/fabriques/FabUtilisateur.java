@@ -43,7 +43,9 @@ public class FabUtilisateur {
 		u.setPrenom(prenom);
 		u.setEmail(email);
 		u.setDroits(droits);
+		connexion.getTx().begin();
 		connexion.getEm().persist(u);
+		connexion.getTx().commit();
 		return u;
 	}
 
@@ -70,14 +72,19 @@ public class FabUtilisateur {
 
 	public Utilisateur obtenir(String login) {
 		return em.find(Utilisateur.class, login);
+		
 	}
 
 	public void supprimer(Utilisateur o) {
+		connexion.getTx().begin();
 		em.remove(o);
+		connexion.getTx().commit();
 	}
 
 	public Utilisateur modifier(Utilisateur o) {
+		connexion.getTx().begin();
 		em.persist(o);
+		connexion.getTx().commit();
 		// em.merge(o);
 		return o;
 	}

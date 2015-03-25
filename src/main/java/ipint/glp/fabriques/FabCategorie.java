@@ -37,7 +37,9 @@ public class FabCategorie {
 		Categorie c = new Categorie();
 		c.setNom(nom);
 		c.setChamps(champs);
+		connexion.getTx().begin();
 		connexion.getEm().persist(c);
+		connexion.getTx().commit();
 		lesCategories.put(nom, c);
 		return c;
 	}
@@ -57,8 +59,11 @@ public class FabCategorie {
 	}
 	
 	public void supprimerCategorie(String nomCategorie){
-		
+		connexion.getTx().begin();
 		connexion.getEm().remove(this.getCategorie(nomCategorie));
 		lesCategories.remove(nomCategorie);
+		connexion.getTx().commit();
+
+		
 	}
 }

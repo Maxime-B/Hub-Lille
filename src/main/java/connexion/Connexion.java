@@ -2,6 +2,7 @@ package connexion;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 
 public class Connexion {
@@ -10,6 +11,7 @@ public class Connexion {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory(PERSISTENCE_UNIT_NAME);
 	private EntityManager em = factory.createEntityManager();
 	private static Connexion connexion;
+	private EntityTransaction tx = em.getTransaction();
 	
 	private Connexion(){
 		
@@ -17,8 +19,7 @@ public class Connexion {
 	
 	public static Connexion getConnexion(){
 		if(connexion == null){
-			connexion = new Connexion();
-			connexion.getEm().getTransaction().begin();
+			connexion = new Connexion();		
 		}
 		return connexion;
 	}
@@ -27,6 +28,10 @@ public class Connexion {
 		return em;
 	}
 	
+	public EntityTransaction getTx() {
+		return tx;
+	}
+
 	public void fermerConnexion(){
 		connexion.getEm().getTransaction().commit();
 		em.close();

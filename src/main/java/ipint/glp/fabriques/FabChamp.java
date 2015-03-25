@@ -41,7 +41,9 @@ public class FabChamp {
 		c.setLibelle(libelle);
 		c.setTypeChamp(typeChamp);
 		c.setObligatoire(obligatoire);
+		connexion.getTx().begin();
 		connexion.getEm().persist(c);
+		connexion.getTx().commit();
 		lesChamps.put(libelle,c);
 		return c;
 	}

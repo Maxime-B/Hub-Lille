@@ -157,7 +157,7 @@ public class ControlleurAccueil {
 			MetierJob metierJob = new MetierJob();
 			metierJob.creerJob("Serveur au RU", "500 euros par mois", "Besoin d'un serveur du lundi au vendredi pendant 6 mois", "Etre sociable et dynamique", metierUtilisateur.getUtilisateur("hind.bahaoui"));
 			metierJob.creerJob("Traduction de texte", "800 euros par mois", "Nous cherchons quelqu'un capable de traduire des textes d'anglais en français", "Etre sociable et dynamique. Bilingue", metierUtilisateur.getUtilisateur("hind.bahaoui"));
-		return "index";
+			return "index";
 	}
 	
 	@RequestMapping(value = "/close", method = RequestMethod.GET)

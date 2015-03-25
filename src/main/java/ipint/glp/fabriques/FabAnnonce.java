@@ -72,8 +72,10 @@ static FabAnnonce fb;
 		a.setDatepublication(new Date(cal.getTimeInMillis()));
 		cal.add(Calendar.DAY_OF_MONTH, 30);
 		a.setFinpublication(new Date(cal.getTimeInMillis()));
+		connexion.getTx().begin();
 		connexion.getEm().persist(a);
 		connexion.getEm().flush();
+		connexion.getTx().commit();
 		utilisateur.addAnnonce(a);
 		lesAnnonces.put(a.getId(),a);
 		categorie.addAnnonce(a);
@@ -119,21 +121,24 @@ static FabAnnonce fb;
 	}
 	
 	public void supprimerAnnonce(Annonce a){
-
+		connexion.getTx().begin();
 		//String query ="Delete from Annonce where Annonce.id =a.id";
 		System.out.println(a.getId());
 		a.getUtilisateur().getLesAnnonces().remove(a);
 		a.getCategorie().getLesAnnonces().remove(a);
 		connexion.getEm().remove(a);
+		connexion.getTx().commit();
 		
 		
 
 
 	}
 	public Annonce signalerAnnonce(Annonce a){
+		connexion.getTx().begin();
 		a.setSignal(a.getSignal()+1);
 		connexion.getEm().persist(a);
 		connexion.getEm().flush();
+		connexion.getTx().commit();
 		return a;
 	}
 
@@ -145,7 +150,9 @@ static FabAnnonce fb;
 	}
 	public Annonce modifier(Annonce a)
 	{
+		connexion.getTx().begin();
 		connexion.getEm().merge(a);
+		connexion.getTx().commit();
 		return a;
 	}
 	
@@ -154,10 +161,11 @@ static FabAnnonce fb;
 	}
 	public void supprimerAnnonce(){
 
-		connexion.getEm().getTransaction().begin();
+		connexion.getTx().begin();
 		String query ="Delete from Annonce";
 		connexion.getEm().createQuery(query).executeUpdate();
 		System.out.println("Tout est supprimer...");
+		connexion.getTx().commit();
 
 
 
