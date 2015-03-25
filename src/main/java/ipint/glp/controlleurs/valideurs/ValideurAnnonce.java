@@ -1,7 +1,10 @@
 package ipint.glp.controlleurs.valideurs;
 
 import ipint.glp.controlleurs.forms.FormAnnonce;
+import ipint.glp.donnees.Categorie;
 import ipint.glp.donnees.Champ;
+import ipint.glp.metiers.MetierAnnonce;
+import ipint.glp.metiers.MetierCategorie;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,6 +16,8 @@ public class ValideurAnnonce implements Validator {
 	private static final Logger logger = LoggerFactory
 			.getLogger(ValideurAnnonce.class);
 
+	private MetierCategorie metierCategorie = new MetierCategorie();
+	
 	@Override
 	public boolean supports(Class<?> arg0) {
 		return FormAnnonce.class.isAssignableFrom(arg0);
@@ -24,16 +29,11 @@ public class ValideurAnnonce implements Validator {
 		FormAnnonce formAnnonce = (FormAnnonce) arg0;
 
 		// categorie
-		ValidationUtils.rejectIfEmptyOrWhitespace(e, "categorie",
-				"annonce.erreur.requis");
-		if (e.hasErrors()) {
+		Categorie categorie = metierCategorie.getCategorie(formAnnonce.getCategorie());
+		if (categorie == null) {
 			return;
 		}
-		if (formAnnonce == null || formAnnonce.getCategorieObject() == null
-				|| formAnnonce.getCategorieObject().getChamps() == null) {
-			e.rejectValue("categorie", "annonce.erreur.categorie.invalide");
-			return;
-		}
+		 
 
 		// titre et description
 		ValidationUtils.rejectIfEmptyOrWhitespace(e, "titre",
@@ -53,7 +53,7 @@ public class ValideurAnnonce implements Validator {
 		}
 
 		// le reste des champs
-		for (Champ champ : formAnnonce.getCategorieObject().getChamps()) {
+		for (Champ champ : categorie.getChamps()) {
 			String libelle = champ.getLibelle();
 			String path = champ.getTypeChamp().name().toLowerCase() + "['" + libelle + "']";
 			String value = formAnnonce.getLesChamps().get(libelle);

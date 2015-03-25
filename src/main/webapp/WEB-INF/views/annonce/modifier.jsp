@@ -29,7 +29,7 @@
 				<input type="hidden" name="ref" value="${ref }"/>
 					
 				<form:input type="hidden" path="categorie"
-					value="${annonce.categorieObject.nom}" />
+					value="${annonce.categorie}" />
 				<form:errors path="categorie" cssClass="error" />
 				
 				<form:input type="hidden" path="type"
