@@ -347,7 +347,7 @@ public class ControlleurAnnonce implements ServletContextAware {
 		for (Champ c : annonce.getCategorie().getChamps()) {
 			String nom = c.getLibelle();
 			TypeChamp type = c.getTypeChamp();
-			if (c.isObligatoire()) {
+			if (c.getLibelle() != null) {
 				if (type == TypeChamp.NUMERIQUE)
 					formannonce.getNumerique()
 							.put(nom,
@@ -392,7 +392,7 @@ public class ControlleurAnnonce implements ServletContextAware {
 		for (Champ c : annonce.getCategorie().getChamps()) {
 			String nom = c.getLibelle();
 			TypeChamp type = c.getTypeChamp();
-			if (c.isObligatoire()) {
+			if (c.getLibelle() != null) {
 				if (type == TypeChamp.NUMERIQUE) {
 
 					double nb = (formAnnonce.getNumerique().get(c.getLibelle())
